@@ -1,0 +1,51 @@
+{
+  "name": "uxifier",
+  "scopeName": "source.uxifier",
+  "fileTypes": [
+    ".uxfr"
+  ],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "name": "keyword.control.uxifier",
+      "match": "\\b(App|bool|bottom|Button|Config|Field|Fields|Game|horizontal|Image|linear|number|Page|side|skipable|string|Text|vertical)\\b"
+    },
+    {
+      "name": "keyword.symbol.uxifier",
+      "match": "(\\,|\\;|\\:|\\(|\\)|\\{|\\})"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.uxifier",
+          "begin": "/\\*",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.uxifier"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.uxifier"
+            }
+          }
+        },
+        {
+          "begin": "//",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.whitespace.comment.leading.uxifier"
+            }
+          },
+          "end": "(?=$)",
+          "name": "comment.line.uxifier"
+        }
+      ]
+    }
+  }
+}
