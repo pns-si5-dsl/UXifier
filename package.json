@@ -33,7 +33,11 @@
         "snippets": [
             {
                 "language": "uxifier",
-                "path": "./snippets/snippets.code-snippets"
+                "path": "./snippets/templates.code-snippets"
+            },
+            {
+                "language": "uxifier",
+                "path": "./snippets/utils.code-snippets"
             }
         ]
     },

@@ -1,0 +1,8 @@
+{
+	"Application definition": {
+		"scope": "uxifier",
+		"prefix": ["App"],
+		"body": ["App: "],
+		"description": "UXifier application definition"
+	},
+}

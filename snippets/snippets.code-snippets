@@ -1,7 +1,0 @@
-{
-	"cc": {
-		"prefix": "cc",
-		"body": "Coucou ${1:you}, I am ${2:me} and I say ${3:text} !",
-		"description": "Say Hello !"
-	}
-}
