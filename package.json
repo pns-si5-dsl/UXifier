@@ -10,17 +10,26 @@
         "Programming Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "uxifier",
-            "aliases": ["UXifier", "uxifier"],
-            "extensions": [".uxfr"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "uxifier",
-            "scopeName": "source.uxifier",
-            "path": "./syntaxes/uxifier.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "uxifier",
+                "aliases": [
+                    "UXifier",
+                    "uxifier"
+                ],
+                "extensions": [
+                    ".uxfr"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "uxifier",
+                "scopeName": "source.uxifier",
+                "path": "./syntaxes/uxifier.tmLanguage.json"
+            }
+        ]
     },
     "activationEvents": [
         "onLanguage:uxifier"
@@ -36,7 +45,9 @@
     "main": "./out/extension.js",
     "scripts": {
         "vscode:prepublish": "npm run build && npm run lint",
-        "build": "tsc -b tsconfig.json",
+        "clean": "rimraf out",
+        "copy-files": "copyfiles resources/* resources/public/* out",
+        "build": "npm run copy-files && tsc -b tsconfig.json",
         "watch": "tsc -b tsconfig.json --watch",
         "lint": "eslint src --ext ts",
         "langium:generate": "langium generate",
@@ -45,17 +56,21 @@
     "dependencies": {
         "colors": "^1.4.0",
         "commander": "^8.0.0",
+        "fs-extra": "^10.0.0",
         "langium": "^0.2.0",
         "vscode-languageclient": "^7.0.0",
         "vscode-languageserver": "^7.0.0"
     },
     "devDependencies": {
+        "@types/fs-extra": "^9.0.13",
         "@types/node": "^14.17.3",
         "@types/vscode": "^1.56.0",
         "@typescript-eslint/eslint-plugin": "^4.14.1",
         "@typescript-eslint/parser": "^4.14.1",
+        "copyfiles": "^2.4.1",
         "eslint": "^7.19.0",
         "langium-cli": "^0.2.0",
+        "rimraf": "^3.0.2",
         "typescript": "^4.1.3"
     }
 }

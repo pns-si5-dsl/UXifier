@@ -4,11 +4,11 @@ import { languageMetaData } from '../language-server/generated/module';
 import { Application } from '../language-server/generated/ast';
 import { createUxifierServices } from '../language-server/uxifier-module';
 import { extractAstNode } from './cli-util';
-import { generateJavaScript } from './generator';
+import { generateProject } from './generator';
 
 export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
     const model = await extractAstNode<Application>(fileName, languageMetaData.fileExtensions, createUxifierServices());
-    const generatedFilePath = generateJavaScript(model, fileName, opts.destination);
+    const generatedFilePath = generateProject(model, fileName, opts.destination);
     console.log(colors.green(`JavaScript code generated successfully: ${generatedFilePath}`));
 };
 
