@@ -45,6 +45,13 @@ export class UxifierValidator {
                 identifiers.push(id);
             }
         });
+
+        if(application.game && application.config){
+            if(application.game.name === application.config.name){
+                accept('error', 'Contexts should have different names', { node: application.game, property: 'name' })
+                accept('error', 'Contexts should have different names', { node: application.config, property: 'name' })
+            }
+        }
     }
 
     checkDuplicatedNames(application: Application, accept: ValidationAcceptor): void {
