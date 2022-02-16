@@ -29,6 +29,12 @@
                 "scopeName": "source.uxifier",
                 "path": "./syntaxes/uxifier.tmLanguage.json"
             }
+        ],
+        "snippets": [
+            {
+                "language": "uxifier",
+                "path": "./snippets/snippets.code-snippets"
+            }
         ]
     },
     "activationEvents": [
@@ -44,10 +50,11 @@
     },
     "main": "./out/extension.js",
     "scripts": {
+        "setup": "npm run clean && npm run langium:generate && npm run build && npm run watch",
         "vscode:prepublish": "npm run build && npm run lint",
         "clean": "rimraf out",
-        "copy-files": "copyfiles resources/* resources/public/* out",
-        "build": "npm run copy-files && tsc -b tsconfig.json",
+        "resources": "copyfiles resources/* resources/public/* out",
+        "build": "npm run resources && tsc -b tsconfig.json",
         "watch": "tsc -b tsconfig.json --watch",
         "lint": "eslint src --ext ts",
         "langium:generate": "langium generate",

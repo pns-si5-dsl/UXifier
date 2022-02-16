@@ -14,10 +14,12 @@ FieldDecl:
     'Field' name=ID ':' type=TYPE ';';
 
 Context:
-    name=ID '(' (navigation=NAVIGATION)? ')' '{' (pages+=PageDecl)* '}';
+    name=ID (navigation=NAVIGATION)? '{' (pages+=PageDecl)* '}';
 
 PageDecl:
-    (skipable?='skipable')? 'Page' name=ID '(' ( axe=AXE)? ')' '{' (components+=(ButtonComponent | TextComponent | ImageComponent | FieldsComponent))* '}';
+    (skipable?='skipable')? (axe=AXE)? 'Page' name=ID '{'
+        (components+=(ButtonComponent | TextComponent | ImageComponent | FieldsComponent))*
+    '}';
 
 ButtonComponent:
     'Button' name=ID '(' (href=STRING (',' color=COLOR)?)? ')' ';' ;
@@ -29,18 +31,18 @@ ImageComponent:
     'Image' name=ID '(' source=STRING ')' ';' ;
 
 FieldsComponent:
-    'Fields' name=ID '{' (decoFields+=DecoField)* '}' ;
+    'FieldGroup' name=ID '{' (decoFields+=DecoField)* '}' ;
 
 DecoField:
     field=[FieldDecl|ID] ';';
 
 
-TYPE:
-    type=('bool'|'number'|'string');
-NAVIGATION:
-    type=('linear'|'side'|'bottom');
-AXE:
-    type=('horizontal'|'vertical');
+TYPE returns string:
+    'bool'|'number'|'string';
+NAVIGATION returns string:
+    'linear'|'side'|'bottom';
+AXE returns string:
+    'horizontal'|'vertical';
 COLOR:
     value=HEXA_COLOR;
 

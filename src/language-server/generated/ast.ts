@@ -20,17 +20,6 @@ export function isApplication(item: unknown): item is Application {
     return reflection.isInstance(item, Application);
 }
 
-export interface AXE extends AstNode {
-    readonly $container: PageDecl;
-    type: 'horizontal' | 'vertical'
-}
-
-export const AXE = 'AXE';
-
-export function isAXE(item: unknown): item is AXE {
-    return reflection.isInstance(item, AXE);
-}
-
 export interface ButtonComponent extends AstNode {
     readonly $container: PageDecl;
     color: COLOR
@@ -115,17 +104,6 @@ export function isImageComponent(item: unknown): item is ImageComponent {
     return reflection.isInstance(item, ImageComponent);
 }
 
-export interface NAVIGATION extends AstNode {
-    readonly $container: Context;
-    type: 'linear' | 'side' | 'bottom'
-}
-
-export const NAVIGATION = 'NAVIGATION';
-
-export function isNAVIGATION(item: unknown): item is NAVIGATION {
-    return reflection.isInstance(item, NAVIGATION);
-}
-
 export interface PageDecl extends AstNode {
     readonly $container: Context;
     axe: AXE
@@ -153,25 +131,20 @@ export function isTextComponent(item: unknown): item is TextComponent {
     return reflection.isInstance(item, TextComponent);
 }
 
-export interface TYPE extends AstNode {
-    readonly $container: FieldDecl;
-    type: 'bool' | 'number' | 'string'
-}
+export type TYPE = 'bool' | 'number' | 'string'
 
-export const TYPE = 'TYPE';
+export type NAVIGATION = 'linear' | 'side' | 'bottom'
 
-export function isTYPE(item: unknown): item is TYPE {
-    return reflection.isInstance(item, TYPE);
-}
+export type AXE = 'horizontal' | 'vertical'
 
-export type UxifierAstType = 'Application' | 'AXE' | 'ButtonComponent' | 'COLOR' | 'Context' | 'DecoField' | 'FieldDecl' | 'FieldsComponent' | 'ImageComponent' | 'NAVIGATION' | 'PageDecl' | 'TextComponent' | 'TYPE';
+export type UxifierAstType = 'Application' | 'ButtonComponent' | 'COLOR' | 'Context' | 'DecoField' | 'FieldDecl' | 'FieldsComponent' | 'ImageComponent' | 'PageDecl' | 'TextComponent';
 
 export type UxifierAstReference = 'DecoField:field';
 
 export class UxifierAstReflection implements AstReflection {
 
     getAllTypes(): string[] {
-        return ['Application', 'AXE', 'ButtonComponent', 'COLOR', 'Context', 'DecoField', 'FieldDecl', 'FieldsComponent', 'ImageComponent', 'NAVIGATION', 'PageDecl', 'TextComponent', 'TYPE'];
+        return ['Application', 'ButtonComponent', 'COLOR', 'Context', 'DecoField', 'FieldDecl', 'FieldsComponent', 'ImageComponent', 'PageDecl', 'TextComponent'];
     }
 
     isInstance(node: unknown, type: string): boolean {

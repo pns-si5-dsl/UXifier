@@ -191,10 +191,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "elements": []
           },
           {
-            "$type": "Keyword",
-            "value": "("
-          },
-          {
             "$type": "Assignment",
             "feature": "navigation",
             "operator": "=",
@@ -207,10 +203,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             },
             "elements": [],
             "cardinality": "?"
-          },
-          {
-            "$type": "Keyword",
-            "value": ")"
           },
           {
             "$type": "Keyword",
@@ -257,26 +249,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "cardinality": "?"
           },
           {
-            "$type": "Keyword",
-            "value": "Page"
-          },
-          {
-            "$type": "Assignment",
-            "feature": "name",
-            "operator": "=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "ID"
-              }
-            }
-          },
-          {
-            "$type": "Keyword",
-            "value": "("
-          },
-          {
             "$type": "Assignment",
             "feature": "axe",
             "operator": "=",
@@ -292,7 +264,19 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
           },
           {
             "$type": "Keyword",
-            "value": ")"
+            "value": "Page"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "name",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "ID"
+              }
+            }
           },
           {
             "$type": "Keyword",
@@ -565,7 +549,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "elements": [
           {
             "$type": "Keyword",
-            "value": "Fields",
+            "value": "FieldGroup",
             "elements": []
           },
           {
@@ -644,29 +628,26 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "TYPE",
       "hiddenTokens": [],
+      "type": "string",
       "alternatives": {
-        "$type": "Assignment",
-        "feature": "type",
-        "operator": "=",
-        "terminal": {
-          "$type": "Alternatives",
-          "elements": [
-            {
-              "$type": "Keyword",
-              "value": "bool",
-              "elements": []
-            },
-            {
-              "$type": "Keyword",
-              "value": "number"
-            },
-            {
-              "$type": "Keyword",
-              "value": "string"
-            }
-          ]
-        },
-        "elements": []
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "bool",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "number",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "string",
+            "elements": []
+          }
+        ]
       }
     },
     {
@@ -674,29 +655,26 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "NAVIGATION",
       "hiddenTokens": [],
+      "type": "string",
       "alternatives": {
-        "$type": "Assignment",
-        "feature": "type",
-        "operator": "=",
-        "terminal": {
-          "$type": "Alternatives",
-          "elements": [
-            {
-              "$type": "Keyword",
-              "value": "linear",
-              "elements": []
-            },
-            {
-              "$type": "Keyword",
-              "value": "side"
-            },
-            {
-              "$type": "Keyword",
-              "value": "bottom"
-            }
-          ]
-        },
-        "elements": []
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "linear",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "side",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "bottom",
+            "elements": []
+          }
+        ]
       }
     },
     {
@@ -704,25 +682,21 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "AXE",
       "hiddenTokens": [],
+      "type": "string",
       "alternatives": {
-        "$type": "Assignment",
-        "feature": "type",
-        "operator": "=",
-        "terminal": {
-          "$type": "Alternatives",
-          "elements": [
-            {
-              "$type": "Keyword",
-              "value": "horizontal",
-              "elements": []
-            },
-            {
-              "$type": "Keyword",
-              "value": "vertical"
-            }
-          ]
-        },
-        "elements": []
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "horizontal",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "vertical",
+            "elements": []
+          }
+        ]
       }
     },
     {

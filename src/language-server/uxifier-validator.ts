@@ -100,7 +100,7 @@ export class UxifierValidator {
 
     checkColorFormat(hexaColor: COLOR, accept: ValidationAcceptor): void {
         if (hexaColor.value.length != 4 && hexaColor.value.length != 7) {
-            accept('error', 'Wrong hexadecimal color format.\nFormat exemples: #09f or #a5f5b0', { node: hexaColor, property: 'value'});
+            accept('error', 'Wrong hexadecimal color format.\nFormat exemples: #09f or #a5f5b0', { node: hexaColor });
         }
     }
 }
