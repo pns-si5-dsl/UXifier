@@ -3,19 +3,21 @@ hidden(WS, SL_COMMENT, ML_COMMENT)
 
 Application:
     'App' ':' name=ID ';'
-    (fields+=FieldDecl)*
-    ('Config' config=Context)?
-    ('Game' game=Context)?
+    (
+    (fields+=FieldDecl)
+    | ('Config' configs+=Context)
+    | ('Game' games+=Context)
+    )*
     ;
 
 FieldDecl:
     'Field' name=ID ':' type=TYPE ';';
 
 Context:
-    name=ID '(' path=STRING (',' navigation=NAVIGATION)? ')' '{' (pages+=PageDecl)* '}';
+    name=ID '(' (navigation=NAVIGATION)? ')' '{' (pages+=PageDecl)* '}';
 
 PageDecl:
-    (skipable?='skipable')? 'Page' name=ID '(' path=STRING (',' axe=AXE)? ')' '{' (components+=(ButtonComponent | TextComponent | ImageComponent | FieldsComponent))* '}';
+    (skipable?='skipable')? 'Page' name=ID '(' ( axe=AXE)? ')' '{' (components+=(ButtonComponent | TextComponent | ImageComponent | FieldsComponent))* '}';
 
 ButtonComponent:
     'Button' name=ID '(' (href=STRING (',' color=COLOR)?)? ')' ';' ;

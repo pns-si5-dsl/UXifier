@@ -29,11 +29,21 @@ export class UxifierValidator {
     
 
     checkApplication(application: Application, accept: ValidationAcceptor): void {
-        if (!application.config) {
+        if (application.configs.length === 0) {
             accept('warning', 'An application should contain a configuration.', { node: application, property: 'name' });
         }
-        if (!application.game) {
+        if (application.games.length === 0) {
             accept('warning', 'An application should contain a game.', { node: application, property: 'name' });
+        }
+        if (application.configs.length > 1) {
+            for (let i = 1; i < application.configs.length; i++) {
+                accept('error', 'Config already defined: you cannot declare more than one Config.', { node: application.configs[i] });
+            }
+        }
+        if (application.games.length > 1) {
+            for (let i = 1; i < application.games.length; i++) {
+                accept('error', 'Game already defined: you cannot declare more than one Game.', { node: application.games[i] });
+            }
         }
 
         const identifiers: string[] = [];
@@ -46,10 +56,13 @@ export class UxifierValidator {
             }
         });
 
-        if(application.game && application.config){
-            if(application.game.name === application.config.name){
-                accept('error', 'Contexts should have different names', { node: application.game, property: 'name' })
-                accept('error', 'Contexts should have different names', { node: application.config, property: 'name' })
+        const config: Context | undefined = application.configs[0];
+        const game: Context | undefined = application.games[0];
+        
+        if(game && config){
+            if(game.name === config.name){
+                accept('error', 'Contexts should have different names', { node: game, property: 'name' })
+                accept('error', 'Contexts should have different names', { node: config, property: 'name' })
             }
         }
     }

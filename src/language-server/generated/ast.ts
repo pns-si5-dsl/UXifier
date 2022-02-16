@@ -8,9 +8,9 @@
 import { AstNode, AstReflection, Reference, isAstNode } from 'langium';
 
 export interface Application extends AstNode {
-    config: Context
+    configs: Array<Context>
     fields: Array<FieldDecl>
-    game: Context
+    games: Array<Context>
     name: string
 }
 
@@ -60,7 +60,6 @@ export interface Context extends AstNode {
     name: string
     navigation: NAVIGATION
     pages: Array<PageDecl>
-    path: string
 }
 
 export const Context = 'Context';
@@ -132,7 +131,6 @@ export interface PageDecl extends AstNode {
     axe: AXE
     components: Array<ButtonComponent | TextComponent | ImageComponent | FieldsComponent>
     name: string
-    path: string
     skipable: boolean
 }
 

@@ -56,64 +56,67 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "value": ";"
           },
           {
-            "$type": "Assignment",
-            "feature": "fields",
-            "operator": "+=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "FieldDecl"
+            "$type": "Alternatives",
+            "elements": [
+              {
+                "$type": "Assignment",
+                "feature": "fields",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "FieldDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Group",
+                "elements": [
+                  {
+                    "$type": "Keyword",
+                    "value": "Config",
+                    "elements": []
+                  },
+                  {
+                    "$type": "Assignment",
+                    "feature": "configs",
+                    "operator": "+=",
+                    "terminal": {
+                      "$type": "RuleCall",
+                      "arguments": [],
+                      "rule": {
+                        "$refText": "Context"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "$type": "Group",
+                "elements": [
+                  {
+                    "$type": "Keyword",
+                    "value": "Game",
+                    "elements": []
+                  },
+                  {
+                    "$type": "Assignment",
+                    "feature": "games",
+                    "operator": "+=",
+                    "terminal": {
+                      "$type": "RuleCall",
+                      "arguments": [],
+                      "rule": {
+                        "$refText": "Context"
+                      }
+                    }
+                  }
+                ]
               }
-            },
-            "elements": [],
+            ],
             "cardinality": "*"
-          },
-          {
-            "$type": "Group",
-            "elements": [
-              {
-                "$type": "Keyword",
-                "value": "Config",
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "config",
-                "operator": "=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "Context"
-                  }
-                }
-              }
-            ],
-            "cardinality": "?"
-          },
-          {
-            "$type": "Group",
-            "elements": [
-              {
-                "$type": "Keyword",
-                "value": "Game",
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "game",
-                "operator": "=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "Context"
-                  }
-                }
-              }
-            ],
-            "cardinality": "?"
           }
         ]
       }
@@ -193,37 +196,16 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
           },
           {
             "$type": "Assignment",
-            "feature": "path",
+            "feature": "navigation",
             "operator": "=",
             "terminal": {
               "$type": "RuleCall",
               "arguments": [],
               "rule": {
-                "$refText": "STRING"
+                "$refText": "NAVIGATION"
               }
-            }
-          },
-          {
-            "$type": "Group",
-            "elements": [
-              {
-                "$type": "Keyword",
-                "value": ",",
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "navigation",
-                "operator": "=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "NAVIGATION"
-                  }
-                }
-              }
-            ],
+            },
+            "elements": [],
             "cardinality": "?"
           },
           {
@@ -296,37 +278,16 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
           },
           {
             "$type": "Assignment",
-            "feature": "path",
+            "feature": "axe",
             "operator": "=",
             "terminal": {
               "$type": "RuleCall",
               "arguments": [],
               "rule": {
-                "$refText": "STRING"
+                "$refText": "AXE"
               }
-            }
-          },
-          {
-            "$type": "Group",
-            "elements": [
-              {
-                "$type": "Keyword",
-                "value": ",",
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "axe",
-                "operator": "=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "AXE"
-                  }
-                }
-              }
-            ],
+            },
+            "elements": [],
             "cardinality": "?"
           },
           {
