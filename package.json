@@ -27,7 +27,7 @@
             {
                 "language": "uxifier",
                 "scopeName": "source.uxifier",
-                "path": "./syntaxes/uxifier.tmLanguage.json"
+                "path": "./syntaxes/uxfr.tmLanguage.json"
             }
         ],
         "snippets": [

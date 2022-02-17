@@ -4,6 +4,7 @@
     "fileExtensions": [".uxfr"],
     "out": "src/language-server/generated",
     "textMate": {
-        "out": "syntaxes/uxifier.tmLanguage.json"
+        "out": "syntaxes/uxfr.tmLanguage.json"
+
     }
 }

@@ -1,0 +1,52 @@
+{
+    "name": "uxifier",
+    "scopeName": "source.uxifier",
+    "fileTypes": [".uxfr"],
+    "patterns": [
+        {
+            "name": "comment.line.double-slash.uxfr",
+            "begin": "\/\/",
+            "end": "\n"
+        },
+        {
+            "name": "comment.block.documentation.uxfr",
+            "begin": "/[*]",
+            "end": "[*]/",
+            "contentName": "markup.italic.uxfr"
+        },
+        {
+            "name": "string.quoted.single.uxfr",
+            "begin": "'",
+            "end": "'"
+        },
+        {
+            "name": "string.quoted.double.uxfr",
+            "begin": "\"",
+            "end": "\""
+        },
+        {
+            "name": "support.function.uxfr",
+            "match": "[:]"
+        },
+        {
+            "name": "support.class.uxfr",
+            "match": "(App|Field|Config|Game|Page|FieldGroup|Button|Text|Image)"
+        },
+        {
+            "name": "entity.name.function.uxfr",
+            "match": "(skipable|linear|side|bottom|horizontal|vertical)"
+        },
+        {
+            "name": "entity.name.tag.uxfr",
+            "match": "(bool|number|string)"
+        },
+        {
+            "name": "support.variable.uxfr",
+            "match": "(((?<=App: )|(?<=Field )|(?<=Config )|(?<=Game )|(?<=Page )|(?<=FieldGroup )|(?<=Button )|(?<=Text )|(?<=Image ))[\n\t\r ]*[^\n\t\n:({; ]+)"
+        },
+        {
+            "name": "constant.numeric.uxfr",
+            "match": "#[0-9a-f][0-9a-f][0-9a-f]([0-9a-f][0-9a-f][0-9a-f])?"
+        }
+    ]
+  }
