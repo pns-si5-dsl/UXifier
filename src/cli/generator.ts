@@ -1,12 +1,12 @@
 import fs from 'fs';
-import { CompositeGeneratorNode, NL, processGeneratorNode } from 'langium';
-import { Application, /* ButtonComponent, Context, DecoField, FieldDecl, FieldsComponent, ImageComponent, isButtonComponent, isFieldsComponent, isImageComponent, isTextComponent, PageDecl, TextComponent */ } from '../language-server/generated/ast';
+import { Application, Context, /* ButtonComponent, Context, DecoField, FieldDecl, FieldsComponent, ImageComponent, isButtonComponent, isFieldsComponent, isImageComponent, isTextComponent, PageDecl, TextComponent */ } from '../language-server/generated/ast';
 import { extractDestinationAndName } from './cli-util';
-import path from 'path';
 import { generateBoilerplate } from './generator/boilerplate.generator';
 import { generateApplication } from './generator/app.generator';
+import { generateContext } from './generator/context.generator';
+import { generateFields } from './generator/fields.generator';
 
-export function generateProject(application: Application, filePath: string, destination: string | undefined): string {
+export function generateProject(application: Application, filePath: string, destination: string | undefined): void {
     const data = extractDestinationAndName(filePath, destination);
 
     if (!fs.existsSync(data.destination)) {
@@ -14,25 +14,30 @@ export function generateProject(application: Application, filePath: string, dest
     }
 
     // Generate the boilerplate.
-    generateBoilerplate(application, data.destination);
-    const generatedFilePath = `${path.join(data.destination, data.name)}.js`;
+    const srcPath = generateBoilerplate(application, data.destination);
 
     // Generate the application.
-    const fileNode = new CompositeGeneratorNode();
-    insertImport(fileNode);
-    generateApplication(application, fileNode)
+    generateApplication(application, srcPath);
 
+    // Generate the fields.
+    generateFields(application.fields, srcPath);
 
-    fs.writeFileSync(generatedFilePath, processGeneratorNode(fileNode));
-    return generatedFilePath;
+    const config: Context | undefined = application.configs[0];
+    const game: Context | undefined = application.games[0];
+    
+    // Generate the configuration.
+    if (config) {
+        generateContext(config, srcPath);
+    }
+    
+    // Generate the game.
+    if (game) {
+        generateContext(game, srcPath);
+    }
 }
 
-function insertImport(node: CompositeGeneratorNode): void {
-    node.append(
-        "import './App.css';", NL,
-        "import {Box, Button, Grommet, Heading} from 'grommet';",NL,
-        "import {Notification} from 'grommet-icons';",NL,
-        "import {useState} from 'react';", NL,
-        "import {Routes, Route, BrowserRouter, Link} from 'react-router-dom';",NL,NL
-    );
+export function camelize(str: string): string {
+    if (str.length === 0) throw new Error("Could not camelize empty string");
+    if (str.length < 2) return str.toUpperCase();
+    return str.charAt(0).toUpperCase() + str.substring(1);
 }

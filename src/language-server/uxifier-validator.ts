@@ -26,8 +26,6 @@ export class UxifierValidationRegistry extends ValidationRegistry {
  */
 export class UxifierValidator {
 
-    
-
     checkApplication(application: Application, accept: ValidationAcceptor): void {
         if (application.configs.length === 0) {
             accept('warning', 'An application should contain a configuration.', { node: application, property: 'name' });
@@ -49,10 +47,10 @@ export class UxifierValidator {
         const identifiers: string[] = [];
         application.fields.forEach(f => {
             const id = f.name;
-            if (identifiers.includes(id)) {
+            if (identifiers.includes(id.toLocaleLowerCase())) {
                 accept('error', 'Variable name already defined', { node: f, property: 'name'});
             } else {
-                identifiers.push(id);
+                identifiers.push(id.toLocaleLowerCase());
             }
         });
 
@@ -60,14 +58,11 @@ export class UxifierValidator {
         const game: Context | undefined = application.games[0];
         
         if(game && config){
-            if(game.name === config.name){
+            if(game.name?.toLocaleLowerCase() === config.name?.toLocaleLowerCase()){
                 accept('error', 'Contexts should have different names', { node: game, property: 'name' })
                 accept('error', 'Contexts should have different names', { node: config, property: 'name' })
             }
         }
-    }
-
-    checkDuplicatedNames(application: Application, accept: ValidationAcceptor): void {
     }
 
     checkContext(context: Context, accept: ValidationAcceptor): void {
@@ -78,10 +73,10 @@ export class UxifierValidator {
         const identifiers: string[] = [];
         context.pages.forEach(p => {
             const id = p.name;
-            if (identifiers.includes(id)) {
+            if (identifiers.includes(id.toLocaleLowerCase())) {
                 accept('error', 'Page name already defined', { node: p, property: 'name'});
             } else {
-                identifiers.push(id);
+                identifiers.push(id.toLocaleLowerCase());
             }
         });
     }

@@ -9,8 +9,8 @@ import { generateProject } from './generator';
 
 export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
     const model = await extractAstNode<Application>(fileName, languageMetaData.fileExtensions, createUxifierServices());
-    const generatedFilePath = generateProject(model, fileName, opts.destination);
-    console.log(colors.green(`JavaScript code generated successfully: ${generatedFilePath}`));
+    generateProject(model, fileName, opts.destination);
+    console.log(colors.green(`Project generated successfully`));
 };
 
 export const watchAction = async (): Promise<void> => {
@@ -43,6 +43,6 @@ export default function(): void {
         .command('watch')
         .description('watches for project files save and generate the web app')
         .action(watchAction);
-
+        
     program.parse(process.argv);
 }

@@ -1,23 +1,53 @@
-// function generatePage(page: PageDecl, node: CompositeGeneratorNode): void {
-//     node.append('function ', page.name, '() {', NL);
-//     node.indent(body => {
-//         body.append('const path = "', page.path, '";', NL);
-//         body.append('const is_skipable = ', (page.skipable?true:false).toString(), ';', NL);
-//         if (page.axe) {
-//             body.append('const axe = ', page.axe.type, ';', NL);
-//         }
-//         body.append(NL);
-//         page.components.forEach(c => {
-//             if (isTextComponent(c)) {
-//                 generateTextComponent(c, body);
-//             } else if (isButtonComponent(c)) {
-//                 generateButtonComponent(c, body);
-//             } else if (isImageComponent(c)) {
-//                 generateImageComponent(c, body);
-//             } else if (isFieldsComponent(c)) {
-//                 generateFieldComponent(c, body);
-//             }
-//         })
-//     });
-//     node.append('}', NL, NL);
-// }
+import { CompositeGeneratorNode, NL } from "langium";
+import { isButtonComponent, isFieldsComponent, isImageComponent, isTextComponent, PageDecl } from "../../language-server/generated/ast";
+import { camelize } from "../generator";
+import { generateFieldGroup } from "./fieldGroup.generator";
+
+export function generatePage(page: PageDecl, nextPage: PageDecl | undefined, node: CompositeGeneratorNode): void {
+    
+    node.append(
+        NL, "export function ", camelize(page.name), "(props) {", NL,
+        "const [state, dispatch] = React.useContext(PersoContext)", NL,
+        "return (", NL,
+        "<Form", NL,
+        "margin='medium'", NL,
+        "value={state}", NL,
+        "onChange={nextValue => dispatch({type: 'up', value: nextValue})}", NL,
+        "onReset={() => dispatch({type: 'reset', value: [", /*"'nom', 'age', 'taille', 'cheveux'",*/ "]})}", NL,
+        "onSubmit={({value}) => {", NL,
+        "}}", NL,
+        ">", NL
+    );
+
+
+    page.components.forEach(component => {
+        if (isFieldsComponent(component)) {
+            generateFieldGroup(component, node);
+        } else if (isButtonComponent(component)) {
+            // TODO
+        } else if (isTextComponent(component)) {
+            // TODO
+        } else if (isImageComponent(component)) {
+            // TODO
+        }
+    });
+
+    node.append("<Box direction='row' gap='medium' justify='end'>", NL);
+
+    if(nextPage) {
+        node.append(
+            "<Link to='/config/", nextPage.name, "'>", NL,
+            "<Button type='submit' primary label='Next'/>", NL,
+            "</Link>", NL,
+        );
+    }
+
+    node.append(
+        "<Button type='reset' label='Reset'/>", NL,
+        "</Box>", NL,
+        "</Form>", NL,
+        ");", NL,
+        "}", NL, NL
+    );
+
+}

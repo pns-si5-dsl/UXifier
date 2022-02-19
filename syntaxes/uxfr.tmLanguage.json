@@ -30,7 +30,7 @@
         },
         {
             "name": "support.class.uxfr",
-            "match": "(App|Field|Config|Game|Page|FieldGroup|Button|Text|Image)"
+            "match": "(App|Field |Config |Game |Page |FieldGroup |Button |Text |Image )"
         },
         {
             "name": "entity.name.function.uxfr",
