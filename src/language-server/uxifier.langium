@@ -2,11 +2,11 @@ grammar Uxifier
 hidden(WS, SL_COMMENT, ML_COMMENT)
 
 Application:
-    'App' ':' name=ID ';'
+    'character' ':' name=ID ';'
     (
     (fields+=FieldDecl)
-    | ('Config' configs+=Context)
-    | ('Game' games+=Context)
+    | ('config' configs+=Context)
+    | ('game' games+=Context)
     )*
     ;
 
@@ -17,7 +17,7 @@ Context:
     name=ID (navigation=NAVIGATION)? '{' (pages+=PageDecl)* '}';
 
 PageDecl:
-    (skipable?='skipable')? (axe=AXE)? 'Page' name=ID '{'
+    (skipable?='skipable')? (axe=AXE)? 'page' name=ID '{'
         (components+=(ButtonComponent | TextComponent | ImageComponent | FieldsComponent))*
     '}';
 

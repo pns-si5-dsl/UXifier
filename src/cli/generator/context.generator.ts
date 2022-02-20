@@ -2,7 +2,6 @@ import fs from 'fs';
 import { CompositeGeneratorNode, NL, processGeneratorNode } from "langium";
 import path from 'path';
 import { Context } from "../../language-server/generated/ast";
-import { camelize } from '../generator';
 import { generatePage } from './page.generator';
 
 export function generateContext(context: Context, fileDir: string): void {
@@ -12,7 +11,7 @@ export function generateContext(context: Context, fileDir: string): void {
 
 
     node.append(
-        "export function ", camelize(context.name), "(props) {", NL,
+        "export function ", context.name, "(props) {", NL,
         "return (", NL,
         "<Box fill={true}>", NL,
         "<Box", NL,
@@ -43,7 +42,7 @@ export function generateContext(context: Context, fileDir: string): void {
     );
 
     for (let i = 0; i < context.pages.length; i++) {
-        generatePage(context.pages[i], context.pages[i+1], node);
+        generatePage(context.pages[i], context.pages[i+1], context.name, node);
     }
 
     fs.writeFileSync(`${path.join(fileDir,context.name)}.js`, processGeneratorNode(node));

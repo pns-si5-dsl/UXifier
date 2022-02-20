@@ -29,10 +29,6 @@
             "match": "[:]"
         },
         {
-            "name": "support.class.uxfr",
-            "match": "(App|Field |Config |Game |Page |FieldGroup |Button |Text |Image )"
-        },
-        {
             "name": "entity.name.function.uxfr",
             "match": "(skipable|linear|side|bottom|horizontal|vertical)"
         },
@@ -42,7 +38,11 @@
         },
         {
             "name": "support.variable.uxfr",
-            "match": "(((?<=App: )|(?<=Field )|(?<=Config )|(?<=Game )|(?<=Page )|(?<=FieldGroup )|(?<=Button )|(?<=Text )|(?<=Image ))[\n\t\r ]*[^\n\t\n:({; ]+)"
+            "match": "(((?<=character: )|(?<=Field )|(?<=config )|(?<=game )|(?<=page )|(?<=FieldGroup )|(?<=Button )|(?<=Text )|(?<=Image ))[\n\t\r ]*[^\n\t\n:({; ]+)"
+        },
+        {
+            "name": "support.class.uxfr",
+            "match": "(character|Field |config |game |page |FieldGroup |Button |Text |Image )"
         },
         {
             "name": "constant.numeric.uxfr",

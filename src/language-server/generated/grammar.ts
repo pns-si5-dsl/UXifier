@@ -32,7 +32,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "elements": [
           {
             "$type": "Keyword",
-            "value": "App",
+            "value": "character",
             "elements": []
           },
           {
@@ -76,7 +76,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                 "elements": [
                   {
                     "$type": "Keyword",
-                    "value": "Config",
+                    "value": "config",
                     "elements": []
                   },
                   {
@@ -98,7 +98,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                 "elements": [
                   {
                     "$type": "Keyword",
-                    "value": "Game",
+                    "value": "game",
                     "elements": []
                   },
                   {
@@ -264,7 +264,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
           },
           {
             "$type": "Keyword",
-            "value": "Page"
+            "value": "page"
           },
           {
             "$type": "Assignment",

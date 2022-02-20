@@ -10,7 +10,7 @@
     },
     {
       "name": "keyword.control.uxifier",
-      "match": "\\b(App|bool|bottom|Button|Config|Field|FieldGroup|Game|horizontal|Image|linear|number|Page|side|skipable|string|Text|vertical)\\b"
+      "match": "\\b(bool|bottom|Button|character|config|Field|FieldGroup|game|horizontal|Image|linear|number|page|side|skipable|string|Text|vertical)\\b"
     },
     {
       "name": "keyword.symbol.uxifier",

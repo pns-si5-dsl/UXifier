@@ -1,12 +1,11 @@
 import { CompositeGeneratorNode, NL } from "langium";
 import { isButtonComponent, isFieldsComponent, isImageComponent, isTextComponent, PageDecl } from "../../language-server/generated/ast";
-import { camelize } from "../generator";
 import { generateFieldGroup } from "./fieldGroup.generator";
 
-export function generatePage(page: PageDecl, nextPage: PageDecl | undefined, node: CompositeGeneratorNode): void {
+export function generatePage(page: PageDecl, nextPage: PageDecl | undefined, modelName: string, node: CompositeGeneratorNode): void {
     
     node.append(
-        NL, "export function ", camelize(page.name), "(props) {", NL,
+        NL, "export function ", page.name, "(props) {", NL,
         "const [state, dispatch] = React.useContext(PersoContext)", NL,
         "return (", NL,
         "<Form", NL,
@@ -36,7 +35,7 @@ export function generatePage(page: PageDecl, nextPage: PageDecl | undefined, nod
 
     if(nextPage) {
         node.append(
-            "<Link to='/config/", nextPage.name, "'>", NL,
+            "<Link to='/", modelName, "/", nextPage.name, "'>", NL,
             "<Button type='submit' primary label='Next'/>", NL,
             "</Link>", NL,
         );

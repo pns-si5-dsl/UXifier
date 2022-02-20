@@ -35,9 +35,3 @@ export function generateProject(application: Application, filePath: string, dest
         generateContext(game, srcPath);
     }
 }
-
-export function camelize(str: string): string {
-    if (str.length === 0) throw new Error("Could not camelize empty string");
-    if (str.length < 2) return str.toUpperCase();
-    return str.charAt(0).toUpperCase() + str.substring(1);
-}

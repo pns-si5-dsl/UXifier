@@ -3,7 +3,6 @@ import { processGeneratorNode } from 'langium';
 import { CompositeGeneratorNode, NL } from 'langium';
 import path from 'path';
 import { Application, Context } from '../../language-server/generated/ast';
-import { camelize } from '../generator';
 
 export function generateApplication(application: Application, fileDir: string): void {
 
@@ -14,17 +13,17 @@ export function generateApplication(application: Application, fileDir: string): 
     const game: Context | undefined = application.games[0];
 
     if (config) {
-        node.append("import {",camelize(config.name));
+        node.append("import {",config.name);
         config.pages.forEach(page => {
-            node.append(", ", camelize(page.name), " as ", camelize(config.name), "_", page.name);
+            node.append(", ", page.name, " as ", config.name, "_", page.name);
         });
         node.append("} from './", config.name, "'", NL, NL);
     }
 
     if (game) {
-        node.append("import { ",camelize(game.name));
+        node.append("import { ",game.name);
         game.pages.forEach(page => {
-            node.append(", ", camelize(page.name), " as ", camelize(game.name), "_", page.name);
+            node.append(", ", page.name, " as ", game.name, "_", page.name);
         });
         node.append("} from './", game.name, "'", NL, NL);
     }
@@ -45,7 +44,7 @@ export function generateApplication(application: Application, fileDir: string): 
     );
 
     node.append(
-        "export default function ", camelize(application.name), "(props) {", NL,
+        "export default function ", application.name, "(props) {", NL,
         "return (", NL,
         "<BrowserRouter>", NL,
         "<Grommet theme={theme} full={true}>", NL,
@@ -54,13 +53,13 @@ export function generateApplication(application: Application, fileDir: string): 
 
     if (config) {
         node.append(
-            "<Route path='", config.name, "' element={<", camelize(config.name), "/>}>", NL,
+            "<Route path='", config.name, "' element={<", config.name, "/>}>", NL,
             "<Route index element={<", config.name, '_', config.pages[0].name, "/>}/>", NL
         );
 
         config.pages.forEach(page => {
             node.append(
-                "<Route path='", page.name, "' element={<", camelize(config.name), '_', page.name, "/>}/>", NL,
+                "<Route path='", page.name, "' element={<", config.name, '_', page.name, "/>}/>", NL,
             );
         });
         
@@ -71,13 +70,13 @@ export function generateApplication(application: Application, fileDir: string): 
 
     if (game) {
         node.append(
-            "<Route path='", game.name, "' element={<", camelize(game.name), "/>}>", NL,
+            "<Route path='", game.name, "' element={<", game.name, "/>}>", NL,
             "<Route index element={<", game.name, '_', game.pages[0].name, "/>}/>", NL
         );
 
         game.pages.forEach(page => {
             node.append(
-                "<Route path='", page.name, "' element={<", camelize(game.name), '_', page.name, "/>}/>", NL,
+                "<Route path='", page.name, "' element={<", game.name, '_', page.name, "/>}/>", NL,
             );
         });
         
@@ -94,7 +93,7 @@ export function generateApplication(application: Application, fileDir: string): 
         "}", NL,
     );
 
-    fs.writeFileSync(`${path.join(fileDir,camelize(application.name))}.js`, processGeneratorNode(node));
+    fs.writeFileSync(`${path.join(fileDir,application.name)}.js`, processGeneratorNode(node));
 }
 
 function insertImport(node: CompositeGeneratorNode): void {

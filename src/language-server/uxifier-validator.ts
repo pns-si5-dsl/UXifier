@@ -17,6 +17,7 @@ export class UxifierValidationRegistry extends ValidationRegistry {
         this.register({ Application: validator.checkApplication } as UxifierChecks, validator);
         this.register({ Context: validator.checkContext } as UxifierChecks, validator);
         this.register({ Page: validator.checkPage } as UxifierChecks, validator);
+        this.register({ FieldsComponent: validator.checkFieldGroup } as UxifierChecks, validator);
         this.register({ COLOR: validator.checkColorFormat } as UxifierChecks, validator);
     }
 }
@@ -42,6 +43,10 @@ export class UxifierValidator {
             for (let i = 1; i < application.games.length; i++) {
                 accept('error', 'Game already defined: you cannot declare more than one Game.', { node: application.games[i] });
             }
+        }
+
+        if (application.name?.charAt(0).toUpperCase() != application.name?.charAt(0)) {
+            accept('error', 'The application name must start with an upper case.', { node: application, property: 'name' })
         }
 
         const identifiers: string[] = [];
@@ -70,6 +75,10 @@ export class UxifierValidator {
             accept('error', 'A context must contain at least one page.', { node: context, property: 'name' });
         }
 
+        if (context.name?.charAt(0).toUpperCase() != context.name?.charAt(0)) {
+            accept('error', 'A context name must start with an upper case.', { node: context, property: 'name' })
+        }
+
         const identifiers: string[] = [];
         context.pages.forEach(p => {
             const id = p.name;
@@ -85,11 +94,15 @@ export class UxifierValidator {
         if (page.components.length == 0) {
             accept('error', 'A page must contain at least one component.', { node: page, property: 'name' });
         }
+
+        if (page.name?.charAt(0).toUpperCase() != page.name?.charAt(0)) {
+            accept('error', 'A page name must start with an upper case.', { node: page, property: 'name' })
+        }
     }
 
-    checkField(component: FieldsComponent, accept: ValidationAcceptor): void {
+    checkFieldGroup(component: FieldsComponent, accept: ValidationAcceptor): void {
         if (component.decoFields.length == 0) {
-            accept('error', 'A fields component must contain at least one field.', { node: component, property: 'name' });
+            accept('error', 'A field group must contain at least one field.', { node: component, property: 'name' });
         }
     }
 

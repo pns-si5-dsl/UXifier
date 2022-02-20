@@ -16,7 +16,7 @@ export function generateFields(fields: FieldDecl[], fileDir: string): void {
 
     node.append("export const initialState = {", NL);
     fields.forEach(field => {
-        node.append(field.name,': null,');
+        node.append(field.name,': null,', NL);
     })
     node.append(
         "}", NL, NL,

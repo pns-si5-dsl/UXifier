@@ -2,13 +2,12 @@ import fs from 'fs';
 import fse from 'fs-extra';
 import path from "path";
 import { Application } from '../../language-server/generated/ast';
-import { camelize } from '../generator';
 
 export function generateBoilerplate(application: Application, destinationPath: string): string {
     const resourcePath = path.join(__dirname, "..", "..", "..", "resources");
 
     // Package.json.
-    writeFile(resourcePath, destinationPath, 'package.json', camelize(application.name));
+    writeFile(resourcePath, destinationPath, 'package.json', application.name);
 
     // Public.
     fse.copySync(path.resolve(resourcePath, 'public'), path.resolve(destinationPath, 'public'));
@@ -19,13 +18,13 @@ export function generateBoilerplate(application: Application, destinationPath: s
     }
 
     // App.css.
-    writeFile(resourcePath, destinationPath, 'App.css', camelize(application.name));
+    writeFile(resourcePath, destinationPath, 'App.css', application.name);
 
     // index.js.
-    writeFile(resourcePath, destinationPath, 'index.js', camelize(application.name));
+    writeFile(resourcePath, destinationPath, 'index.js', application.name);
 
     // index.css.
-    writeFile(resourcePath, destinationPath, 'index.css', camelize(application.name));
+    writeFile(resourcePath, destinationPath, 'index.css', application.name);
     
     
     return destinationPath;
