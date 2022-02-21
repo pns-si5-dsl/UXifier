@@ -1,8 +1,8 @@
 import { CompositeGeneratorNode, NL } from "langium";
-import { isButtonComponent, isFieldsComponent, isImageComponent, isTextComponent, PageDecl } from "../../language-server/generated/ast";
+import { isButtonComponent, isFieldGroupComponent, isImageComponent, isTextComponent, Page } from "../../language-server/generated/ast";
 import { generateFieldGroup } from "./fieldGroup.generator";
 
-export function generatePage(page: PageDecl, nextPage: PageDecl | undefined, modelName: string, node: CompositeGeneratorNode): void {
+export function generatePage(page: Page, nextPage: Page | undefined, modelName: string, node: CompositeGeneratorNode): void {
     
     node.append(
         NL, "export function ", page.name, "(props) {", NL,
@@ -20,7 +20,7 @@ export function generatePage(page: PageDecl, nextPage: PageDecl | undefined, mod
 
 
     page.components.forEach(component => {
-        if (isFieldsComponent(component)) {
+        if (isFieldGroupComponent(component)) {
             generateFieldGroup(component, node);
         } else if (isButtonComponent(component)) {
             // TODO

@@ -1,6 +1,7 @@
 import { ValidationAcceptor, ValidationCheck, ValidationRegistry } from 'langium';
-import { Application, Context, COLOR, PageDecl, UxifierAstType, FieldsComponent } from './generated/ast';
+import { Application, Context, COLOR, Page, UxifierAstType, FieldGroupComponent, ButtonComponent, StyleDecl, TextComponent, ImageComponent } from './generated/ast';
 import { UxifierServices } from './uxifier-module';
+import * as util from './validator-util';
 
 /**
  * Map AST node types to validation checks.
@@ -15,9 +16,13 @@ export class UxifierValidationRegistry extends ValidationRegistry {
         super(services);
         const validator = services.validation.UxifierValidator;
         this.register({ Application: validator.checkApplication } as UxifierChecks, validator);
-        this.register({ Context: validator.checkContext } as UxifierChecks, validator);
         this.register({ Page: validator.checkPage } as UxifierChecks, validator);
-        this.register({ FieldsComponent: validator.checkFieldGroup } as UxifierChecks, validator);
+        this.register({ Context: validator.checkContext } as UxifierChecks, validator);
+        this.register({ ButtonComponent: validator.checkButtonComponent } as UxifierChecks, validator);
+        this.register({ TextComponent: validator.checkTextComponent } as UxifierChecks, validator);
+        this.register({ ImageComponent: validator.checkImageComponent } as UxifierChecks, validator);
+        this.register({ FieldGroupComponent: validator.checkFieldsComponent } as UxifierChecks, validator);
+        this.register({ StyleDecl: validator.checkStyle } as UxifierChecks, validator);
         this.register({ COLOR: validator.checkColorFormat } as UxifierChecks, validator);
     }
 }
@@ -28,82 +33,71 @@ export class UxifierValidationRegistry extends ValidationRegistry {
 export class UxifierValidator {
 
     checkApplication(application: Application, accept: ValidationAcceptor): void {
-        if (application.configs.length === 0) {
-            accept('warning', 'An application should contain a configuration.', { node: application, property: 'name' });
-        }
-        if (application.games.length === 0) {
-            accept('warning', 'An application should contain a game.', { node: application, property: 'name' });
-        }
-        if (application.configs.length > 1) {
-            for (let i = 1; i < application.configs.length; i++) {
-                accept('error', 'Config already defined: you cannot declare more than one Config.', { node: application.configs[i] });
-            }
-        }
-        if (application.games.length > 1) {
-            for (let i = 1; i < application.games.length; i++) {
-                accept('error', 'Game already defined: you cannot declare more than one Game.', { node: application.games[i] });
-            }
-        }
-
-        if (application.name?.charAt(0).toUpperCase() != application.name?.charAt(0)) {
-            accept('error', 'The application name must start with an upper case.', { node: application, property: 'name' })
-        }
-
-        const identifiers: string[] = [];
-        application.fields.forEach(f => {
-            const id = f.name;
-            if (identifiers.includes(id.toLocaleLowerCase())) {
-                accept('error', 'Variable name already defined', { node: f, property: 'name'});
-            } else {
-                identifiers.push(id.toLocaleLowerCase());
-            }
-        });
-
-        const config: Context | undefined = application.configs[0];
-        const game: Context | undefined = application.games[0];
+        util.acceptMustContain('a configuration', accept, application.configs, application, 'name');
+        util.acceptMustContain('a game', accept, application.games, application, 'name');
+        util.acceptUnique('configuration', accept, application.configs);
+        util.acceptUnique('game', accept, application.games);
+        util.acceptUpperCaseFirstLetter(accept, application.name, application, 'name');
+        util.acceptNoDuplicateNames(accept, application.fields, 'name');
         
-        if(game && config){
-            if(game.name?.toLocaleLowerCase() === config.name?.toLocaleLowerCase()){
-                accept('error', 'Contexts should have different names', { node: game, property: 'name' })
-                accept('error', 'Contexts should have different names', { node: config, property: 'name' })
-            }
-        }
+        const config: Context = application.configs[0];
+        const game: Context = application.games[0];
+        if(game && config) util.acceptNoDuplicateNames(accept, [config, game], 'name');
     }
 
     checkContext(context: Context, accept: ValidationAcceptor): void {
-        if (context.pages.length == 0) {
-            accept('error', 'A context must contain at least one page.', { node: context, property: 'name' });
-        }
-
-        if (context.name?.charAt(0).toUpperCase() != context.name?.charAt(0)) {
-            accept('error', 'A context name must start with an upper case.', { node: context, property: 'name' })
-        }
-
-        const identifiers: string[] = [];
-        context.pages.forEach(p => {
-            const id = p.name;
-            if (identifiers.includes(id.toLocaleLowerCase())) {
-                accept('error', 'Page name already defined', { node: p, property: 'name'});
-            } else {
-                identifiers.push(id.toLocaleLowerCase());
-            }
-        });
+        util.acceptMustContain('at least one page', accept, context.pages, context, 'name');
+        util.acceptUpperCaseFirstLetter(accept, context.name, context, 'name');
+        util.acceptNoDuplicateNames(accept, context.pages, 'name');
     }
 
-    checkPage(page: PageDecl, accept: ValidationAcceptor): void {
-        if (page.components.length == 0) {
-            accept('error', 'A page must contain at least one component.', { node: page, property: 'name' });
-        }
-
-        if (page.name?.charAt(0).toUpperCase() != page.name?.charAt(0)) {
-            accept('error', 'A page name must start with an upper case.', { node: page, property: 'name' })
-        }
+    checkPage(page: Page, accept: ValidationAcceptor): void {
+        util.acceptMustContain('at least one component', accept, page.components, page, 'name');
+        util.acceptUpperCaseFirstLetter(accept, page.name, page, 'name');
+        util.acceptNoDuplicateNames(accept, page.components, 'name');
     }
 
-    checkFieldGroup(component: FieldsComponent, accept: ValidationAcceptor): void {
-        if (component.decoFields.length == 0) {
-            accept('error', 'A field group must contain at least one field.', { node: component, property: 'name' });
-        }
+    checkButtonComponent(component: ButtonComponent, accept: ValidationAcceptor): void {
+        util.acceptMustContain('a label', accept, component.labels, component, 'name');
+        util.acceptUnique('label', accept, component.labels);
+        util.acceptUnique('href', accept, component.hrefs);
+        util.acceptUnique('type', accept, component.types);
+        util.acceptUnique('style', accept, component.styles);
+    }
+
+    checkTextComponent(component: TextComponent, accept: ValidationAcceptor): void {
+        util.acceptMustContain('a content', accept, component.contents, component, 'name');
+        util.acceptUnique('content', accept, component.contents);
+        util.acceptUnique('title', accept, component.titles);
+        util.acceptUnique('color', accept, component.colors);
+        util.acceptUnique('title position', accept, component.titlePositions);
+        util.acceptUnique('style', accept, component.styles);
+    }
+
+    checkImageComponent(component: ImageComponent, accept: ValidationAcceptor): void {
+        util.acceptMustContain('a source', accept, component.sources, component, 'name');
+        util.acceptUnique('source', accept, component.sources);
+        util.acceptUnique('legend', accept, component.legends);
+        util.acceptUnique('legend position', accept, component.legendPositions);
+        util.acceptUnique('style', accept, component.styles);
+    }
+
+    checkFieldsComponent(component: FieldGroupComponent, accept: ValidationAcceptor): void {
+        util.acceptUnique('title', accept, component.titles);
+        util.acceptUnique('title position', accept, component.titlePositions);
+        util.acceptUnique('style', accept, component.styles);
+        util.acceptMustContain('at least one decorated field', accept, component.decoFields, component, 'name');
+    }
+
+    checkStyle(style: StyleDecl, accept: ValidationAcceptor): void {
+        util.acceptUnique('width', accept, style.widths);
+        util.acceptUnique('height', accept, style.heights);
+        util.acceptUnique('direction', accept, style.directions);
+        util.acceptUnique('border color', accept, style.borderColors);
+        util.acceptUnique('box color', accept, style.boxColors);
+        util.acceptUnique('text color', accept, style.textColors);
+        util.acceptUnique('shape', accept, style.shapes);
+        util.acceptUnique('align', accept, style.aligns);
     }
 
     checkColorFormat(hexaColor: COLOR, accept: ValidationAcceptor): void {
@@ -112,4 +106,3 @@ export class UxifierValidator {
         }
     }
 }
-

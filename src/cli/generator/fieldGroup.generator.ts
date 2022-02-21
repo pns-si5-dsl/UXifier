@@ -1,7 +1,7 @@
 import { CompositeGeneratorNode, NL } from "langium";
-import { FieldsComponent } from "../../language-server/generated/ast";
+import { FieldGroupComponent } from "../../language-server/generated/ast";
 
-export function generateFieldGroup(fieldGroup: FieldsComponent, node: CompositeGeneratorNode): void {
+export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: CompositeGeneratorNode): void {
 
     node.append(
         "<Card margin='small' background='light-2'>", NL,

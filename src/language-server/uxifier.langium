@@ -3,56 +3,119 @@ hidden(WS, SL_COMMENT, ML_COMMENT)
 
 Application:
     'character' ':' name=ID ';'
-    (
-    (fields+=FieldDecl)
+    ( (fields+=FieldDecl)
     | ('config' configs+=Context)
-    | ('game' games+=Context)
-    )*
+    | ('game' games+=Context) )*
     ;
 
 FieldDecl:
     'Field' name=ID ':' type=TYPE ';';
 
 Context:
-    name=ID (navigation=NAVIGATION)? '{' (pages+=PageDecl)* '}';
+    name=ID '{'
+        ('navigation' '=' navigation=NAVIGATION ';')?
+        (pages+=Page)*
+    '}' ;
 
-PageDecl:
+Page:
     (skipable?='skipable')? (axe=AXE)? 'page' name=ID '{'
-        (components+=(ButtonComponent | TextComponent | ImageComponent | FieldsComponent))*
-    '}';
+        (components+=(ButtonComponent | TextComponent | ImageComponent | FieldGroupComponent))*
+    '}' ;
 
 ButtonComponent:
-    'Button' name=ID '(' (href=STRING (',' color=COLOR)?)? ')' ';' ;
+    'Button' name=ID '{'
+        ( (labels+=LabelDecl)
+        | (hrefs+=HrefDecl)
+        | (types+=TypeDecl)
+        | (styles+=StyleDecl) )*
+    '}' ;
 
 TextComponent:
-    'Text' name=ID '(' value=STRING (',' color=COLOR)? ')' ';' ;
+    'Text' name=ID '{'
+        ( (contents+=ContentDecl)
+        | (titles+=TitleDecl)
+        | (colors+=ColorDecl)
+        | (titlePositions+=TitlePosDecl)
+        | (styles+=StyleDecl) )*
+    '}' ;
 
 ImageComponent:
-    'Image' name=ID '(' source=STRING ')' ';' ;
+    'Image' name=ID '{'
+        ( (sources+=SourceDecl)
+        | (legends+=LegendDecl)
+        | (legendPositions+=LegendPosDecl)
+        | (styles+=StyleDecl) )*
+    '}' ;
 
-FieldsComponent:
-    'FieldGroup' name=ID '{' (decoFields+=DecoField)* '}' ;
+FieldGroupComponent:
+    'FieldGroup' name=ID '{'
+        ( (titles+=TitleDecl)
+        | (titlePositions+=TitlePosDecl)
+        | (styles+=StyleDecl) )*
+        (decoFields+=DecoField)*
+    '}' ;
+
+StyleDecl:
+    'style' '{'
+        ( (widths+=WidthDecl)
+        | (heights+=HeightDecl)
+        | (directions+=DirectionDecl)
+        | (borderColors+=BorderColorDecl)
+        | (boxColors+=BoxColorDecl)
+        | (textColors+=TextColorDecl)
+        | (shapes+=ShapeDecl)
+        | (aligns+=AlignDecl) )*
+    '}' ;
 
 DecoField:
     field=[FieldDecl|ID] ';';
 
+LabelDecl: 'label' '=' value=STRING ';';
+HrefDecl: 'href' '=' value=STRING ';';
+TypeDecl: 'type' '=' value=BUTTON_TYPE ';';
+ContentDecl: 'content' '=' value=STRING ';';
+TitleDecl: 'title' '=' value=STRING ';';
+TitlePosDecl: 'titlePos' '=' value=TITLE_POS ';';
+ColorDecl: 'color' '=' value=COLOR ';';
+SourceDecl: 'source' '=' value=STRING ';';
+LegendDecl: 'legend' '=' value=STRING ';';
+LegendPosDecl: 'legendPos' '=' value=TITLE_POS ';';
+WidthDecl: 'width' '=' value=SIZE ';';
+HeightDecl: 'height' '=' value=SIZE ';';
+DirectionDecl: 'direction' '=' value=AXE ';';
+BorderColorDecl: 'borderColor' '=' value=COLOR ';';
+BoxColorDecl: 'boxColor' '=' value=COLOR ';';
+TextColorDecl: 'textColor' '=' value=COLOR ';';
+ShapeDecl: 'shape' '=' value=SHAPE ';';
+AlignDecl: 'align' '=' value=ALIGN ';';
 
-TYPE returns string:
-    'bool'|'number'|'string';
-NAVIGATION returns string:
-    'linear'|'side'|'bottom';
-AXE returns string:
-    'horizontal'|'vertical';
+TYPE:
+    value=('bool'|'number'|'string');
+NAVIGATION:
+    value=('linear'|'side_menu'|'bottom_menu');
+AXE:
+    value=('horizontal'|'vertical');
+BUTTON_TYPE:
+    value=('primary'|'secondary');
+SIZE:
+    value=('xxsmall'|'xsmall'|'small'|'medium'|'large'|'xlarge'|'xxlarge'|'auto'|PIXEL|PERCENT);
+SHAPE:
+    value=('rectangular'|'circular');
+ALIGN:
+    value=('left'|'right'|'center');
+TITLE_POS:
+    value=('left'|'top');
 COLOR:
     value=HEXA_COLOR;
 
 
-
 terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
-terminal INT returns number: /[0-9]+/;
+terminal PIXEL: /[0-9]+px/;
+terminal PERCENT: /[0-9]+%/;
 terminal STRING: /"[^"]*"|'[^']*'/;
-terminal HEXA_COLOR returns string: /\#[0-9a-f]+/;
+terminal HEXA_COLOR returns string: /#[0-9a-f]+/;
+terminal INT returns number: /[0-9]+/;
 
 terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 terminal SL_COMMENT: /\/\/[^\n\r]*/;

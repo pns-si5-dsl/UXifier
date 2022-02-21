@@ -29,24 +29,28 @@
             "match": "[:]"
         },
         {
+            "name": "support.variable.uxfr",
+            "match": "(((?<=character: )|(?<=Field )|(?<=config )|(?<=game )|(?<=page )|(?<=FieldGroup )|(?<=Button )|(?<=Text )|(?<=Image ))[\n\t\r ]*[^\n\t\n:({; ]+)"
+        },
+        {
+            "name": "support.class.uxfr",
+            "match": "(character|FieldGroup|config|game|page|Field|Button|Text|Image)"
+        },
+        {
+            "name": "constant.language",
+            "match": "(navigation|label|href|type|style|content|titlePos|color|title|source|legendPos|legend|width|height|direction|borderColor|boxColor|textColor|shape|align)"
+        },
+        {
             "name": "entity.name.function.uxfr",
-            "match": "(skipable|linear|side|bottom|horizontal|vertical)"
+            "match": "(skipable|linear|side_menu|bottom_menu|horizontal|vertical|primary|secondary|xxsmall|xsmall|small|medium|xxlarge|xlarge|large|auto|rectangular|circular|left|right|top|center)"
         },
         {
             "name": "entity.name.tag.uxfr",
             "match": "(bool|number|string)"
         },
         {
-            "name": "support.variable.uxfr",
-            "match": "(((?<=character: )|(?<=Field )|(?<=config )|(?<=game )|(?<=page )|(?<=FieldGroup )|(?<=Button )|(?<=Text )|(?<=Image ))[\n\t\r ]*[^\n\t\n:({; ]+)"
-        },
-        {
-            "name": "support.class.uxfr",
-            "match": "(character|Field |config |game |page |FieldGroup |Button |Text |Image )"
-        },
-        {
             "name": "constant.numeric.uxfr",
-            "match": "#[0-9a-f][0-9a-f][0-9a-f]([0-9a-f][0-9a-f][0-9a-f])?"
+            "match": "((#[0-9a-f][0-9a-f][0-9a-f]([0-9a-f][0-9a-f][0-9a-f])?)|([0-9]px)|([0-9]%))"
         }
     ]
   }

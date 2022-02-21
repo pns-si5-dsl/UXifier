@@ -19,6 +19,7 @@ export function generateContext(context: Context, fileDir: string): void {
         "fill='vertical'", NL,
         "background='light-1'>", NL,
         "<Outlet/>", NL,
+        "<Box height='xsmall'/>", NL,
         "</Box>", NL,
         "<Nav", NL,
         "style={{position: 'fixed', bottom: 0, width: '100%'}}", NL,
