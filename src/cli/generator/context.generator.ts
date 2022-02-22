@@ -51,11 +51,15 @@ export function generateContext(context: Context, fileDir: string): void {
 
 function insertImport(node: CompositeGeneratorNode): void {
     node.append(
-        "import React from 'react'", NL,
-        "import {Box, Card, CardBody, CardFooter, CardHeader, Nav, TextInput, Form, FormField, Button} from 'grommet'", NL,
-        "import {PersoContext} from './character'", NL,
-        "import {Link, Outlet} from 'react-router-dom'", NL,
-        "import { NumberInput } from 'grommet-controls'", NL,
-        "import './App.css';", NL, NL
+        "import React, {useContext} from 'react';", NL,
+        "import {", NL,
+            "Box, Card, Grid, ResponsiveContext, Text, List, Button,", NL,
+            "Nav, Stack, Form, FormField, Image, Layer,", NL,
+            "Heading, Tabs, Tab, Meter, CardHeader, CardBody, CardFooter, TextInput, CheckBox,", NL,
+        "} from 'grommet';", NL,
+        "import {Link, Outlet} from \"react-router-dom\";", NL,
+        "import {PersoContext} from \"./character\";", NL,
+        "import * as Icons from \"grommet-icons\";", NL,
+        "import {NumberInput} from 'grommet-controls';", NL, NL
     );
 }

@@ -1,9 +1,9 @@
 import fs from 'fs';
 import { CompositeGeneratorNode, NL, processGeneratorNode } from "langium";
 import path from 'path';
-import { FieldDecl } from "../../language-server/generated/ast";
+import { Field, isSkillField_, isStatField_ } from "../../language-server/generated/ast";
 
-export function generateFields(fields: FieldDecl[], fileDir: string): void {
+export function generateFields(fields: Field[], fileDir: string): void {
 
     const subDir = path.join(fileDir,'character');
     if (!fs.existsSync(subDir)) {
@@ -13,11 +13,38 @@ export function generateFields(fields: FieldDecl[], fileDir: string): void {
     const node = new CompositeGeneratorNode();
     insertImport(node);
 
+    const skillsFields = fields.filter((f) => isSkillField_(f));
+    const statsFields = fields.filter((f) => isStatField_(f));
+    const other = fields.filter((f)=> !(isSkillField_(f) || isStatField_(f)));
+
 
     node.append("export const initialState = {", NL);
-    fields.forEach(field => {
+
+    other.forEach(field => {
         node.append(field.name,': null,', NL);
     })
+    statsFields.forEach(field => {
+        node.append(field.name,': 0,', NL);
+        node.append(field.name,'_incr: 100,', NL);
+    })
+    
+    node.append('skills: {', NL);
+    skillsFields.forEach(field => {
+        if(!isSkillField_(field)) return; 
+        const statName = field.stats[0].value.ref?.name ? field.stats[0].value.ref?.name : "";
+        node.append(
+            field.name,': {',
+            'selected: false,', NL,
+            'activated: false,', NL,
+            'stat: "',statName,'",', NL,
+            'variation: 100,', NL,
+            '},', NL
+        );
+    })
+    node.append('},', NL);
+
+    node.append('inventory: [],', NL);
+
     node.append(
         "}", NL, NL,
         "export const PersoContext = React.createContext({", NL,

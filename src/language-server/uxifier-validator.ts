@@ -77,7 +77,7 @@ export class UxifierValidator {
         util.acceptUnique('description', accept, field.descriptions);
         util.acceptMustContain('an affect', accept, field.affects, field);
         util.acceptUnique('affect', accept, field.affects);
-        const unrefStats = field.stats.map(r => r.ref).filter(s => s) as StatField_[];
+        const unrefStats = field.stats.map(r => r.value.ref).filter(s => s) as StatField_[];
         util.acceptMustContain('a stat', accept, unrefStats, field);
         util.acceptUnique('stat', accept, unrefStats);
     }

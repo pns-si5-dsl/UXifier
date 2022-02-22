@@ -1,5 +1,5 @@
 import { CompositeGeneratorNode, NL } from "langium";
-import { FieldGroupComponent, DecoField } from "../../language-server/generated/ast";
+import { FieldGroupComponent, DecoField, isIntField_, isStatField_, isTextField_, isCheckField_, isSkillField_ } from "../../language-server/generated/ast";
 
 export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: CompositeGeneratorNode): void {
 
@@ -33,31 +33,71 @@ export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: Compos
 
 function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
     const fieldName =  String(decoField.field.ref?.name);
-    const fieldType =  String(decoField.field.ref?.type);
+    const field =  decoField.field.ref;
     if(isInput(decoField)){
         node.append(
             "<FormField htmlFor='",fieldName,"-input' label='",fieldName,"' margin={{horizontal: 'medium'}}>", NL
         );
-        switch(fieldType){
-            case 'string':
-                node.append(
-                    "<TextInput id='",fieldName,"-input' name='", fieldName, "' placeholder='", fieldName, "'",NL,
-                    "value={state.",fieldName,"}", NL,
-                    "onChange={e => {", NL,
-                    "dispatch({type: 'up', value: {",fieldName,": e.target.value}})", NL,
-                    "}}", NL,
-                    "/>", NL
-                )
-                break;
-            case 'number':
-                //TODO
-                break;
-            case 'bool':
-                //TODO
-                break;
-            default:
-                throw new Error(fieldType+" input type not implemented");
+
+        if(isIntField_(field) || isStatField_(field)){
+            node.append(
+                "<NumberInput id='",fieldName,"-input' placeholder='", fieldName, "'",NL,
+                "value={state.",fieldName,"}", NL,
+                "onChange={e => {", NL,
+                "dispatch({type: 'up', value: {",fieldName,": e.target.value}})", NL,
+                "}}", NL,
+                "/>", NL
+            )
         }
+        if(isTextField_(field)){
+            node.append(
+                "<TextInput id='",fieldName,"-input' placeholder='", fieldName, "'",NL,
+                "value={state.",fieldName,"}", NL,
+                "onChange={e => {", NL,
+                "dispatch({type: 'up', value: {",fieldName,": e.target.value}})", NL,
+                "}}", NL,
+                "/>", NL
+            )
+        }
+        if(isCheckField_(field)){
+            node.append(
+                "<CheckBox", NL,
+                'id="',fieldName,'-input"', NL,
+                "checked={state.",fieldName,"}", NL,
+                'label="', field.descriptions[0] ? field.descriptions[0].value : fieldName , '"', NL,
+                "onChange={(event) => dispatch({",NL,
+                    "type: 'up',",NL,
+                    "value: {", NL,
+                    fieldName,": e.target.checked,",NL,
+                    "},",NL,
+                "})}", NL,
+              "/>", NL
+            )
+        }
+        if(isSkillField_(field)){
+            const skillSelectedVar = "skills."+fieldName+".selected";
+            const skillStatVar = "skills."+fieldName+".stat";
+            const skillVariationVar = "skills."+fieldName+".var";
+            
+            node.append(
+                "<CheckBox", NL,
+                "id='skills_",fieldName,"-input'", NL,
+                "checked={state.",skillSelectedVar,"}", NL,
+                "onChange={(e)=>{", NL,
+                    "const skills = JSON.parse(JSON.stringify(state.skills));", NL,
+                    skillSelectedVar," = e.target.checked;", NL,
+                    "dispatch({", NL,
+                        "type: 'up',", NL,
+                        "value: {", NL,
+                            "skills: skills", NL,
+                        "}", NL,
+                    "})", NL,
+                "}}", NL,
+                "label={'lecture (' + state.",skillStatVar," + '+' + state.",skillVariationVar," + '%)'}", NL,
+            "/>", NL
+            )
+        }
+
         node.append(
             "</FormField>"
             )
@@ -68,12 +108,12 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
         )
         node.append(
             "<CardHeader pad='small' background='light-3'>", NL,
-            String(decoField.field.ref?.name), NL,
+            fieldName, NL,
             "</CardHeader>", NL,
         );  
         node.append(
             "<CardBody>", NL,
-            "{state.", String(fieldName), "}", NL,
+            "{state.", fieldName, "}", NL,
             "</CardBody>", NL,
             "</Card>", NL            
         )
@@ -81,7 +121,7 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
 }
 
 function isInput(decoField: DecoField): boolean {
-    //TODO
+    return true;
     throw new Error("Not implemented");
     
 }

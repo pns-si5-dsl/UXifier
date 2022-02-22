@@ -40,7 +40,7 @@ SkillField_:
     'SkillField' name=ID '{'
         ( (descriptions+=DescriptionDecl)
         | (affects+=AffectDecl)
-        | (stats+=[StatField_|ID]) )*
+        | (stats+=StatDecl) )*
     '}' ;
 
 Context:
@@ -133,6 +133,7 @@ TextColorDecl:   'textColor'   '=' value=COLOR       ';';
 ShapeDecl:       'shape'       '=' value=SHAPE       ';';
 AlignDecl:       'align'       '=' value=ALIGN       ';';
 DescriptionDecl: 'description' '=' value=STRING      ';';
+StatDecl:        'stat'        '=' value=[StatField_|ID] ';';
 AffectDecl:      'affect'      '=' value=PERCENT     ';';
 MaxLengthDecl:   'maxLength'   '=' value=INT         ';';
 MinLengthDecl:   'minLength'   '=' value=INT         ';';
@@ -162,7 +163,7 @@ COLOR:
 terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
 terminal PIXEL: /[0-9]+px/;
-terminal PERCENT: /[0-9]+%/;
+terminal PERCENT returns string : /[0-9]+%/;
 terminal STRING: /"[^"]*"|'[^']*'/;
 terminal HEXA_COLOR returns string: /#[0-9a-f]+/;
 terminal INT returns number: /[0-9]+/;

@@ -516,16 +516,10 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                 "feature": "stats",
                 "operator": "+=",
                 "terminal": {
-                  "$type": "CrossReference",
-                  "type": {
-                    "$refText": "StatField_"
-                  },
-                  "terminal": {
-                    "$type": "RuleCall",
-                    "arguments": [],
-                    "rule": {
-                      "$refText": "ID"
-                    }
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "StatDecl"
                   }
                 },
                 "elements": []
@@ -2028,6 +2022,48 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "ParserRule",
       "parameters": [],
+      "name": "StatDecl",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "stat",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "="
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "CrossReference",
+              "type": {
+                "$refText": "StatField_"
+              },
+              "terminal": {
+                "$type": "RuleCall",
+                "arguments": [],
+                "rule": {
+                  "$refText": "ID"
+                }
+              }
+            }
+          },
+          {
+            "$type": "Keyword",
+            "value": ";"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
       "name": "AffectDecl",
       "hiddenTokens": [],
       "alternatives": {
@@ -2573,6 +2609,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "TerminalRule",
       "name": "PERCENT",
+      "type": "string",
       "regex": "[0-9]+%"
     },
     {
