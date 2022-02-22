@@ -1,5 +1,5 @@
 import { ValidationAcceptor, ValidationCheck, ValidationRegistry } from 'langium';
-import { Application, Context, COLOR, Page, UxifierAstType, FieldGroupComponent, ButtonComponent, StyleDecl, TextComponent, ImageComponent, PageArea, AreaLine, Component } from './generated/ast';
+import { Application, Context, COLOR, Page, UxifierAstType, FieldGroupComponent, ButtonComponent, StyleDecl, TextComponent, ImageComponent, PageArea, AreaLine, Component, CheckField_, IntField_, TextField_, SkillField_, StatField_ } from './generated/ast';
 import { UxifierServices } from './uxifier-module';
 import * as util from './validator-util';
 
@@ -16,6 +16,11 @@ export class UxifierValidationRegistry extends ValidationRegistry {
         super(services);
         const validator = services.validation.UxifierValidator;
         this.register({ Application: validator.checkApplication } as UxifierChecks, validator);
+        this.register({ CheckField_: validator.checkCheckField } as UxifierChecks, validator);
+        this.register({ IntField_: validator.checkIntField } as UxifierChecks, validator);
+        this.register({ StatField_: validator.checkStatField } as UxifierChecks, validator);
+        this.register({ TextField_: validator.checkTextField } as UxifierChecks, validator);
+        this.register({ SkillField_: validator.checkSkillField } as UxifierChecks, validator);
         this.register({ Page: validator.checkPage } as UxifierChecks, validator);
         this.register({ PageArea: validator.checkPageArea } as UxifierChecks, validator);
         this.register({ AreaLine: validator.checkAreaLine } as UxifierChecks, validator);
@@ -45,6 +50,36 @@ export class UxifierValidator {
         const config: Context = application.configs[0];
         const game: Context = application.games[0];
         if(game && config) util.acceptNoDuplicateNames(accept, [config, game], 'name');
+    }
+
+    checkCheckField(field: CheckField_, accept: ValidationAcceptor): void {
+        util.acceptUnique('description', accept, field.descriptions);
+    }
+
+    checkIntField(field: IntField_, accept: ValidationAcceptor): void {
+        util.acceptUnique('min', accept, field.mins);
+        util.acceptUnique('max', accept, field.maxs);
+    }
+
+    checkStatField(field: StatField_, accept: ValidationAcceptor): void {
+        util.acceptUnique('min', accept, field.mins);
+        util.acceptUnique('max', accept, field.maxs);
+    }
+
+    checkTextField(field: TextField_, accept: ValidationAcceptor): void {
+        util.acceptUnique('min length', accept, field.minLengths);
+        util.acceptUnique('max length', accept, field.maxLengths);
+        util.acceptUnique('selection', accept, field.selections);
+        util.acceptUnique('regex', accept, field.regexs);
+    }
+
+    checkSkillField(field: SkillField_, accept: ValidationAcceptor): void {
+        util.acceptUnique('description', accept, field.descriptions);
+        util.acceptMustContain('an affect', accept, field.affects, field);
+        util.acceptUnique('affect', accept, field.affects);
+        const unrefStats = field.stats.map(r => r.ref).filter(s => s) as StatField_[];
+        util.acceptMustContain('a stat', accept, unrefStats, field);
+        util.acceptUnique('stat', accept, unrefStats);
     }
 
     checkContext(context: Context, accept: ValidationAcceptor): void {

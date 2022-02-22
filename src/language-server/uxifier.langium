@@ -3,13 +3,45 @@ hidden(WS, SL_COMMENT, ML_COMMENT)
 
 Application:
     'character' ':' name=ID ';'
-    ( (fields+=FieldDecl)
+    ( (fields+=Field)
     | ('config' configs+=Context)
     | ('game' games+=Context) )*
     ;
 
-FieldDecl:
-    'Field' name=ID ':' type=TYPE ';';
+Field returns Field:
+    (CheckField_|IntField_|StatField_|TextField_|SkillField_);
+
+CheckField_:
+    'CheckField' name=ID '{'
+        (descriptions+=DescriptionDecl)*
+    '}' ;
+
+IntField_:
+    'IntField' name=ID '{'
+        ( (maxs+=MaxDecl)
+        | (mins+=MinDecl) )*
+    '}' ;
+
+StatField_:
+    'StatField' name=ID '{'
+        ( (maxs+=MaxDecl)
+        | (mins+=MinDecl) )*
+    '}' ;
+
+TextField_:
+    'TextField' name=ID '{'
+        ( (maxLengths+=MaxLengthDecl)
+        | (minLengths+=MinLengthDecl)
+        | (selections+=SelectionDecl)
+        | (regexs+=RegexDecl) )*
+    '}' ;
+
+SkillField_:
+    'SkillField' name=ID '{'
+        ( (descriptions+=DescriptionDecl)
+        | (affects+=AffectDecl)
+        | (stats+=[StatField_|ID]) )*
+    '}' ;
 
 Context:
     name=ID '{'
@@ -82,7 +114,7 @@ StyleDecl:
     '}' ;
 
 DecoField:
-    field=[FieldDecl|ID] ';';
+    field=[Field|ID] ';';
 
 HrefDecl:        'href'        '=' value=STRING      ';';
 TypeDecl:        'type'        '=' value=BUTTON_TYPE ';';
@@ -100,9 +132,15 @@ BoxColorDecl:    'boxColor'    '=' value=COLOR       ';';
 TextColorDecl:   'textColor'   '=' value=COLOR       ';';
 ShapeDecl:       'shape'       '=' value=SHAPE       ';';
 AlignDecl:       'align'       '=' value=ALIGN       ';';
+DescriptionDecl: 'description' '=' value=STRING      ';';
+AffectDecl:      'affect'      '=' value=PERCENT     ';';
+MaxLengthDecl:   'maxLength'   '=' value=INT         ';';
+MinLengthDecl:   'minLength'   '=' value=INT         ';';
+MaxDecl:         'max'         '=' value=INT         ';';
+MinDecl:         'min'         '=' value=INT         ';';
+RegexDecl:       'regex'       '=' value=STRING      ';';
+SelectionDecl:   'selection'   '=' '[' (values+=STRING) (',' values+=STRING) ']' ';';
 
-TYPE:
-    value=('bool'|'number'|'string');
 NAVIGATION:
     value=('linear'|'side_menu'|'bottom_menu');
 AXE:

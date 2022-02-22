@@ -30,7 +30,7 @@
         },
         {
             "name": "support.variable.uxfr",
-            "match": "(((?<=character: )|(?<=Field )|(?<=config )|(?<=game )|(?<=page )|(?<=FieldGroup )|(?<=Button )|(?<=Text )|(?<=Image ))[\n\t\r ]*[^\n\t\n:({; ]+)"
+            "match": "(((?<=character: )|(?<=CheckField )|(?<=IntField )|(?<=StatField )|(?<=TextField )|(?<=SkillField )|(?<=config )|(?<=game )|(?<=page )|(?<=FieldGroup )|(?<=Button )|(?<=Text )|(?<=Image ))[\n\t\r ]*[^\n\t\n:({; ]+)"
         },
         {
             "name": "support.class.uxfr",
@@ -38,7 +38,7 @@
         },
         {
             "name": "constant.language",
-            "match": "(navigation|label|href|type|style|content|titlePos|color|title|source|legendPos|legend|width|height|direction|borderColor|borderSize|boxColor|textColor|shape|align)"
+            "match": "(navigation|label|href|type|style|content|titlePos|color|title|source|legendPos|legend|width|height|direction|borderColor|borderSize|boxColor|textColor|shape|align|description|affect|maxLength|minLength|max|min|regex|selection)"
         },
         {
             "name": "entity.name.function.uxfr",

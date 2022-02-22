@@ -7,6 +7,17 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { AstNode, AstReflection, Reference, isAstNode } from 'langium';
 
+export interface AffectDecl extends AstNode {
+    readonly $container: SkillField_;
+    value: string
+}
+
+export const AffectDecl = 'AffectDecl';
+
+export function isAffectDecl(item: unknown): item is AffectDecl {
+    return reflection.isInstance(item, AffectDecl);
+}
+
 export interface ALIGN extends AstNode {
     readonly $container: AlignDecl;
     value: 'left' | 'right' | 'center'
@@ -31,7 +42,7 @@ export function isAlignDecl(item: unknown): item is AlignDecl {
 
 export interface Application extends AstNode {
     configs: Array<Context>
-    fields: Array<FieldDecl>
+    fields: Array<Field>
     games: Array<Context>
     name: string
 }
@@ -169,13 +180,24 @@ export function isContext(item: unknown): item is Context {
 
 export interface DecoField extends AstNode {
     readonly $container: FieldGroupComponent;
-    field: Reference<FieldDecl>
+    field: Reference<Field>
 }
 
 export const DecoField = 'DecoField';
 
 export function isDecoField(item: unknown): item is DecoField {
     return reflection.isInstance(item, DecoField);
+}
+
+export interface DescriptionDecl extends AstNode {
+    readonly $container: CheckField_ | SkillField_;
+    value: string
+}
+
+export const DescriptionDecl = 'DescriptionDecl';
+
+export function isDescriptionDecl(item: unknown): item is DescriptionDecl {
+    return reflection.isInstance(item, DescriptionDecl);
 }
 
 export interface DirectionDecl extends AstNode {
@@ -189,16 +211,15 @@ export function isDirectionDecl(item: unknown): item is DirectionDecl {
     return reflection.isInstance(item, DirectionDecl);
 }
 
-export interface FieldDecl extends AstNode {
+export interface Field extends AstNode {
     readonly $container: Application;
     name: string
-    type: TYPE
 }
 
-export const FieldDecl = 'FieldDecl';
+export const Field = 'Field';
 
-export function isFieldDecl(item: unknown): item is FieldDecl {
-    return reflection.isInstance(item, FieldDecl);
+export function isField(item: unknown): item is Field {
+    return reflection.isInstance(item, Field);
 }
 
 export interface HeightDecl extends AstNode {
@@ -221,6 +242,50 @@ export const HrefDecl = 'HrefDecl';
 
 export function isHrefDecl(item: unknown): item is HrefDecl {
     return reflection.isInstance(item, HrefDecl);
+}
+
+export interface MaxDecl extends AstNode {
+    readonly $container: IntField_ | StatField_;
+    value: number
+}
+
+export const MaxDecl = 'MaxDecl';
+
+export function isMaxDecl(item: unknown): item is MaxDecl {
+    return reflection.isInstance(item, MaxDecl);
+}
+
+export interface MaxLengthDecl extends AstNode {
+    readonly $container: TextField_;
+    value: number
+}
+
+export const MaxLengthDecl = 'MaxLengthDecl';
+
+export function isMaxLengthDecl(item: unknown): item is MaxLengthDecl {
+    return reflection.isInstance(item, MaxLengthDecl);
+}
+
+export interface MinDecl extends AstNode {
+    readonly $container: IntField_ | StatField_;
+    value: number
+}
+
+export const MinDecl = 'MinDecl';
+
+export function isMinDecl(item: unknown): item is MinDecl {
+    return reflection.isInstance(item, MinDecl);
+}
+
+export interface MinLengthDecl extends AstNode {
+    readonly $container: TextField_;
+    value: number
+}
+
+export const MinLengthDecl = 'MinLengthDecl';
+
+export function isMinLengthDecl(item: unknown): item is MinLengthDecl {
+    return reflection.isInstance(item, MinLengthDecl);
 }
 
 export interface NAVIGATION extends AstNode {
@@ -259,6 +324,28 @@ export const PageArea = 'PageArea';
 
 export function isPageArea(item: unknown): item is PageArea {
     return reflection.isInstance(item, PageArea);
+}
+
+export interface RegexDecl extends AstNode {
+    readonly $container: TextField_;
+    value: string
+}
+
+export const RegexDecl = 'RegexDecl';
+
+export function isRegexDecl(item: unknown): item is RegexDecl {
+    return reflection.isInstance(item, RegexDecl);
+}
+
+export interface SelectionDecl extends AstNode {
+    readonly $container: TextField_;
+    values: Array<string>
+}
+
+export const SelectionDecl = 'SelectionDecl';
+
+export function isSelectionDecl(item: unknown): item is SelectionDecl {
+    return reflection.isInstance(item, SelectionDecl);
 }
 
 export interface SHAPE extends AstNode {
@@ -368,17 +455,6 @@ export function isTitlePosDecl(item: unknown): item is TitlePosDecl {
     return reflection.isInstance(item, TitlePosDecl);
 }
 
-export interface TYPE extends AstNode {
-    readonly $container: FieldDecl;
-    value: 'bool' | 'number' | 'string'
-}
-
-export const TYPE = 'TYPE';
-
-export function isTYPE(item: unknown): item is TYPE {
-    return reflection.isInstance(item, TYPE);
-}
-
 export interface TypeDecl extends AstNode {
     readonly $container: ButtonComponent;
     value: BUTTON_TYPE
@@ -446,14 +522,71 @@ export function isTextComponent(item: unknown): item is TextComponent {
     return reflection.isInstance(item, TextComponent);
 }
 
-export type UxifierAstType = 'ALIGN' | 'AlignDecl' | 'Application' | 'AreaLine' | 'AXE' | 'BorderColorDecl' | 'BorderSizeDecl' | 'BoxColorDecl' | 'BUTTON_TYPE' | 'COLOR' | 'ColorDecl' | 'Component' | 'ContentDecl' | 'Context' | 'DecoField' | 'DirectionDecl' | 'FieldDecl' | 'HeightDecl' | 'HrefDecl' | 'NAVIGATION' | 'Page' | 'PageArea' | 'SHAPE' | 'ShapeDecl' | 'SIZE' | 'SourceDecl' | 'StyleDecl' | 'TextColorDecl' | 'TITLE_POS' | 'TitleDecl' | 'TitlePosDecl' | 'TYPE' | 'TypeDecl' | 'WidthDecl' | 'ButtonComponent' | 'FieldGroupComponent' | 'ImageComponent' | 'TextComponent';
+export interface CheckField_ extends Field {
+    descriptions: Array<DescriptionDecl>
+}
 
-export type UxifierAstReference = 'AreaLine:components' | 'DecoField:field';
+export const CheckField_ = 'CheckField_';
+
+export function isCheckField_(item: unknown): item is CheckField_ {
+    return reflection.isInstance(item, CheckField_);
+}
+
+export interface IntField_ extends Field {
+    maxs: Array<MaxDecl>
+    mins: Array<MinDecl>
+}
+
+export const IntField_ = 'IntField_';
+
+export function isIntField_(item: unknown): item is IntField_ {
+    return reflection.isInstance(item, IntField_);
+}
+
+export interface SkillField_ extends Field {
+    affects: Array<AffectDecl>
+    descriptions: Array<DescriptionDecl>
+    stats: Array<Reference<StatField_>>
+}
+
+export const SkillField_ = 'SkillField_';
+
+export function isSkillField_(item: unknown): item is SkillField_ {
+    return reflection.isInstance(item, SkillField_);
+}
+
+export interface StatField_ extends Field {
+    maxs: Array<MaxDecl>
+    mins: Array<MinDecl>
+}
+
+export const StatField_ = 'StatField_';
+
+export function isStatField_(item: unknown): item is StatField_ {
+    return reflection.isInstance(item, StatField_);
+}
+
+export interface TextField_ extends Field {
+    maxLengths: Array<MaxLengthDecl>
+    minLengths: Array<MinLengthDecl>
+    regexs: Array<RegexDecl>
+    selections: Array<SelectionDecl>
+}
+
+export const TextField_ = 'TextField_';
+
+export function isTextField_(item: unknown): item is TextField_ {
+    return reflection.isInstance(item, TextField_);
+}
+
+export type UxifierAstType = 'AffectDecl' | 'ALIGN' | 'AlignDecl' | 'Application' | 'AreaLine' | 'AXE' | 'BorderColorDecl' | 'BorderSizeDecl' | 'BoxColorDecl' | 'BUTTON_TYPE' | 'COLOR' | 'ColorDecl' | 'Component' | 'ContentDecl' | 'Context' | 'DecoField' | 'DescriptionDecl' | 'DirectionDecl' | 'Field' | 'HeightDecl' | 'HrefDecl' | 'MaxDecl' | 'MaxLengthDecl' | 'MinDecl' | 'MinLengthDecl' | 'NAVIGATION' | 'Page' | 'PageArea' | 'RegexDecl' | 'SelectionDecl' | 'SHAPE' | 'ShapeDecl' | 'SIZE' | 'SourceDecl' | 'StyleDecl' | 'TextColorDecl' | 'TITLE_POS' | 'TitleDecl' | 'TitlePosDecl' | 'TypeDecl' | 'WidthDecl' | 'ButtonComponent' | 'FieldGroupComponent' | 'ImageComponent' | 'TextComponent' | 'CheckField_' | 'IntField_' | 'SkillField_' | 'StatField_' | 'TextField_';
+
+export type UxifierAstReference = 'AreaLine:components' | 'DecoField:field' | 'SkillField_:stats';
 
 export class UxifierAstReflection implements AstReflection {
 
     getAllTypes(): string[] {
-        return ['ALIGN', 'AlignDecl', 'Application', 'AreaLine', 'AXE', 'BorderColorDecl', 'BorderSizeDecl', 'BoxColorDecl', 'BUTTON_TYPE', 'COLOR', 'ColorDecl', 'Component', 'ContentDecl', 'Context', 'DecoField', 'DirectionDecl', 'FieldDecl', 'HeightDecl', 'HrefDecl', 'NAVIGATION', 'Page', 'PageArea', 'SHAPE', 'ShapeDecl', 'SIZE', 'SourceDecl', 'StyleDecl', 'TextColorDecl', 'TITLE_POS', 'TitleDecl', 'TitlePosDecl', 'TYPE', 'TypeDecl', 'WidthDecl', 'ButtonComponent', 'FieldGroupComponent', 'ImageComponent', 'TextComponent'];
+        return ['AffectDecl', 'ALIGN', 'AlignDecl', 'Application', 'AreaLine', 'AXE', 'BorderColorDecl', 'BorderSizeDecl', 'BoxColorDecl', 'BUTTON_TYPE', 'COLOR', 'ColorDecl', 'Component', 'ContentDecl', 'Context', 'DecoField', 'DescriptionDecl', 'DirectionDecl', 'Field', 'HeightDecl', 'HrefDecl', 'MaxDecl', 'MaxLengthDecl', 'MinDecl', 'MinLengthDecl', 'NAVIGATION', 'Page', 'PageArea', 'RegexDecl', 'SelectionDecl', 'SHAPE', 'ShapeDecl', 'SIZE', 'SourceDecl', 'StyleDecl', 'TextColorDecl', 'TITLE_POS', 'TitleDecl', 'TitlePosDecl', 'TypeDecl', 'WidthDecl', 'ButtonComponent', 'FieldGroupComponent', 'ImageComponent', 'TextComponent', 'CheckField_', 'IntField_', 'SkillField_', 'StatField_', 'TextField_'];
     }
 
     isInstance(node: unknown, type: string): boolean {
@@ -471,6 +604,13 @@ export class UxifierAstReflection implements AstReflection {
             case TextComponent: {
                 return this.isSubtype(Component, supertype);
             }
+            case CheckField_:
+            case IntField_:
+            case SkillField_:
+            case StatField_:
+            case TextField_: {
+                return this.isSubtype(Field, supertype);
+            }
             default: {
                 return false;
             }
@@ -483,7 +623,10 @@ export class UxifierAstReflection implements AstReflection {
                 return Component;
             }
             case 'DecoField:field': {
-                return FieldDecl;
+                return Field;
+            }
+            case 'SkillField_:stats': {
+                return StatField_;
             }
             default: {
                 throw new Error(`${referenceId} is not a valid reference id.`);
