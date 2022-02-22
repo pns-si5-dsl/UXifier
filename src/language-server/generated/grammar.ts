@@ -280,6 +280,17 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "cardinality": "?"
           },
           {
+            "$type": "Assignment",
+            "feature": "grid",
+            "operator": "?=",
+            "terminal": {
+              "$type": "Keyword",
+              "value": "grid"
+            },
+            "elements": [],
+            "cardinality": "?"
+          },
+          {
             "$type": "Keyword",
             "value": "page"
           },
@@ -300,42 +311,71 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "value": "{"
           },
           {
+            "$type": "Alternatives",
+            "elements": [
+              {
+                "$type": "Assignment",
+                "feature": "areas",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PageArea"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "components",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "Component"
+                  }
+                },
+                "elements": []
+              }
+            ],
+            "cardinality": "*"
+          },
+          {
+            "$type": "Keyword",
+            "value": "}"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "PageArea",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "area",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "{"
+          },
+          {
             "$type": "Assignment",
-            "feature": "components",
+            "feature": "lines",
             "operator": "+=",
             "terminal": {
-              "$type": "Alternatives",
-              "elements": [
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "ButtonComponent"
-                  },
-                  "elements": []
-                },
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "TextComponent"
-                  }
-                },
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "ImageComponent"
-                  }
-                },
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "FieldGroupComponent"
-                  }
-                }
-              ]
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "AreaLine"
+              }
             },
             "elements": [],
             "cardinality": "*"
@@ -343,6 +383,90 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
           {
             "$type": "Keyword",
             "value": "}"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "AreaLine",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "|",
+            "elements": []
+          },
+          {
+            "$type": "Assignment",
+            "feature": "components",
+            "operator": "+=",
+            "terminal": {
+              "$type": "CrossReference",
+              "type": {
+                "$refText": "Component"
+              },
+              "terminal": {
+                "$type": "RuleCall",
+                "arguments": [],
+                "rule": {
+                  "$refText": "ID"
+                }
+              }
+            },
+            "elements": [],
+            "cardinality": "*"
+          },
+          {
+            "$type": "Keyword",
+            "value": "|"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "Component",
+      "hiddenTokens": [],
+      "type": "Component",
+      "alternatives": {
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "RuleCall",
+            "arguments": [],
+            "rule": {
+              "$refText": "ButtonComponent"
+            },
+            "elements": []
+          },
+          {
+            "$type": "RuleCall",
+            "arguments": [],
+            "rule": {
+              "$refText": "TextComponent"
+            },
+            "elements": []
+          },
+          {
+            "$type": "RuleCall",
+            "arguments": [],
+            "rule": {
+              "$refText": "ImageComponent"
+            },
+            "elements": []
+          },
+          {
+            "$type": "RuleCall",
+            "arguments": [],
+            "rule": {
+              "$refText": "FieldGroupComponent"
+            },
+            "elements": []
           }
         ]
       }
@@ -381,13 +505,13 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "elements": [
               {
                 "$type": "Assignment",
-                "feature": "labels",
+                "feature": "titles",
                 "operator": "+=",
                 "terminal": {
                   "$type": "RuleCall",
                   "arguments": [],
                   "rule": {
-                    "$refText": "LabelDecl"
+                    "$refText": "TitleDecl"
                   }
                 },
                 "elements": []
@@ -501,19 +625,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               },
               {
                 "$type": "Assignment",
-                "feature": "colors",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "ColorDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
                 "feature": "titlePositions",
                 "operator": "+=",
                 "terminal": {
@@ -521,6 +632,19 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                   "arguments": [],
                   "rule": {
                     "$refText": "TitlePosDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "colors",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "ColorDecl"
                   }
                 },
                 "elements": []
@@ -595,26 +719,26 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               },
               {
                 "$type": "Assignment",
-                "feature": "legends",
+                "feature": "titles",
                 "operator": "+=",
                 "terminal": {
                   "$type": "RuleCall",
                   "arguments": [],
                   "rule": {
-                    "$refText": "LegendDecl"
+                    "$refText": "TitleDecl"
                   }
                 },
                 "elements": []
               },
               {
                 "$type": "Assignment",
-                "feature": "legendPositions",
+                "feature": "titlePositions",
                 "operator": "+=",
                 "terminal": {
                   "$type": "RuleCall",
                   "arguments": [],
                   "rule": {
-                    "$refText": "LegendPosDecl"
+                    "$refText": "TitlePosDecl"
                   }
                 },
                 "elements": []
@@ -811,6 +935,19 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               },
               {
                 "$type": "Assignment",
+                "feature": "borderSizes",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "BorderSizeDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
                 "feature": "boxColors",
                 "operator": "+=",
                 "terminal": {
@@ -897,42 +1034,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               }
             },
             "elements": []
-          },
-          {
-            "$type": "Keyword",
-            "value": ";"
-          }
-        ]
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "LabelDecl",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Group",
-        "elements": [
-          {
-            "$type": "Keyword",
-            "value": "label",
-            "elements": []
-          },
-          {
-            "$type": "Keyword",
-            "value": "="
-          },
-          {
-            "$type": "Assignment",
-            "feature": "value",
-            "operator": "=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "STRING"
-              }
-            }
           },
           {
             "$type": "Keyword",
@@ -1196,78 +1297,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "ParserRule",
       "parameters": [],
-      "name": "LegendDecl",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Group",
-        "elements": [
-          {
-            "$type": "Keyword",
-            "value": "legend",
-            "elements": []
-          },
-          {
-            "$type": "Keyword",
-            "value": "="
-          },
-          {
-            "$type": "Assignment",
-            "feature": "value",
-            "operator": "=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "STRING"
-              }
-            }
-          },
-          {
-            "$type": "Keyword",
-            "value": ";"
-          }
-        ]
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "LegendPosDecl",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Group",
-        "elements": [
-          {
-            "$type": "Keyword",
-            "value": "legendPos",
-            "elements": []
-          },
-          {
-            "$type": "Keyword",
-            "value": "="
-          },
-          {
-            "$type": "Assignment",
-            "feature": "value",
-            "operator": "=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "TITLE_POS"
-              }
-            }
-          },
-          {
-            "$type": "Keyword",
-            "value": ";"
-          }
-        ]
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
       "name": "WidthDecl",
       "hiddenTokens": [],
       "alternatives": {
@@ -1399,6 +1428,42 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               "arguments": [],
               "rule": {
                 "$refText": "COLOR"
+              }
+            }
+          },
+          {
+            "$type": "Keyword",
+            "value": ";"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "BorderSizeDecl",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "borderSize",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "="
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "SIZE"
               }
             }
           },

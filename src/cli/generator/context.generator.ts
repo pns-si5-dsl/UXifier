@@ -2,7 +2,7 @@ import fs from 'fs';
 import { CompositeGeneratorNode, NL, processGeneratorNode } from "langium";
 import path from 'path';
 import { Context } from "../../language-server/generated/ast";
-import { generatePage } from './page.generator';
+import { generateConfigPage } from './config-page.generator';
 
 export function generateContext(context: Context, fileDir: string): void {
 
@@ -43,7 +43,7 @@ export function generateContext(context: Context, fileDir: string): void {
     );
 
     for (let i = 0; i < context.pages.length; i++) {
-        generatePage(context.pages[i], context.pages[i+1], context.name, node);
+        generateConfigPage(context.pages[i], context.pages[i+1], context.name, node);
     }
 
     fs.writeFileSync(`${path.join(fileDir,context.name)}.js`, processGeneratorNode(node));

@@ -42,6 +42,17 @@ export function isApplication(item: unknown): item is Application {
     return reflection.isInstance(item, Application);
 }
 
+export interface AreaLine extends AstNode {
+    readonly $container: PageArea;
+    components: Array<Reference<Component>>
+}
+
+export const AreaLine = 'AreaLine';
+
+export function isAreaLine(item: unknown): item is AreaLine {
+    return reflection.isInstance(item, AreaLine);
+}
+
 export interface AXE extends AstNode {
     readonly $container: Page | DirectionDecl;
     value: 'horizontal' | 'vertical'
@@ -62,6 +73,17 @@ export const BorderColorDecl = 'BorderColorDecl';
 
 export function isBorderColorDecl(item: unknown): item is BorderColorDecl {
     return reflection.isInstance(item, BorderColorDecl);
+}
+
+export interface BorderSizeDecl extends AstNode {
+    readonly $container: StyleDecl;
+    value: SIZE
+}
+
+export const BorderSizeDecl = 'BorderSizeDecl';
+
+export function isBorderSizeDecl(item: unknown): item is BorderSizeDecl {
+    return reflection.isInstance(item, BorderSizeDecl);
 }
 
 export interface BoxColorDecl extends AstNode {
@@ -86,21 +108,6 @@ export function isBUTTON_TYPE(item: unknown): item is BUTTON_TYPE {
     return reflection.isInstance(item, BUTTON_TYPE);
 }
 
-export interface ButtonComponent extends AstNode {
-    readonly $container: Page;
-    hrefs: Array<HrefDecl>
-    labels: Array<LabelDecl>
-    name: string
-    styles: Array<StyleDecl>
-    types: Array<TypeDecl>
-}
-
-export const ButtonComponent = 'ButtonComponent';
-
-export function isButtonComponent(item: unknown): item is ButtonComponent {
-    return reflection.isInstance(item, ButtonComponent);
-}
-
 export interface COLOR extends AstNode {
     readonly $container: ColorDecl | BorderColorDecl | BoxColorDecl | TextColorDecl;
     value: string
@@ -121,6 +128,19 @@ export const ColorDecl = 'ColorDecl';
 
 export function isColorDecl(item: unknown): item is ColorDecl {
     return reflection.isInstance(item, ColorDecl);
+}
+
+export interface Component extends AstNode {
+    readonly $container: Page;
+    name: string
+    styles: Array<StyleDecl>
+    titles: Array<TitleDecl>
+}
+
+export const Component = 'Component';
+
+export function isComponent(item: unknown): item is Component {
+    return reflection.isInstance(item, Component);
 }
 
 export interface ContentDecl extends AstNode {
@@ -181,21 +201,6 @@ export function isFieldDecl(item: unknown): item is FieldDecl {
     return reflection.isInstance(item, FieldDecl);
 }
 
-export interface FieldGroupComponent extends AstNode {
-    readonly $container: Page;
-    decoFields: Array<DecoField>
-    name: string
-    styles: Array<StyleDecl>
-    titlePositions: Array<TitlePosDecl>
-    titles: Array<TitleDecl>
-}
-
-export const FieldGroupComponent = 'FieldGroupComponent';
-
-export function isFieldGroupComponent(item: unknown): item is FieldGroupComponent {
-    return reflection.isInstance(item, FieldGroupComponent);
-}
-
 export interface HeightDecl extends AstNode {
     readonly $container: StyleDecl;
     value: SIZE
@@ -218,54 +223,6 @@ export function isHrefDecl(item: unknown): item is HrefDecl {
     return reflection.isInstance(item, HrefDecl);
 }
 
-export interface ImageComponent extends AstNode {
-    readonly $container: Page;
-    legendPositions: Array<LegendPosDecl>
-    legends: Array<LegendDecl>
-    name: string
-    sources: Array<SourceDecl>
-    styles: Array<StyleDecl>
-}
-
-export const ImageComponent = 'ImageComponent';
-
-export function isImageComponent(item: unknown): item is ImageComponent {
-    return reflection.isInstance(item, ImageComponent);
-}
-
-export interface LabelDecl extends AstNode {
-    readonly $container: ButtonComponent;
-    value: string
-}
-
-export const LabelDecl = 'LabelDecl';
-
-export function isLabelDecl(item: unknown): item is LabelDecl {
-    return reflection.isInstance(item, LabelDecl);
-}
-
-export interface LegendDecl extends AstNode {
-    readonly $container: ImageComponent;
-    value: string
-}
-
-export const LegendDecl = 'LegendDecl';
-
-export function isLegendDecl(item: unknown): item is LegendDecl {
-    return reflection.isInstance(item, LegendDecl);
-}
-
-export interface LegendPosDecl extends AstNode {
-    readonly $container: ImageComponent;
-    value: TITLE_POS
-}
-
-export const LegendPosDecl = 'LegendPosDecl';
-
-export function isLegendPosDecl(item: unknown): item is LegendPosDecl {
-    return reflection.isInstance(item, LegendPosDecl);
-}
-
 export interface NAVIGATION extends AstNode {
     readonly $container: Context;
     value: 'linear' | 'side_menu' | 'bottom_menu'
@@ -279,8 +236,10 @@ export function isNAVIGATION(item: unknown): item is NAVIGATION {
 
 export interface Page extends AstNode {
     readonly $container: Context;
+    areas: Array<PageArea>
     axe: AXE
-    components: Array<ButtonComponent | TextComponent | ImageComponent | FieldGroupComponent>
+    components: Array<Component>
+    grid: boolean
     name: string
     skipable: boolean
 }
@@ -289,6 +248,17 @@ export const Page = 'Page';
 
 export function isPage(item: unknown): item is Page {
     return reflection.isInstance(item, Page);
+}
+
+export interface PageArea extends AstNode {
+    readonly $container: Page;
+    lines: Array<AreaLine>
+}
+
+export const PageArea = 'PageArea';
+
+export function isPageArea(item: unknown): item is PageArea {
+    return reflection.isInstance(item, PageArea);
 }
 
 export interface SHAPE extends AstNode {
@@ -314,7 +284,7 @@ export function isShapeDecl(item: unknown): item is ShapeDecl {
 }
 
 export interface SIZE extends AstNode {
-    readonly $container: WidthDecl | HeightDecl;
+    readonly $container: WidthDecl | HeightDecl | BorderSizeDecl;
     value: 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto' | string | string
 }
 
@@ -336,9 +306,10 @@ export function isSourceDecl(item: unknown): item is SourceDecl {
 }
 
 export interface StyleDecl extends AstNode {
-    readonly $container: ButtonComponent | TextComponent | ImageComponent | FieldGroupComponent;
+    readonly $container: Component;
     aligns: Array<AlignDecl>
     borderColors: Array<BorderColorDecl>
+    borderSizes: Array<BorderSizeDecl>
     boxColors: Array<BoxColorDecl>
     directions: Array<DirectionDecl>
     heights: Array<HeightDecl>
@@ -364,24 +335,8 @@ export function isTextColorDecl(item: unknown): item is TextColorDecl {
     return reflection.isInstance(item, TextColorDecl);
 }
 
-export interface TextComponent extends AstNode {
-    readonly $container: Page;
-    colors: Array<ColorDecl>
-    contents: Array<ContentDecl>
-    name: string
-    styles: Array<StyleDecl>
-    titlePositions: Array<TitlePosDecl>
-    titles: Array<TitleDecl>
-}
-
-export const TextComponent = 'TextComponent';
-
-export function isTextComponent(item: unknown): item is TextComponent {
-    return reflection.isInstance(item, TextComponent);
-}
-
 export interface TITLE_POS extends AstNode {
-    readonly $container: TitlePosDecl | LegendPosDecl;
+    readonly $container: TitlePosDecl;
     value: 'left' | 'top'
 }
 
@@ -392,7 +347,7 @@ export function isTITLE_POS(item: unknown): item is TITLE_POS {
 }
 
 export interface TitleDecl extends AstNode {
-    readonly $container: TextComponent | FieldGroupComponent;
+    readonly $container: Component;
     value: string
 }
 
@@ -403,7 +358,7 @@ export function isTitleDecl(item: unknown): item is TitleDecl {
 }
 
 export interface TitlePosDecl extends AstNode {
-    readonly $container: TextComponent | FieldGroupComponent;
+    readonly $container: TextComponent | ImageComponent | FieldGroupComponent;
     value: TITLE_POS
 }
 
@@ -446,14 +401,59 @@ export function isWidthDecl(item: unknown): item is WidthDecl {
     return reflection.isInstance(item, WidthDecl);
 }
 
-export type UxifierAstType = 'ALIGN' | 'AlignDecl' | 'Application' | 'AXE' | 'BorderColorDecl' | 'BoxColorDecl' | 'BUTTON_TYPE' | 'ButtonComponent' | 'COLOR' | 'ColorDecl' | 'ContentDecl' | 'Context' | 'DecoField' | 'DirectionDecl' | 'FieldDecl' | 'FieldGroupComponent' | 'HeightDecl' | 'HrefDecl' | 'ImageComponent' | 'LabelDecl' | 'LegendDecl' | 'LegendPosDecl' | 'NAVIGATION' | 'Page' | 'SHAPE' | 'ShapeDecl' | 'SIZE' | 'SourceDecl' | 'StyleDecl' | 'TextColorDecl' | 'TextComponent' | 'TITLE_POS' | 'TitleDecl' | 'TitlePosDecl' | 'TYPE' | 'TypeDecl' | 'WidthDecl';
+export interface ButtonComponent extends Component {
+    hrefs: Array<HrefDecl>
+    types: Array<TypeDecl>
+}
 
-export type UxifierAstReference = 'DecoField:field';
+export const ButtonComponent = 'ButtonComponent';
+
+export function isButtonComponent(item: unknown): item is ButtonComponent {
+    return reflection.isInstance(item, ButtonComponent);
+}
+
+export interface FieldGroupComponent extends Component {
+    decoFields: Array<DecoField>
+    titlePositions: Array<TitlePosDecl>
+}
+
+export const FieldGroupComponent = 'FieldGroupComponent';
+
+export function isFieldGroupComponent(item: unknown): item is FieldGroupComponent {
+    return reflection.isInstance(item, FieldGroupComponent);
+}
+
+export interface ImageComponent extends Component {
+    sources: Array<SourceDecl>
+    titlePositions: Array<TitlePosDecl>
+}
+
+export const ImageComponent = 'ImageComponent';
+
+export function isImageComponent(item: unknown): item is ImageComponent {
+    return reflection.isInstance(item, ImageComponent);
+}
+
+export interface TextComponent extends Component {
+    colors: Array<ColorDecl>
+    contents: Array<ContentDecl>
+    titlePositions: Array<TitlePosDecl>
+}
+
+export const TextComponent = 'TextComponent';
+
+export function isTextComponent(item: unknown): item is TextComponent {
+    return reflection.isInstance(item, TextComponent);
+}
+
+export type UxifierAstType = 'ALIGN' | 'AlignDecl' | 'Application' | 'AreaLine' | 'AXE' | 'BorderColorDecl' | 'BorderSizeDecl' | 'BoxColorDecl' | 'BUTTON_TYPE' | 'COLOR' | 'ColorDecl' | 'Component' | 'ContentDecl' | 'Context' | 'DecoField' | 'DirectionDecl' | 'FieldDecl' | 'HeightDecl' | 'HrefDecl' | 'NAVIGATION' | 'Page' | 'PageArea' | 'SHAPE' | 'ShapeDecl' | 'SIZE' | 'SourceDecl' | 'StyleDecl' | 'TextColorDecl' | 'TITLE_POS' | 'TitleDecl' | 'TitlePosDecl' | 'TYPE' | 'TypeDecl' | 'WidthDecl' | 'ButtonComponent' | 'FieldGroupComponent' | 'ImageComponent' | 'TextComponent';
+
+export type UxifierAstReference = 'AreaLine:components' | 'DecoField:field';
 
 export class UxifierAstReflection implements AstReflection {
 
     getAllTypes(): string[] {
-        return ['ALIGN', 'AlignDecl', 'Application', 'AXE', 'BorderColorDecl', 'BoxColorDecl', 'BUTTON_TYPE', 'ButtonComponent', 'COLOR', 'ColorDecl', 'ContentDecl', 'Context', 'DecoField', 'DirectionDecl', 'FieldDecl', 'FieldGroupComponent', 'HeightDecl', 'HrefDecl', 'ImageComponent', 'LabelDecl', 'LegendDecl', 'LegendPosDecl', 'NAVIGATION', 'Page', 'SHAPE', 'ShapeDecl', 'SIZE', 'SourceDecl', 'StyleDecl', 'TextColorDecl', 'TextComponent', 'TITLE_POS', 'TitleDecl', 'TitlePosDecl', 'TYPE', 'TypeDecl', 'WidthDecl'];
+        return ['ALIGN', 'AlignDecl', 'Application', 'AreaLine', 'AXE', 'BorderColorDecl', 'BorderSizeDecl', 'BoxColorDecl', 'BUTTON_TYPE', 'COLOR', 'ColorDecl', 'Component', 'ContentDecl', 'Context', 'DecoField', 'DirectionDecl', 'FieldDecl', 'HeightDecl', 'HrefDecl', 'NAVIGATION', 'Page', 'PageArea', 'SHAPE', 'ShapeDecl', 'SIZE', 'SourceDecl', 'StyleDecl', 'TextColorDecl', 'TITLE_POS', 'TitleDecl', 'TitlePosDecl', 'TYPE', 'TypeDecl', 'WidthDecl', 'ButtonComponent', 'FieldGroupComponent', 'ImageComponent', 'TextComponent'];
     }
 
     isInstance(node: unknown, type: string): boolean {
@@ -465,6 +465,12 @@ export class UxifierAstReflection implements AstReflection {
             return true;
         }
         switch (subtype) {
+            case ButtonComponent:
+            case FieldGroupComponent:
+            case ImageComponent:
+            case TextComponent: {
+                return this.isSubtype(Component, supertype);
+            }
             default: {
                 return false;
             }
@@ -473,6 +479,9 @@ export class UxifierAstReflection implements AstReflection {
 
     getReferenceType(referenceId: UxifierAstReference): string {
         switch (referenceId) {
+            case 'AreaLine:components': {
+                return Component;
+            }
             case 'DecoField:field': {
                 return FieldDecl;
             }

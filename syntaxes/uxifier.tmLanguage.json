@@ -10,11 +10,11 @@
     },
     {
       "name": "keyword.control.uxifier",
-      "match": "\\b(align|auto|bool|borderColor|bottom_menu|boxColor|Button|center|character|circular|color|config|content|direction|Field|FieldGroup|game|height|horizontal|href|Image|label|large|left|legend|legendPos|linear|medium|navigation|number|page|primary|rectangular|right|secondary|shape|side_menu|skipable|small|source|string|style|Text|textColor|title|titlePos|top|type|vertical|width|xlarge|xsmall|xxlarge|xxsmall)\\b"
+      "match": "\\b(align|area|auto|bool|borderColor|borderSize|bottom_menu|boxColor|Button|center|character|circular|color|config|content|direction|Field|FieldGroup|game|grid|height|horizontal|href|Image|large|left|linear|medium|navigation|number|page|primary|rectangular|right|secondary|shape|side_menu|skipable|small|source|string|style|Text|textColor|title|titlePos|top|type|vertical|width|xlarge|xsmall|xxlarge|xxsmall)\\b"
     },
     {
       "name": "keyword.symbol.uxifier",
-      "match": "(\\;|\\:|\\{|\\}|\\=)"
+      "match": "(\\;|\\:|\\{|\\}|\\=|\\|)"
     }
   ],
   "repository": {

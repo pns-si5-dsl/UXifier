@@ -34,15 +34,15 @@
         },
         {
             "name": "support.class.uxfr",
-            "match": "(character|FieldGroup|config|game|page|Field|Button|Text|Image)"
+            "match": "(character|FieldGroup|config|game|page|Field|Button|Text|Image|area)"
         },
         {
             "name": "constant.language",
-            "match": "(navigation|label|href|type|style|content|titlePos|color|title|source|legendPos|legend|width|height|direction|borderColor|boxColor|textColor|shape|align)"
+            "match": "(navigation|label|href|type|style|content|titlePos|color|title|source|legendPos|legend|width|height|direction|borderColor|borderSize|boxColor|textColor|shape|align)"
         },
         {
             "name": "entity.name.function.uxfr",
-            "match": "(skipable|linear|side_menu|bottom_menu|horizontal|vertical|primary|secondary|xxsmall|xsmall|small|medium|xxlarge|xlarge|large|auto|rectangular|circular|left|right|top|center)"
+            "match": "(grid|skipable|linear|side_menu|bottom_menu|horizontal|vertical|primary|secondary|xxsmall|xsmall|small|medium|xxlarge|xlarge|large|auto|rectangular|circular|left|right|top|center)"
         },
         {
             "name": "entity.name.tag.uxfr",

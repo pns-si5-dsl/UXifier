@@ -18,13 +18,26 @@ Context:
     '}' ;
 
 Page:
-    (skipable?='skipable')? (axe=AXE)? 'page' name=ID '{'
-        (components+=(ButtonComponent | TextComponent | ImageComponent | FieldGroupComponent))*
+    (skipable?='skipable')? (axe=AXE)? (grid?='grid')? 'page' name=ID '{'
+        ( (areas+=PageArea)
+        | (components+=Component) )*
     '}' ;
+
+PageArea:
+    'area' '{'
+        (lines+=AreaLine)*
+    '}'
+    ;
+
+AreaLine:
+    '|' (components+=[Component|ID])* '|';
+
+Component returns Component:
+    (ButtonComponent|TextComponent|ImageComponent|FieldGroupComponent);
 
 ButtonComponent:
     'Button' name=ID '{'
-        ( (labels+=LabelDecl)
+        ( (titles+=TitleDecl)
         | (hrefs+=HrefDecl)
         | (types+=TypeDecl)
         | (styles+=StyleDecl) )*
@@ -34,16 +47,16 @@ TextComponent:
     'Text' name=ID '{'
         ( (contents+=ContentDecl)
         | (titles+=TitleDecl)
-        | (colors+=ColorDecl)
         | (titlePositions+=TitlePosDecl)
+        | (colors+=ColorDecl)
         | (styles+=StyleDecl) )*
     '}' ;
 
 ImageComponent:
     'Image' name=ID '{'
         ( (sources+=SourceDecl)
-        | (legends+=LegendDecl)
-        | (legendPositions+=LegendPosDecl)
+        | (titles+=TitleDecl)
+        | (titlePositions+=TitlePosDecl)
         | (styles+=StyleDecl) )*
     '}' ;
 
@@ -61,6 +74,7 @@ StyleDecl:
         | (heights+=HeightDecl)
         | (directions+=DirectionDecl)
         | (borderColors+=BorderColorDecl)
+        | (borderSizes+=BorderSizeDecl)
         | (boxColors+=BoxColorDecl)
         | (textColors+=TextColorDecl)
         | (shapes+=ShapeDecl)
@@ -70,24 +84,22 @@ StyleDecl:
 DecoField:
     field=[FieldDecl|ID] ';';
 
-LabelDecl: 'label' '=' value=STRING ';';
-HrefDecl: 'href' '=' value=STRING ';';
-TypeDecl: 'type' '=' value=BUTTON_TYPE ';';
-ContentDecl: 'content' '=' value=STRING ';';
-TitleDecl: 'title' '=' value=STRING ';';
-TitlePosDecl: 'titlePos' '=' value=TITLE_POS ';';
-ColorDecl: 'color' '=' value=COLOR ';';
-SourceDecl: 'source' '=' value=STRING ';';
-LegendDecl: 'legend' '=' value=STRING ';';
-LegendPosDecl: 'legendPos' '=' value=TITLE_POS ';';
-WidthDecl: 'width' '=' value=SIZE ';';
-HeightDecl: 'height' '=' value=SIZE ';';
-DirectionDecl: 'direction' '=' value=AXE ';';
-BorderColorDecl: 'borderColor' '=' value=COLOR ';';
-BoxColorDecl: 'boxColor' '=' value=COLOR ';';
-TextColorDecl: 'textColor' '=' value=COLOR ';';
-ShapeDecl: 'shape' '=' value=SHAPE ';';
-AlignDecl: 'align' '=' value=ALIGN ';';
+HrefDecl:        'href'        '=' value=STRING      ';';
+TypeDecl:        'type'        '=' value=BUTTON_TYPE ';';
+ContentDecl:     'content'     '=' value=STRING      ';';
+TitleDecl:       'title'       '=' value=STRING      ';';
+TitlePosDecl:    'titlePos'    '=' value=TITLE_POS   ';';
+ColorDecl:       'color'       '=' value=COLOR       ';';
+SourceDecl:      'source'      '=' value=STRING      ';';
+WidthDecl:       'width'       '=' value=SIZE        ';';
+HeightDecl:      'height'      '=' value=SIZE        ';';
+DirectionDecl:   'direction'   '=' value=AXE         ';';
+BorderColorDecl: 'borderColor' '=' value=COLOR       ';';
+BorderSizeDecl:  'borderSize'  '=' value=SIZE        ';';
+BoxColorDecl:    'boxColor'    '=' value=COLOR       ';';
+TextColorDecl:   'textColor'   '=' value=COLOR       ';';
+ShapeDecl:       'shape'       '=' value=SHAPE       ';';
+AlignDecl:       'align'       '=' value=ALIGN       ';';
 
 TYPE:
     value=('bool'|'number'|'string');
