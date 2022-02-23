@@ -65,7 +65,13 @@ AreaLine:
     '|' (components+=[Component|ID])* '|';
 
 Component returns Component:
-    (ButtonComponent|TextComponent|ImageComponent|FieldGroupComponent);
+    (ButtonComponent|TextComponent|ImageComponent|FieldGroupComponent|ComponentBoxComponent);
+
+ComponentBoxComponent:
+    'BoxComponent' name=ID '{'
+        ( (titles+=TitleDecl)
+        | (components+=Component) )*
+    '}' ;
 
 ButtonComponent:
     'Button' name=ID '{'
@@ -116,34 +122,34 @@ StyleDecl:
 DecoField:
     ((input?='input')|(output?='output')) field=[Field|ID] ';';
 
-HrefDecl:        'href'        '=' value=STRING      ';';
-TypeDecl:        'type'        '=' value=BUTTON_TYPE ';';
-ContentDecl:     'content'     '=' value=STRING      ';';
-TitleDecl returns TitleDecl:       'title'       '=' value=STRING      ';';
-LegendDecl returns TitleDecl:      'legend'      '=' value=STRING      ';';
-LabelDecl returns TitleDecl:       'label'       '=' value=STRING      ';';
-TitlePosDecl:    'titlePos'    '=' value=TITLE_POS   ';';
-LegendPosDecl:   'legendPos'   '=' value=TITLE_POS   ';';
-ColorDecl:       'color'       '=' value=COLOR       ';';
-SourceDecl:      'source'      '=' value=STRING      ';';
-WidthDecl:       'width'       '=' value=SIZE        ';';
-HeightDecl:      'height'      '=' value=SIZE        ';';
-DirectionDecl:   'direction'   '=' value=AXE         ';';
-BorderColorDecl: 'borderColor' '=' value=COLOR       ';';
-BorderSizeDecl:  'borderSize'  '=' value=SIZE        ';';
-BoxColorDecl:    'boxColor'    '=' value=COLOR       ';';
-TextColorDecl:   'textColor'   '=' value=COLOR       ';';
-ShapeDecl:       'shape'       '=' value=SHAPE       ';';
-AlignDecl:       'align'       '=' value=ALIGN       ';';
-DescriptionDecl: 'description' '=' value=STRING      ';';
-StatDecl:        'stat'        '=' value=[StatField_|ID] ';';
-AffectDecl:      'affect'      '=' value=PERCENT     ';';
-MaxLengthDecl:   'maxLength'   '=' value=INT         ';';
-MinLengthDecl:   'minLength'   '=' value=INT         ';';
-MaxDecl:         'max'         '=' value=INT         ';';
-MinDecl:         'min'         '=' value=INT         ';';
-RegexDecl:       'regex'       '=' value=STRING      ';';
-SelectionDecl:   'selection'   '=' '[' (values+=STRING) (',' values+=STRING) ']' ';';
+TitleDecl  returns TitleDecl: 'title'  '=' value=STRING ';';
+LegendDecl returns TitleDecl: 'legend' '=' value=STRING ';';
+LabelDecl  returns TitleDecl: 'label'  '=' value=STRING ';';
+HrefDecl:        'href'        '=' value=STRING         ';';
+TypeDecl:        'type'        '=' value=BUTTON_TYPE    ';';
+ContentDecl:     'content'     '=' value=STRING         ';';
+TitlePosDecl:    'titlePos'    '=' value=TITLE_POS      ';';
+LegendPosDecl:   'legendPos'   '=' value=TITLE_POS      ';';
+ColorDecl:       'color'       '=' value=COLOR          ';';
+SourceDecl:      'source'      '=' value=STRING         ';';
+WidthDecl:       'width'       '=' value=SIZE           ';';
+HeightDecl:      'height'      '=' value=SIZE           ';';
+DirectionDecl:   'direction'   '=' value=AXE            ';';
+BorderColorDecl: 'borderColor' '=' value=COLOR          ';';
+BorderSizeDecl:  'borderSize'  '=' value=SIZE           ';';
+BoxColorDecl:    'boxColor'    '=' value=COLOR          ';';
+TextColorDecl:   'textColor'   '=' value=COLOR          ';';
+ShapeDecl:       'shape'       '=' value=SHAPE          ';';
+AlignDecl:       'align'       '=' value=ALIGN          ';';
+DescriptionDecl: 'description' '=' value=STRING         ';';
+StatDecl:        'stat'        '=' value=[StatField_|ID]';';
+AffectDecl:      'affect'      '=' value=PERCENT        ';';
+MaxLengthDecl:   'maxLength'   '=' value=INT            ';';
+MinLengthDecl:   'minLength'   '=' value=INT            ';';
+MaxDecl:         'max'         '=' value=INT            ';';
+MinDecl:         'min'         '=' value=INT            ';';
+RegexDecl:       'regex'       '=' value=STRING         ';';
+SelectionDecl:   'selection'   '=' '[' ((values+=STRING) (',' values+=STRING)*)? ']' ';';
 
 NAVIGATION:
     value=('linear'|'side_menu'|'bottom_menu');
