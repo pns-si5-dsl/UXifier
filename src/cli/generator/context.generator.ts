@@ -4,43 +4,170 @@ import path from 'path';
 import { Context } from "../../language-server/generated/ast";
 import { generateConfigPage } from './config-page.generator';
 
-export function generateContext(context: Context, fileDir: string): void {
+export function generateGameContext(context: Context, fileDir: string): void {
 
     const node = new CompositeGeneratorNode();
     insertImport(node);
 
-
     node.append(
         "export function ", context.name, "(props) {", NL,
         "return (", NL,
-        "<Box fill={true}>", NL,
-        "<Box", NL,
-        "pad='medium'", NL,
-        "fill='vertical'", NL,
-        "background='light-1'>", NL,
-        "<Outlet/>", NL,
-        "<Box height='xsmall'/>", NL,
-        "</Box>", NL,
-        "<Nav", NL,
-        "style={{position: 'fixed', bottom: 0, width: '100%'}}", NL,
-        "basis='full'", NL,
-        "direction='row'", NL,
-        "background='brand'", NL,
-        "pad='medium'", NL,
-        ">", NL,
-        "<Link to='/", context.name, "'>", context.name, "</Link>", NL
     );
 
-    context.pages.forEach(page => {
-        node.append("<Link to='/", context.name, "/", page.name, "'>", page.name, "</Link>", NL);
-    });
+    if(context.navigation.value == 'bottom_menu'){
+        //todo if bottom menu
+        node.append(
+            "<Box fill={true}>", NL,
+            "<Box", NL,
+            "pad='medium'", NL,
+            "fill='vertical'", NL,
+            "background='light-1'>", NL,
+            "<Outlet/>", NL,
+            "<Box height='xsmall'/>", NL,
+            "</Box>", NL,
+            "<Nav", NL,
+            "style={{position: 'fixed', bottom: 0, width: '100%'}}", NL,
+            "basis='full'", NL,
+            "direction='row'", NL,
+            "background='brand'", NL,
+            "pad='medium'", NL,
+            ">", NL,
+            "<Link to='/", context.name, "'>", context.name, "</Link>", NL
+        );
     
+        context.pages.forEach(page => {
+            node.append("<Link to='/", context.name, "/", page.name, "'>", page.name, "</Link>", NL);
+        });
+        
+        node.append(
+            "</Nav>", NL,
+            "</Box>", NL,
+            ");", NL,
+            "}", NL,
+        );
+    } else if (context.navigation.value == 'side_menu'){
+        //todo if side menu
+        node.append(
+            "<Box fill={true}>", NL,
+            "direction='row'", NL,
+            "<Sidebar background='brand' >", NL,
+            "<Nav pad={'small'}>", NL,
+            "<Link to='/config'>", NL,
+            "<Button primary label={'Config'}/>", NL,
+            "</Link>", NL,
+            "<Link to='/config/page1'>", NL,
+            "<Button primary label={'Page1'}/>", NL,
+            "</Link>", NL,
+            "</Nav>", NL,
+            "</Sidebar>", NL,
+            "<Box", NL,
+            "pad='medium'", NL,
+            "fill", NL,
+            "background='light-1'", NL,
+            "overflow='auto'", NL,
+            ">", NL,
+            "<Outlet/>", NL,
+            "</Box>", NL,
+            "</Box>", NL,
+        );
+    } else {
+        //todo if linear menu
+        node.append(
+            "<Box fill>", NL,
+            "<Tabs>", NL,
+        );
+
+        context.pages.forEach(page => {
+            node.append("<Tab title='", page.name, "'>", "<", page.name, "/>", "</Tab>", NL);
+        });
+
+        node.append(
+            "<Tabs/>", NL,
+            "</Box>", NL,
+        );
+    }
+
+    for (let i = 0; i < context.pages.length; i++) {
+        generateConfigPage(context.pages[i], context.pages[i+1], context.name, node);
+    }
+
+    fs.writeFileSync(`${path.join(fileDir,context.name)}.js`, processGeneratorNode(node));
+}
+
+export function generateConfigContext(context: Context, fileDir: string): void {
+
+    const node = new CompositeGeneratorNode();
+    insertImport(node);
+
+    //so it applies to whatever context it is
     node.append(
-        "</Nav>", NL,
-        "</Box>", NL,
-        ");", NL,
-        "}", NL,
+        "export function ", context.name, "(props) {", NL,
+        "return (", NL,
     );
+
+    if(context.navigation.value == 'bottom_menu'){
+        //todo if bottom menu
+        node.append(
+            "<Box fill={true}>", NL,
+            "<Box", NL,
+            "pad='medium'", NL,
+            "fill", NL,
+            "overflow='auto'", NL,
+            "background='light-1'>", NL,
+            "<Outlet/>", NL,
+            "<Box height='xsmall'/>", NL,
+            "</Box>", NL,
+            "<Nav", NL,
+            "direction='row'", NL,
+            "background='brand'", NL,
+            "pad='medium'", NL,
+            ">", NL,
+            "<Link to='/", context.name, "'>", context.name, "</Link>", NL
+        );
+    
+        context.pages.forEach(page => {
+            node.append("<Link to='/", context.name, "/", page.name, "'>", page.name, "</Link>", NL);
+        });
+        
+        node.append(
+            "</Nav>", NL,
+            "</Box>", NL,
+            ");", NL,
+            "}", NL,
+        );
+    } else if (context.navigation.value == 'side_menu'){
+        //todo if side menu
+        node.append(
+            "<Box fill={true}>", NL,
+            "direction='row'", NL,
+            "<Sidebar background='brand' >", NL,
+            "<Nav pad={'small'}>", NL,
+            "<Link to='/config'>", NL,
+            "<Button primary label={'Config'}/>", NL,
+            "</Link>", NL,
+            "<Link to='/config/page1'>", NL,
+            "<Button primary label={'Page1'}/>", NL,
+            "</Link>", NL,
+            "</Nav>", NL,
+            "</Sidebar>", NL,
+            "<Box", NL,
+            "pad='medium'", NL,
+            "fill", NL,
+            "background='light-1'", NL,
+            "overflow='auto'", NL,
+            ">", NL,
+            "<Outlet/>", NL,
+            "</Box>", NL,
+            "</Box>", NL,
+        );
+    } else {
+        //todo if linear menu
+        node.append(
+            "<Box fill>", NL,
+            "<Outlet/>", NL,
+            "</Box>", NL,
+        );
+    }
 
     for (let i = 0; i < context.pages.length; i++) {
         generateConfigPage(context.pages[i], context.pages[i+1], context.name, node);

@@ -131,7 +131,7 @@ export function isCOLOR(item: unknown): item is COLOR {
 }
 
 export interface ColorDecl extends AstNode {
-    readonly $container: TextComponent;
+    readonly $container: TextComponent | GaugeDecoField;
     value: COLOR
 }
 
@@ -142,9 +142,8 @@ export function isColorDecl(item: unknown): item is ColorDecl {
 }
 
 export interface Component extends AstNode {
-    readonly $container: Page;
+    readonly $container: Page | ComponentBoxComponent;
     name: string
-    styles: Array<StyleDecl>
     titles: Array<TitleDecl>
 }
 
@@ -180,7 +179,8 @@ export function isContext(item: unknown): item is Context {
 
 export interface DecoField extends AstNode {
     readonly $container: FieldGroupComponent;
-    field: Reference<Field>
+    input: boolean
+    output: boolean
 }
 
 export const DecoField = 'DecoField';
@@ -222,6 +222,19 @@ export function isField(item: unknown): item is Field {
     return reflection.isInstance(item, Field);
 }
 
+export interface GaugeDecoField extends AstNode {
+    field: Reference<Field>
+    highColors: Array<ColorDecl>
+    lowColors: Array<ColorDecl>
+    styles: Array<StyleDecl>
+}
+
+export const GaugeDecoField = 'GaugeDecoField';
+
+export function isGaugeDecoField(item: unknown): item is GaugeDecoField {
+    return reflection.isInstance(item, GaugeDecoField);
+}
+
 export interface HeightDecl extends AstNode {
     readonly $container: StyleDecl;
     value: SIZE
@@ -242,6 +255,17 @@ export const HrefDecl = 'HrefDecl';
 
 export function isHrefDecl(item: unknown): item is HrefDecl {
     return reflection.isInstance(item, HrefDecl);
+}
+
+export interface LegendPosDecl extends AstNode {
+    readonly $container: ImageComponent;
+    value: TITLE_POS
+}
+
+export const LegendPosDecl = 'LegendPosDecl';
+
+export function isLegendPosDecl(item: unknown): item is LegendPosDecl {
+    return reflection.isInstance(item, LegendPosDecl);
 }
 
 export interface MaxDecl extends AstNode {
@@ -370,6 +394,17 @@ export function isShapeDecl(item: unknown): item is ShapeDecl {
     return reflection.isInstance(item, ShapeDecl);
 }
 
+export interface SimpleDecoField extends AstNode {
+    field: Reference<Field>
+    styles: Array<StyleDecl>
+}
+
+export const SimpleDecoField = 'SimpleDecoField';
+
+export function isSimpleDecoField(item: unknown): item is SimpleDecoField {
+    return reflection.isInstance(item, SimpleDecoField);
+}
+
 export interface SIZE extends AstNode {
     readonly $container: WidthDecl | HeightDecl | BorderSizeDecl;
     value: 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto' | string | string
@@ -404,7 +439,7 @@ export function isStatDecl(item: unknown): item is StatDecl {
 }
 
 export interface StyleDecl extends AstNode {
-    readonly $container: Component;
+    readonly $container: ButtonComponent | TextComponent | ImageComponent | FieldGroupComponent | SimpleDecoField | GaugeDecoField;
     aligns: Array<AlignDecl>
     borderColors: Array<BorderColorDecl>
     borderSizes: Array<BorderSizeDecl>
@@ -434,7 +469,7 @@ export function isTextColorDecl(item: unknown): item is TextColorDecl {
 }
 
 export interface TITLE_POS extends AstNode {
-    readonly $container: TitlePosDecl;
+    readonly $container: TitlePosDecl | LegendPosDecl;
     value: 'left' | 'top'
 }
 
@@ -456,7 +491,7 @@ export function isTitleDecl(item: unknown): item is TitleDecl {
 }
 
 export interface TitlePosDecl extends AstNode {
-    readonly $container: TextComponent | ImageComponent | FieldGroupComponent;
+    readonly $container: TextComponent | FieldGroupComponent;
     value: TITLE_POS
 }
 
@@ -490,6 +525,7 @@ export function isWidthDecl(item: unknown): item is WidthDecl {
 
 export interface ButtonComponent extends Component {
     hrefs: Array<HrefDecl>
+    styles: Array<StyleDecl>
     types: Array<TypeDecl>
 }
 
@@ -499,8 +535,19 @@ export function isButtonComponent(item: unknown): item is ButtonComponent {
     return reflection.isInstance(item, ButtonComponent);
 }
 
+export interface ComponentBoxComponent extends Component {
+    components: Array<Component>
+}
+
+export const ComponentBoxComponent = 'ComponentBoxComponent';
+
+export function isComponentBoxComponent(item: unknown): item is ComponentBoxComponent {
+    return reflection.isInstance(item, ComponentBoxComponent);
+}
+
 export interface FieldGroupComponent extends Component {
     decoFields: Array<DecoField>
+    styles: Array<StyleDecl>
     titlePositions: Array<TitlePosDecl>
 }
 
@@ -512,7 +559,8 @@ export function isFieldGroupComponent(item: unknown): item is FieldGroupComponen
 
 export interface ImageComponent extends Component {
     sources: Array<SourceDecl>
-    titlePositions: Array<TitlePosDecl>
+    styles: Array<StyleDecl>
+    titlePositions: Array<LegendPosDecl>
 }
 
 export const ImageComponent = 'ImageComponent';
@@ -524,6 +572,7 @@ export function isImageComponent(item: unknown): item is ImageComponent {
 export interface TextComponent extends Component {
     colors: Array<ColorDecl>
     contents: Array<ContentDecl>
+    styles: Array<StyleDecl>
     titlePositions: Array<TitlePosDecl>
 }
 
@@ -590,14 +639,14 @@ export function isTextField_(item: unknown): item is TextField_ {
     return reflection.isInstance(item, TextField_);
 }
 
-export type UxifierAstType = 'AffectDecl' | 'ALIGN' | 'AlignDecl' | 'Application' | 'AreaLine' | 'AXE' | 'BorderColorDecl' | 'BorderSizeDecl' | 'BoxColorDecl' | 'BUTTON_TYPE' | 'COLOR' | 'ColorDecl' | 'Component' | 'ContentDecl' | 'Context' | 'DecoField' | 'DescriptionDecl' | 'DirectionDecl' | 'Field' | 'HeightDecl' | 'HrefDecl' | 'MaxDecl' | 'MaxLengthDecl' | 'MinDecl' | 'MinLengthDecl' | 'NAVIGATION' | 'Page' | 'PageArea' | 'RegexDecl' | 'SelectionDecl' | 'SHAPE' | 'ShapeDecl' | 'SIZE' | 'SourceDecl' | 'StatDecl' | 'StyleDecl' | 'TextColorDecl' | 'TITLE_POS' | 'TitleDecl' | 'TitlePosDecl' | 'TypeDecl' | 'WidthDecl' | 'ButtonComponent' | 'FieldGroupComponent' | 'ImageComponent' | 'TextComponent' | 'CheckField_' | 'IntField_' | 'SkillField_' | 'StatField_' | 'TextField_';
+export type UxifierAstType = 'AffectDecl' | 'ALIGN' | 'AlignDecl' | 'Application' | 'AreaLine' | 'AXE' | 'BorderColorDecl' | 'BorderSizeDecl' | 'BoxColorDecl' | 'BUTTON_TYPE' | 'COLOR' | 'ColorDecl' | 'Component' | 'ContentDecl' | 'Context' | 'DecoField' | 'DescriptionDecl' | 'DirectionDecl' | 'Field' | 'GaugeDecoField' | 'HeightDecl' | 'HrefDecl' | 'LegendPosDecl' | 'MaxDecl' | 'MaxLengthDecl' | 'MinDecl' | 'MinLengthDecl' | 'NAVIGATION' | 'Page' | 'PageArea' | 'RegexDecl' | 'SelectionDecl' | 'SHAPE' | 'ShapeDecl' | 'SimpleDecoField' | 'SIZE' | 'SourceDecl' | 'StatDecl' | 'StyleDecl' | 'TextColorDecl' | 'TITLE_POS' | 'TitleDecl' | 'TitlePosDecl' | 'TypeDecl' | 'WidthDecl' | 'ButtonComponent' | 'ComponentBoxComponent' | 'FieldGroupComponent' | 'ImageComponent' | 'TextComponent' | 'CheckField_' | 'IntField_' | 'SkillField_' | 'StatField_' | 'TextField_';
 
-export type UxifierAstReference = 'AreaLine:components' | 'DecoField:field' | 'StatDecl:value';
+export type UxifierAstReference = 'AreaLine:components' | 'GaugeDecoField:field' | 'SimpleDecoField:field' | 'StatDecl:value';
 
 export class UxifierAstReflection implements AstReflection {
 
     getAllTypes(): string[] {
-        return ['AffectDecl', 'ALIGN', 'AlignDecl', 'Application', 'AreaLine', 'AXE', 'BorderColorDecl', 'BorderSizeDecl', 'BoxColorDecl', 'BUTTON_TYPE', 'COLOR', 'ColorDecl', 'Component', 'ContentDecl', 'Context', 'DecoField', 'DescriptionDecl', 'DirectionDecl', 'Field', 'HeightDecl', 'HrefDecl', 'MaxDecl', 'MaxLengthDecl', 'MinDecl', 'MinLengthDecl', 'NAVIGATION', 'Page', 'PageArea', 'RegexDecl', 'SelectionDecl', 'SHAPE', 'ShapeDecl', 'SIZE', 'SourceDecl', 'StatDecl', 'StyleDecl', 'TextColorDecl', 'TITLE_POS', 'TitleDecl', 'TitlePosDecl', 'TypeDecl', 'WidthDecl', 'ButtonComponent', 'FieldGroupComponent', 'ImageComponent', 'TextComponent', 'CheckField_', 'IntField_', 'SkillField_', 'StatField_', 'TextField_'];
+        return ['AffectDecl', 'ALIGN', 'AlignDecl', 'Application', 'AreaLine', 'AXE', 'BorderColorDecl', 'BorderSizeDecl', 'BoxColorDecl', 'BUTTON_TYPE', 'COLOR', 'ColorDecl', 'Component', 'ContentDecl', 'Context', 'DecoField', 'DescriptionDecl', 'DirectionDecl', 'Field', 'GaugeDecoField', 'HeightDecl', 'HrefDecl', 'LegendPosDecl', 'MaxDecl', 'MaxLengthDecl', 'MinDecl', 'MinLengthDecl', 'NAVIGATION', 'Page', 'PageArea', 'RegexDecl', 'SelectionDecl', 'SHAPE', 'ShapeDecl', 'SimpleDecoField', 'SIZE', 'SourceDecl', 'StatDecl', 'StyleDecl', 'TextColorDecl', 'TITLE_POS', 'TitleDecl', 'TitlePosDecl', 'TypeDecl', 'WidthDecl', 'ButtonComponent', 'ComponentBoxComponent', 'FieldGroupComponent', 'ImageComponent', 'TextComponent', 'CheckField_', 'IntField_', 'SkillField_', 'StatField_', 'TextField_'];
     }
 
     isInstance(node: unknown, type: string): boolean {
@@ -610,6 +659,7 @@ export class UxifierAstReflection implements AstReflection {
         }
         switch (subtype) {
             case ButtonComponent:
+            case ComponentBoxComponent:
             case FieldGroupComponent:
             case ImageComponent:
             case TextComponent: {
@@ -633,7 +683,10 @@ export class UxifierAstReflection implements AstReflection {
             case 'AreaLine:components': {
                 return Component;
             }
-            case 'DecoField:field': {
+            case 'GaugeDecoField:field': {
+                return Field;
+            }
+            case 'SimpleDecoField:field': {
                 return Field;
             }
             case 'StatDecl:value': {

@@ -29,20 +29,36 @@
             "match": "[:]"
         },
         {
-            "name": "support.variable.uxfr",
-            "match": "(((?<=character: )|(?<=CheckField )|(?<=IntField )|(?<=StatField )|(?<=TextField )|(?<=SkillField )|(?<=config )|(?<=game )|(?<=page )|(?<=FieldGroup )|(?<=Button )|(?<=Text )|(?<=Image ))[\n\t\r ]*[^\n\t\n:({; ]+)"
+            "name": "support.variable.character.uxfr",
+            "match": "((?<=character: )[\n\t\r ]*[^\n\t\n:({; ]+)"
+        },
+        {
+            "name": "support.variable.fields.uxfr",
+            "match": "(((?<=CheckField )|(?<=IntField )|(?<=StatField )|(?<=TextField )|(?<=SkillField ))[\n\t\r ]*[^\n\t\n:({; ]+)"
+        },
+        {
+            "name": "support.variable.pages.uxfr",
+            "match": "(((?<=config )|(?<=game )|(?<=page ))[\n\t\r ]*[^\n\t\n:({; ]+)"
+        },
+        {
+            "name": "support.variable.components.uxfr",
+            "match": "(((?<=FieldGroup )|(?<=Button )|(?<=BoxComponent )|(?<=Text )|(?<=Image ))[\n\t\r ]*[^\n\t\n:({; ]+)"
+        },
+        {
+            "name": "support.variable.components.uxfr",
+            "match": "(((?<=SimpleDecoration )|(?<=GaugeDecoration ))[\n\t\r ]*[^\n\t\n:({; ]+)"
         },
         {
             "name": "support.class.uxfr",
-            "match": "(character|FieldGroup|config|game|page|Field|Button|Text|Image|area)"
+            "match": "(character|FieldGroup|CheckField|IntField|TextField|StatField|SkillField|config|game|page|Field|BoxComponent|Button|Text|Image|area|SimpleDecoration|GaugeDecoration)"
         },
         {
             "name": "constant.language",
-            "match": "(navigation|label|href|type|style|content|titlePos|color|title|source|legendPos|legend|width|height|direction|borderColor|borderSize|boxColor|textColor|shape|align|description|affect|maxLength|minLength|max|min|regex|selection)"
+            "match": "(navigation|label|href|type|style|content|titlePos|color|title|source|legendPos|legend|width|height|direction|borderColor|borderSize|boxColor|textColor|shape|align|description|affect|maxLength|minLength|max|min|regex|selection|stat|highColor|lowColor)"
         },
         {
             "name": "entity.name.function.uxfr",
-            "match": "(grid|skipable|linear|side_menu|bottom_menu|horizontal|vertical|primary|secondary|xxsmall|xsmall|small|medium|xxlarge|xlarge|large|auto|rectangular|circular|left|right|top|center)"
+            "match": "(grid|skipable|linear|side_menu|bottom_menu|horizontal|vertical|primary|secondary|xxsmall|xsmall|small|medium|xxlarge|xlarge|large|auto|rectangular|circular|left|right|top|center|input|output)"
         },
         {
             "name": "entity.name.tag.uxfr",

@@ -1,5 +1,5 @@
 import { ValidationAcceptor, ValidationCheck, ValidationRegistry } from 'langium';
-import { Application, Context, COLOR, Page, UxifierAstType, FieldGroupComponent, ButtonComponent, StyleDecl, TextComponent, ImageComponent, PageArea, AreaLine, Component, CheckField_, IntField_, TextField_, SkillField_, StatField_ } from './generated/ast';
+import { Application, Context, COLOR, Page, UxifierAstType, FieldGroupComponent, ButtonComponent, StyleDecl, TextComponent, ImageComponent, PageArea, AreaLine, Component, CheckField_, IntField_, TextField_, SkillField_, StatField_, ComponentBoxComponent, SimpleDecoField, GaugeDecoField } from './generated/ast';
 import { UxifierServices } from './uxifier-module';
 import * as util from './validator-util';
 
@@ -25,6 +25,7 @@ export class UxifierValidationRegistry extends ValidationRegistry {
         this.register({ PageArea: validator.checkPageArea } as UxifierChecks, validator);
         this.register({ AreaLine: validator.checkAreaLine } as UxifierChecks, validator);
         this.register({ Context: validator.checkContext } as UxifierChecks, validator);
+        this.register({ ComponentBoxComponent: validator.checkComponentBoxComponent } as UxifierChecks, validator);
         this.register({ ButtonComponent: validator.checkButtonComponent } as UxifierChecks, validator);
         this.register({ TextComponent: validator.checkTextComponent } as UxifierChecks, validator);
         this.register({ ImageComponent: validator.checkImageComponent } as UxifierChecks, validator);
@@ -59,11 +60,21 @@ export class UxifierValidator {
     checkIntField(field: IntField_, accept: ValidationAcceptor): void {
         util.acceptUnique('min', accept, field.mins);
         util.acceptUnique('max', accept, field.maxs);
+        if (!(field.mins[0] && field.maxs[0])) return;
+        if (field.mins[0].value >= field.maxs[0].value) {
+            accept('error', 'max value should not be lower than '+field.mins[0].value, { node: field.maxs[0], property: 'value' });
+            accept('error', 'min value should not be higher than '+field.maxs[0].value, { node: field.mins[0], property: 'value' });
+        }
     }
 
     checkStatField(field: StatField_, accept: ValidationAcceptor): void {
         util.acceptUnique('min', accept, field.mins);
         util.acceptUnique('max', accept, field.maxs);
+        if (!(field.mins[0] && field.maxs[0])) return;
+        if (field.mins[0].value >= field.maxs[0].value) {
+            accept('error', 'max value should not be lower than '+field.mins[0].value, { node: field.maxs[0], property: 'value' });
+            accept('error', 'min value should not be higher than '+field.maxs[0].value, { node: field.mins[0], property: 'value' });
+        }
     }
 
     checkTextField(field: TextField_, accept: ValidationAcceptor): void {
@@ -71,6 +82,11 @@ export class UxifierValidator {
         util.acceptUnique('max length', accept, field.maxLengths);
         util.acceptUnique('selection', accept, field.selections);
         util.acceptUnique('regex', accept, field.regexs);
+        if (!(field.minLengths[0] && field.maxLengths[0])) return;
+        if (field.minLengths[0].value >= field.maxLengths[0].value) {
+            accept('error', 'max length value should not be lower than '+field.minLengths[0].value, { node: field.maxLengths[0], property: 'value' });
+            accept('error', 'min length value should not be higher than '+field.maxLengths[0].value, { node: field.minLengths[0], property: 'value' });
+        }
     }
 
     checkSkillField(field: SkillField_, accept: ValidationAcceptor): void {
@@ -108,6 +124,12 @@ export class UxifierValidator {
         util.acceptMustContain('at least one component', accept, unrefComponents, line);
     }
 
+    checkComponentBoxComponent(component: ComponentBoxComponent, accept: ValidationAcceptor): void {
+        util.acceptUnique('title', accept, component.titles);
+        util.acceptMustContain('at least one component', accept, component.components, component, 'name');
+        util.acceptNoDuplicateNames(accept, component.components, 'name');
+    }
+
     checkButtonComponent(component: ButtonComponent, accept: ValidationAcceptor): void {
         util.acceptMustContain('a label', accept, component.titles, component, 'name');
         util.acceptUnique('label', accept, component.titles);
@@ -138,6 +160,16 @@ export class UxifierValidator {
         util.acceptUnique('title position', accept, component.titlePositions);
         util.acceptUnique('style', accept, component.styles);
         util.acceptMustContain('at least one decorated field', accept, component.decoFields, component, 'name');
+    }
+
+    checkSimpleDecoField(decoField: SimpleDecoField, accept: ValidationAcceptor): void {
+        util.acceptUnique('style', accept, decoField.styles);
+    }
+
+    checkGaugeDecoField(decoField: GaugeDecoField, accept: ValidationAcceptor): void {
+        util.acceptUnique('style', accept, decoField.styles);
+        util.acceptMustContain('a high color', accept, decoField.highColors, decoField);
+        util.acceptMustContain('a low color', accept, decoField.lowColors, decoField);
     }
 
     checkStyle(style: StyleDecl, accept: ValidationAcceptor): void {
