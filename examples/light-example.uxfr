@@ -1,0 +1,85 @@
+character: Test;
+
+TextField nom {}
+IntField age {}
+TextField taille {}
+TextField eyes {}
+
+StatField FOR {}
+StatField SAG {}
+StatField INT {}
+
+CheckField isReady {}
+
+SkillField lecture {
+    stat = INT;
+    affect = 20%;
+    description= "test";
+}
+
+SkillField pegu {
+    stat = FOR;
+    affect = 100%;
+}
+
+config Config {
+    
+    navigation = bottom_menu;
+    
+    skipable vertical page Page1 {
+        FieldGroup perso_group{
+            title= "Ton perso";
+            input nom;
+            input age;
+        }
+        FieldGroup aspect_group{
+            title= "Ta gueule";
+            input taille;
+            input eyes;
+            input isReady;
+        }
+    }
+    
+    skipable vertical page Page2 {
+        FieldGroup stats{
+            title= "Tes Stats";
+            input FOR;
+            input SAG;
+            input INT;
+        }
+        FieldGroup skills{
+            title= "Tes Skills";
+            input lecture;
+            input pegu;
+        }
+    }
+}
+
+game Game {
+    
+    navigation = linear;
+    
+    skipable horizontal page Ossef {
+
+        
+        FieldGroup stats{
+            title= "Tes Stats";
+            output FOR;
+            output SAG;
+            output INT;
+        }
+
+        FieldGroup banane{
+            title="Oui";
+            output nom;
+            output age;
+            output isReady;
+        }
+
+        FieldGroup skills{
+            title="Skills";
+            output lecture;
+        }
+        
+    }
+}
