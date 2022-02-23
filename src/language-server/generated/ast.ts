@@ -377,6 +377,7 @@ export function isPage(item: unknown): item is Page {
 export interface PageArea extends AstNode {
     readonly $container: Page;
     lines: Array<AreaLine>
+    name: 'area'
 }
 
 export const PageArea = 'PageArea';

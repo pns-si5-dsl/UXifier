@@ -793,8 +793,13 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "$type": "Group",
         "elements": [
           {
-            "$type": "Keyword",
-            "value": "area",
+            "$type": "Assignment",
+            "feature": "name",
+            "operator": "=",
+            "terminal": {
+              "$type": "Keyword",
+              "value": "area"
+            },
             "elements": []
           },
           {

@@ -122,6 +122,16 @@ export class UxifierValidator {
 
     checkPageArea(area: PageArea, accept: ValidationAcceptor): void {
         util.acceptMustContain('at least one line', accept, area.lines, area);
+        if (area.lines.length > 0) {
+            const lineLengths = area.lines.map(l => l.components.length).reduce((res,i) => {
+                if (!res.includes(i)) res.push(i);
+                return res;
+            }, new Array<number>());
+            if (lineLengths.length > 1) {
+                accept('error', 'Lines of an area must all have the same mlengthes: found lengthes '+lineLengths.toString(), { node: area, property: 'name' });
+            }
+        }
+
     }
 
     checkAreaLine(line: AreaLine, accept: ValidationAcceptor): void {

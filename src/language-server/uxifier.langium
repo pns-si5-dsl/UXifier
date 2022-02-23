@@ -61,7 +61,7 @@ Page:
     '}' ;
 
 PageArea:
-    'area' '{'
+    name='area' '{'
         (lines+=AreaLine)*
     '}'
     ;
