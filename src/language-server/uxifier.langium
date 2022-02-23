@@ -13,19 +13,22 @@ Field returns Field:
 
 CheckField_:
     'CheckField' name=ID '{'
-        (descriptions+=DescriptionDecl)*
+        ( (descriptions+=DescriptionDecl)
+        | (initials+=BoolInitDecl) )*
     '}' ;
 
 IntField_:
     'IntField' name=ID '{'
         ( (maxs+=MaxDecl)
-        | (mins+=MinDecl) )*
+        | (mins+=MinDecl)
+        | (initials+=IntInitDecl) )*
     '}' ;
 
 StatField_:
     'StatField' name=ID '{'
         ( (maxs+=MaxDecl)
-        | (mins+=MinDecl) )*
+        | (mins+=MinDecl)
+        | (initials+=IntInitDecl) )*
     '}' ;
 
 TextField_:
@@ -33,14 +36,16 @@ TextField_:
         ( (maxLengths+=MaxLengthDecl)
         | (minLengths+=MinLengthDecl)
         | (selections+=SelectionDecl)
-        | (regexs+=RegexDecl) )*
+        | (regexs+=RegexDecl)
+        | (initials+=StringInitDecl) )*
     '}' ;
 
 SkillField_:
     'SkillField' name=ID '{'
         ( (descriptions+=DescriptionDecl)
         | (affects+=AffectDecl)
-        | (stats+=StatDecl) )*
+        | (stats+=StatDecl)
+        | (initials+=BoolInitDecl) )*
     '}' ;
 
 Context:
@@ -120,7 +125,7 @@ StyleDecl:
     '}' ;
 
 DecoField returns DecoField:
-    ((input?='input')|(output?='output')) (SimpleDecoField|GaugeDecoField);
+    ((input?='input')|(output?='output')) decoField=(SimpleDecoField|GaugeDecoField);
 
 SimpleDecoField:
     'SimpleDecoration' field=[Field|ID] '{'
@@ -140,6 +145,9 @@ LabelDecl     returns TitleDecl: 'label'     '=' value=STRING ';';
 ColorDecl     returns ColorDecl: 'color'     '=' value=COLOR  ';';
 LowColorDecl  returns ColorDecl: 'lowColor'  '=' value=COLOR  ';';
 HighColorDecl returns ColorDecl: 'highColor' '=' value=COLOR  ';';
+BoolInitDecl:    'initial'     '=' value=BOOLEAN        ';';
+IntInitDecl:     'initial'     '=' value=INT            ';';
+StringInitDecl:  'initial'     '=' value=STRING         ';';
 HrefDecl:        'href'        '=' value=STRING         ';';
 TypeDecl:        'type'        '=' value=BUTTON_TYPE    ';';
 ContentDecl:     'content'     '=' value=STRING         ';';
@@ -165,6 +173,8 @@ MinDecl:         'min'         '=' value=INT            ';';
 RegexDecl:       'regex'       '=' value=STRING         ';';
 SelectionDecl:   'selection'   '=' '[' ((values+=STRING) (',' values+=STRING)*)? ']' ';';
 
+BOOLEAN:
+    value=('true'|'false');
 NAVIGATION:
     value=('linear'|'side_menu'|'bottom_menu');
 AXE:

@@ -203,17 +203,35 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "value": "{"
           },
           {
-            "$type": "Assignment",
-            "feature": "descriptions",
-            "operator": "+=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "DescriptionDecl"
+            "$type": "Alternatives",
+            "elements": [
+              {
+                "$type": "Assignment",
+                "feature": "descriptions",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "DescriptionDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "initials",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "BoolInitDecl"
+                  }
+                },
+                "elements": []
               }
-            },
-            "elements": [],
+            ],
             "cardinality": "*"
           },
           {
@@ -277,6 +295,19 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                   "arguments": [],
                   "rule": {
                     "$refText": "MinDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "initials",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "IntInitDecl"
                   }
                 },
                 "elements": []
@@ -345,6 +376,19 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                   "arguments": [],
                   "rule": {
                     "$refText": "MinDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "initials",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "IntInitDecl"
                   }
                 },
                 "elements": []
@@ -442,6 +486,19 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                   }
                 },
                 "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "initials",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "StringInitDecl"
+                  }
+                },
+                "elements": []
               }
             ],
             "cardinality": "*"
@@ -520,6 +577,19 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                   "arguments": [],
                   "rule": {
                     "$refText": "StatDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "initials",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "BoolInitDecl"
                   }
                 },
                 "elements": []
@@ -1875,6 +1945,114 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "ParserRule",
       "parameters": [],
+      "name": "BoolInitDecl",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "initial",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "="
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "BOOLEAN"
+              }
+            }
+          },
+          {
+            "$type": "Keyword",
+            "value": ";"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "IntInitDecl",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "initial",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "="
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "INT"
+              }
+            }
+          },
+          {
+            "$type": "Keyword",
+            "value": ";"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "StringInitDecl",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "initial",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "="
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "STRING"
+              }
+            }
+          },
+          {
+            "$type": "Keyword",
+            "value": ";"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
       "name": "HrefDecl",
       "hiddenTokens": [],
       "alternatives": {
@@ -2778,6 +2956,32 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "value": ";"
           }
         ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "BOOLEAN",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Assignment",
+        "feature": "value",
+        "operator": "=",
+        "terminal": {
+          "$type": "Alternatives",
+          "elements": [
+            {
+              "$type": "Keyword",
+              "value": "true",
+              "elements": []
+            },
+            {
+              "$type": "Keyword",
+              "value": "false"
+            }
+          ]
+        },
+        "elements": []
       }
     },
     {

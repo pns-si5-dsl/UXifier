@@ -55,11 +55,13 @@ export class UxifierValidator {
 
     checkCheckField(field: CheckField_, accept: ValidationAcceptor): void {
         util.acceptUnique('description', accept, field.descriptions);
+        util.acceptUnique('initial', accept, field.initials);
     }
 
     checkIntField(field: IntField_, accept: ValidationAcceptor): void {
         util.acceptUnique('min', accept, field.mins);
         util.acceptUnique('max', accept, field.maxs);
+        util.acceptUnique('initial', accept, field.initials);
         if (!(field.mins[0] && field.maxs[0])) return;
         if (field.mins[0].value >= field.maxs[0].value) {
             accept('error', 'max value should not be lower than '+field.mins[0].value, { node: field.maxs[0], property: 'value' });
@@ -70,6 +72,7 @@ export class UxifierValidator {
     checkStatField(field: StatField_, accept: ValidationAcceptor): void {
         util.acceptUnique('min', accept, field.mins);
         util.acceptUnique('max', accept, field.maxs);
+        util.acceptUnique('initial', accept, field.initials);
         if (!(field.mins[0] && field.maxs[0])) return;
         if (field.mins[0].value >= field.maxs[0].value) {
             accept('error', 'max value should not be lower than '+field.mins[0].value, { node: field.maxs[0], property: 'value' });
@@ -82,6 +85,7 @@ export class UxifierValidator {
         util.acceptUnique('max length', accept, field.maxLengths);
         util.acceptUnique('selection', accept, field.selections);
         util.acceptUnique('regex', accept, field.regexs);
+        util.acceptUnique('initial', accept, field.initials);
         if (!(field.minLengths[0] && field.maxLengths[0])) return;
         if (field.minLengths[0].value >= field.maxLengths[0].value) {
             accept('error', 'max length value should not be lower than '+field.minLengths[0].value, { node: field.maxLengths[0], property: 'value' });
@@ -93,6 +97,7 @@ export class UxifierValidator {
         util.acceptUnique('description', accept, field.descriptions);
         util.acceptMustContain('an affect', accept, field.affects, field);
         util.acceptUnique('affect', accept, field.affects);
+        util.acceptUnique('initial', accept, field.initials);
         const unrefStats = field.stats.map(r => r.value.ref).filter(s => s) as StatField_[];
         util.acceptMustContain('a stat', accept, unrefStats, field);
         util.acceptUnique('stat', accept, unrefStats);

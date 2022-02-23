@@ -54,7 +54,7 @@
         },
         {
             "name": "constant.language",
-            "match": "(navigation|label|href|type|style|content|titlePos|color|title|source|legendPos|legend|width|height|direction|borderColor|borderSize|boxColor|textColor|shape|align|description|affect|maxLength|minLength|max|min|regex|selection|stat|highColor|lowColor)"
+            "match": "(navigation|label|href|type|style|content|titlePos|color|title|source|legendPos|legend|width|height|direction|borderColor|borderSize|boxColor|textColor|shape|align|description|affect|maxLength|minLength|max|min|regex|selection|stat|highColor|lowColor|initial)"
         },
         {
             "name": "entity.name.function.uxfr",
