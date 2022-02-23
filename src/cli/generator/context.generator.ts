@@ -128,7 +128,7 @@ export function generateConfigContext(context: Context, fileDir: string, nextPat
         );
     
         context.pages.forEach(page => {
-            node.append("<Link to='/", context.name, "/", page.name, "'>", page.name, "</Link>", NL);
+            node.append("<Link to='/", context.name, "/", page.name, "'><Button primary label={'", page.name, "'}/></Link>", NL);
         });
         
         node.append(

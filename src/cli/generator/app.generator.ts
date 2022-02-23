@@ -53,6 +53,7 @@ export function generateApplication(application: Application, fileDir: string): 
 
     if (config) {
         node.append(
+            "<Route path='*' element={<Navigate to='",config.name,"' />} />", NL,
             "<Route path='", config.name, "' element={<", config.name, "/>}>", NL,
             "<Route index element={<", config.name, '_', config.pages[0].name, "/>}/>", NL
         );
@@ -69,6 +70,7 @@ export function generateApplication(application: Application, fileDir: string): 
     }
 
     if (game) {
+        if(!config) node.append("<Route path='*' element={<Navigate to='",game.name,"' />} />", NL,);
         node.append(
             "<Route path='", game.name, "' element={<", game.name, "/>}>", NL,
             "<Route index element={<", game.name, '_', game.pages[0].name, "/>}/>", NL
@@ -102,6 +104,6 @@ function insertImport(node: CompositeGeneratorNode): void {
         "import {Box, Button, Grommet, Heading} from 'grommet';",NL,
         "import {Notification} from 'grommet-icons';",NL,
         "import {useState} from 'react';", NL,
-        "import {Routes, Route, BrowserRouter, Link} from 'react-router-dom';",NL,NL
+        "import {Routes, Route, BrowserRouter, Link, Navigate} from 'react-router-dom';",NL,NL
     );
 }
