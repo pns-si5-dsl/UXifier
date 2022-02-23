@@ -10,7 +10,7 @@
     },
     {
       "name": "keyword.control.uxifier",
-      "match": "\\b(affect|align|area|auto|borderColor|borderSize|bottom_menu|boxColor|Button|center|character|CheckField|circular|color|config|content|description|direction|FieldGroup|game|grid|height|horizontal|href|Image|IntField|large|left|linear|max|maxLength|medium|min|minLength|navigation|page|primary|rectangular|regex|right|secondary|selection|shape|side_menu|SkillField|skipable|small|source|stat|StatField|style|Text|textColor|TextField|title|titlePos|top|type|vertical|width|xlarge|xsmall|xxlarge|xxsmall)\\b"
+      "match": "\\b(affect|align|area|auto|borderColor|borderSize|bottom_menu|boxColor|Button|center|character|CheckField|circular|color|config|content|description|direction|FieldGroup|game|grid|height|horizontal|href|Image|input|IntField|label|large|left|legend|legendPos|linear|max|maxLength|medium|min|minLength|navigation|output|page|primary|rectangular|regex|right|secondary|selection|shape|side_menu|SkillField|skipable|small|source|stat|StatField|style|Text|textColor|TextField|title|titlePos|top|type|vertical|width|xlarge|xsmall|xxlarge|xxsmall)\\b"
     },
     {
       "name": "keyword.symbol.uxifier",

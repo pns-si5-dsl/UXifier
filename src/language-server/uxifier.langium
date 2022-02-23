@@ -69,7 +69,7 @@ Component returns Component:
 
 ButtonComponent:
     'Button' name=ID '{'
-        ( (titles+=TitleDecl)
+        ( (titles+=LabelDecl)
         | (hrefs+=HrefDecl)
         | (types+=TypeDecl)
         | (styles+=StyleDecl) )*
@@ -87,8 +87,8 @@ TextComponent:
 ImageComponent:
     'Image' name=ID '{'
         ( (sources+=SourceDecl)
-        | (titles+=TitleDecl)
-        | (titlePositions+=TitlePosDecl)
+        | (titles+=LegendDecl)
+        | (titlePositions+=LegendPosDecl)
         | (styles+=StyleDecl) )*
     '}' ;
 
@@ -114,13 +114,16 @@ StyleDecl:
     '}' ;
 
 DecoField:
-    field=[Field|ID] ';';
+    ((input?='input')|(output?='output')) field=[Field|ID] ';';
 
 HrefDecl:        'href'        '=' value=STRING      ';';
 TypeDecl:        'type'        '=' value=BUTTON_TYPE ';';
 ContentDecl:     'content'     '=' value=STRING      ';';
-TitleDecl:       'title'       '=' value=STRING      ';';
+TitleDecl returns TitleDecl:       'title'       '=' value=STRING      ';';
+LegendDecl returns TitleDecl:      'legend'      '=' value=STRING      ';';
+LabelDecl returns TitleDecl:       'label'       '=' value=STRING      ';';
 TitlePosDecl:    'titlePos'    '=' value=TITLE_POS   ';';
+LegendPosDecl:   'legendPos'   '=' value=TITLE_POS   ';';
 ColorDecl:       'color'       '=' value=COLOR       ';';
 SourceDecl:      'source'      '=' value=STRING      ';';
 WidthDecl:       'width'       '=' value=SIZE        ';';

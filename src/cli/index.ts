@@ -5,7 +5,7 @@ import { Application } from '../language-server/generated/ast';
 import { createUxifierServices } from '../language-server/uxifier-module';
 import { extractAstNode } from './cli-util';
 import { generateProject } from './generator';
-// import { window, workspace } from 'vscode';
+import fs from 'fs';
 
 export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
     const model = await extractAstNode<Application>(fileName, languageMetaData.fileExtensions, createUxifierServices());
@@ -14,11 +14,20 @@ export const generateAction = async (fileName: string, opts: GenerateOptions): P
 };
 
 export const watchAction = async (): Promise<void> => {
-    // const languageExt = require('../../package.json').contributes.languages[0].extensions[0];
-    // const watcher = workspace.createFileSystemWatcher('**/*' + languageExt);
-    // watcher.onDidChange(() => {
-    //      window.showInformationMessage('Your web app was updated!');
-    // });
+    let fsWait = false;
+    fs.watch(
+        process.cwd(),
+        (event, filename) => {
+            if (filename) {
+                if (fsWait) return;
+                setTimeout(() => {
+                    fsWait = false;
+                }, 100);
+                console.log(colors.bgWhite(colors.black(event+' detected: '+filename)))
+                fsWait = true;
+            }
+        }
+    );
 };
 
 export type GenerateOptions = {

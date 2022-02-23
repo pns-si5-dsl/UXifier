@@ -34,7 +34,7 @@
         },
         {
             "name": "support.class.uxfr",
-            "match": "(character|FieldGroup|config|game|page|Field|Button|Text|Image|area)"
+            "match": "(character|FieldGroup|CheckField|IntField|TextField|StatField|SkillField|config|game|page|Field|Button|Text|Image|area)"
         },
         {
             "name": "constant.language",
@@ -42,7 +42,7 @@
         },
         {
             "name": "entity.name.function.uxfr",
-            "match": "(grid|skipable|linear|side_menu|bottom_menu|horizontal|vertical|primary|secondary|xxsmall|xsmall|small|medium|xxlarge|xlarge|large|auto|rectangular|circular|left|right|top|center)"
+            "match": "(grid|skipable|linear|side_menu|bottom_menu|horizontal|vertical|primary|secondary|xxsmall|xsmall|small|medium|xxlarge|xlarge|large|auto|rectangular|circular|left|right|top|center|input|output)"
         },
         {
             "name": "entity.name.tag.uxfr",
