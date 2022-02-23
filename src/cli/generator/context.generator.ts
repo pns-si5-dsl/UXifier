@@ -3,6 +3,7 @@ import { CompositeGeneratorNode, NL, processGeneratorNode } from "langium";
 import path from 'path';
 import { Context } from "../../language-server/generated/ast";
 import { generateConfigPage } from './config-page.generator';
+import { generateGamePage } from './game-page.generator';
 
 export function generateGameContext(context: Context, fileDir: string): void {
 
@@ -32,11 +33,10 @@ export function generateGameContext(context: Context, fileDir: string): void {
             "background='brand'", NL,
             "pad='medium'", NL,
             ">", NL,
-            "<Link to='/", context.name, "'>", context.name, "</Link>", NL
         );
     
         context.pages.forEach(page => {
-            node.append("<Link to='/", context.name, "/", page.name, "'>", page.name, "</Link>", NL);
+            node.append("<Link to='/", context.name, "/", page.name, "'><Button primary label={'", page.name, "'}/></Link>", NL);
         });
         
         node.append(
@@ -46,18 +46,17 @@ export function generateGameContext(context: Context, fileDir: string): void {
             "}", NL,
         );
     } else if (context.navigation.value == 'side_menu'){
-        //todo if side menu
         node.append(
-            "<Box fill={true}>", NL,
-            "direction='row'", NL,
+            "<Box fill={true} direction='row'>", NL,
             "<Sidebar background='brand' >", NL,
             "<Nav pad={'small'}>", NL,
-            "<Link to='/config'>", NL,
-            "<Button primary label={'Config'}/>", NL,
-            "</Link>", NL,
-            "<Link to='/config/page1'>", NL,
-            "<Button primary label={'Page1'}/>", NL,
-            "</Link>", NL,
+        );
+    
+        context.pages.forEach(page => {
+            node.append("<Link to='/", context.name, "/", page.name, "'><Button primary label={'", page.name, "'}/></Link>", NL);
+        });
+
+        node.append(
             "</Nav>", NL,
             "</Sidebar>", NL,
             "<Box", NL,
@@ -74,7 +73,7 @@ export function generateGameContext(context: Context, fileDir: string): void {
         //todo if linear menu
         node.append(
             "<Box fill>", NL,
-            "<Tabs>", NL,
+            "<Tabs fill flex>", NL,
         );
 
         context.pages.forEach(page => {
@@ -92,7 +91,7 @@ export function generateGameContext(context: Context, fileDir: string): void {
     );
 
     for (let i = 0; i < context.pages.length; i++) {
-        generateConfigPage(context.pages[i], context.pages[i+1], context.name, node);
+        generateGamePage(context.pages[i], context.pages[i+1], context.name, node);
     }
 
     fs.writeFileSync(`${path.join(fileDir,context.name)}.js`, processGeneratorNode(node));
@@ -125,8 +124,7 @@ export function generateConfigContext(context: Context, fileDir: string, nextPat
             "direction='row'", NL,
             "background='brand'", NL,
             "pad='medium'", NL,
-            ">", NL,
-            "<Link to='/", context.name, "'>", context.name, "</Link>", NL
+            ">", NL
         );
     
         context.pages.forEach(page => {
@@ -140,18 +138,17 @@ export function generateConfigContext(context: Context, fileDir: string, nextPat
             "}", NL,
         );
     } else if (context.navigation.value == 'side_menu'){
-        //todo if side menu
         node.append(
-            "<Box fill={true}>", NL,
-            "direction='row'", NL,
+            "<Box fill={true} direction='row'>", NL,
             "<Sidebar background='brand' >", NL,
             "<Nav pad={'small'}>", NL,
-            "<Link to='/config'>", NL,
-            "<Button primary label={'Config'}/>", NL,
-            "</Link>", NL,
-            "<Link to='/config/page1'>", NL,
-            "<Button primary label={'Page1'}/>", NL,
-            "</Link>", NL,
+        );
+    
+        context.pages.forEach(page => {
+            node.append("<Link to='/", context.name, "/", page.name, "'><Button primary label={'", page.name, "'}/></Link>", NL);
+        });
+
+        node.append(
             "</Nav>", NL,
             "</Sidebar>", NL,
             "<Box", NL,

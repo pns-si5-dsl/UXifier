@@ -13,21 +13,18 @@ export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: Compos
     //         "</CardHeader>", NL,
     //     ); 
     // }
-    // node.append(
-    //     "<CardBody margin='small'>", NL
-    // );
+    node.append(
+        "<CardBody margin='small'>", NL
+    );
 
     fieldGroup.decoFields.forEach(decoField => {
         const field = decoField.decoField.field.ref;
         if (field)  generateField(decoField, node);
     });
 
-    // node.append(
-    //     "</CardBody>", NL,
-    //     "<CardFooter>", NL,
-    //     "</CardFooter>", NL,
-    //     "</Card>", NL
-    // );
+    node.append(
+        "</CardBody>", NL
+    );
 
 }
 

@@ -13,11 +13,11 @@ export function generateGamePage(page: Page, nextPage: Page | undefined, modelNa
     if (page.grid) {
         node.append(
             "<Grid", NL,
-            "fill gap=small", NL,
-            "area={[", NL
+            "fill gap='small'", NL,
+            "areas={[", NL
         );
         page.areas[0]?.lines.forEach(line => {
-            node.append("[", line.components.map(r => r.ref?.name).filter(e => e).join(' ,'), "],", NL);
+            node.append("['", line.components.map(r => r.ref?.name).filter(e => e).join("','"), "'],", NL);
         });
         node.append(
             "]}", NL,
@@ -38,4 +38,5 @@ export function generateGamePage(page: Page, nextPage: Page | undefined, modelNa
     } else {
         node.append("</Box>", NL);
     }
+    node.append(")}", NL);
 }
