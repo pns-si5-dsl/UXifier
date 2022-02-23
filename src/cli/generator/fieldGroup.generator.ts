@@ -3,31 +3,31 @@ import { FieldGroupComponent, DecoField, isIntField_, isStatField_, isTextField_
 
 export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: CompositeGeneratorNode): void {
 
-    node.append(
-        "<Card margin='small' background='light-2'>", NL
-    );
-    if(fieldGroup.titles[0]) {
-        node.append(
-            "<CardHeader pad='small' background='light-3'>", NL,
-            fieldGroup.titles[0].value, NL,
-            "</CardHeader>", NL,
-        ); 
-    }
-    node.append(
-        "<CardBody margin='small'>", NL
-    );
+    // node.append(
+    //     "<Card margin='small' background='light-2'>", NL
+    // );
+    // if(fieldGroup.titles[0]) {
+    //     node.append(
+    //         "<CardHeader pad='small' background='light-3'>", NL,
+    //         fieldGroup.titles[0].value, NL,
+    //         "</CardHeader>", NL,
+    //     ); 
+    // }
+    // node.append(
+    //     "<CardBody margin='small'>", NL
+    // );
 
     fieldGroup.decoFields.forEach(decoField => {
         const field = decoField.field.ref;
         if (field)  generateField(decoField, node);
     });
 
-    node.append(
-        "</CardBody>", NL,
-        "<CardFooter>", NL,
-        "</CardFooter>", NL,
-        "</Card>", NL
-    );
+    // node.append(
+    //     "</CardBody>", NL,
+    //     "<CardFooter>", NL,
+    //     "</CardFooter>", NL,
+    //     "</Card>", NL
+    // );
 
 }
 
@@ -102,21 +102,68 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
             "</FormField>"
             )
     } else if(isOutput(decoField)){
-        // TODO for bool
-        node.append(
-            "<Card>", NL,
-        )
-        node.append(
-            "<CardHeader pad='small' background='light-3'>", NL,
-            fieldName, NL,
-            "</CardHeader>", NL,
-        );  
-        node.append(
-            "<CardBody>", NL,
-            "{state.", fieldName, "}", NL,
-            "</CardBody>", NL,
-            "</Card>", NL            
-        )
+
+        // TODO other
+
+        if(isSkillField_(field)){
+            const skillSelectedVar = "skills."+fieldName+".selected";
+            const skillActivatedVar = "skills."+fieldName+".selected";
+            const skillStatVar = "skills."+fieldName+".stat";
+            const skillVariationVar = "skills."+fieldName+".var";
+
+            node.append(
+                "{state.",skillSelectedVar," &&",NL,
+                    "<CheckBox",NL,
+                        "id='skills-",fieldName,"-output'",NL,
+                        "checked={state.",skillActivatedVar,"}",NL,
+                        "onChange={(e) => {",NL,
+                            "const skills = JSON.parse(JSON.stringify(state.skills));", NL,
+                            skillActivatedVar," = e.target.checked;", NL,
+                            "const value = {",NL,
+                                "skills: skills,",NL,
+                            "}",NL,
+                            "value[state.",skillStatVar,"+'_incr'] =",NL,
+                            "state[state.",skillStatVar,"+'_incr']",NL,
+                                "+ state.",skillVariationVar," * (e.target.checked ? 1 : -1);",NL,
+                            "dispatch({",NL,
+                                "type: 'up',",NL,
+                                "value: value,",NL,
+                            "})",NL,
+                        "}}",NL,
+                        "label={'",fieldName," (' + state.",skillStatVar," + '+' + state.",skillVariationVar," + '%)'}",NL,
+                    "/>}",NL,
+            )
+        } else if (isStatField_(field)){
+            node.append(
+                "<Card background={'accent-1'} margin={'small'} pad={'small'} width={'xsmall'}>",NL,
+                    "<CardHeader background={'accent-1'}>",NL,
+                    fieldName,NL,
+                    "</CardHeader>",NL,
+                    "<CardBody background={'light-1'} round={'xsmall'} align={'center'}",NL,
+                    "          justify={'center'}>",NL,
+                    "    <Heading margin='none' color={state.",fieldName,"_incr>100 ? 'neutral-1' : ''}>",NL,
+                    "        {Math.round(state.",fieldName," * state.",fieldName,"_incr/100)}",NL,
+                    "    </Heading>",NL,
+                    "</CardBody>",NL,
+                "</Card>",NL,
+            )
+        }
+        else {
+            node.append(
+                "<Card>", NL,
+            )
+            node.append(
+                "<CardHeader pad='small' background='light-3'>", NL,
+                fieldName, NL,
+                "</CardHeader>", NL,
+            );  
+            node.append(
+                "<CardBody>", NL,
+                "{state.", fieldName, "}", NL,
+                "</CardBody>", NL,
+                "</Card>", NL            
+            )
+        }
     }
 }
 

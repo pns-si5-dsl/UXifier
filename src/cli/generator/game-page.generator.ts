@@ -32,23 +32,10 @@ export function generateGamePage(page: Page, nextPage: Page | undefined, modelNa
     page.components.forEach(component => {
         generateComponent(component, node);
     });
-
-    node.append("<Box direction='row' gap='medium' justify='end'>", NL);
-
-    if(nextPage) {
-        node.append(
-            "<Link to='/", modelName, "/", nextPage.name, "'>", NL,
-            "<Button type='submit' primary label='Next'/>", NL,
-            "</Link>", NL,
-        );
+    
+    if(page.grid) {
+        node.append("</Grid>", NL);
+    } else {
+        node.append("</Box>", NL);
     }
-
-    node.append(
-        "<Button type='reset' label='Reset'/>", NL,
-        "</Box>", NL,
-        "</Form>", NL,
-        ");", NL,
-        "}", NL, NL
-    );
-
 }
