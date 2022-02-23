@@ -119,18 +119,32 @@ StyleDecl:
         | (aligns+=AlignDecl) )*
     '}' ;
 
-DecoField:
-    ((input?='input')|(output?='output')) field=[Field|ID] ';';
+DecoField returns DecoField:
+    ((input?='input')|(output?='output')) (SimpleDecoField|GaugeDecoField);
 
-TitleDecl  returns TitleDecl: 'title'  '=' value=STRING ';';
-LegendDecl returns TitleDecl: 'legend' '=' value=STRING ';';
-LabelDecl  returns TitleDecl: 'label'  '=' value=STRING ';';
+SimpleDecoField:
+    'SimpleDecoration' field=[Field|ID] '{'
+        ( (styles+=StyleDecl) )*
+    '}' ;
+
+GaugeDecoField:
+    'GaugeDecoration' field=[Field|ID] '{'
+        ( (styles+=StyleDecl)
+        | (lowColors+=LowColorDecl)
+        | (highColors+=HighColorDecl) )*
+    '}' ;
+
+TitleDecl     returns TitleDecl: 'title'     '=' value=STRING ';';
+LegendDecl    returns TitleDecl: 'legend'    '=' value=STRING ';';
+LabelDecl     returns TitleDecl: 'label'     '=' value=STRING ';';
+ColorDecl     returns ColorDecl: 'color'     '=' value=COLOR  ';';
+LowColorDecl  returns ColorDecl: 'lowColor'  '=' value=COLOR  ';';
+HighColorDecl returns ColorDecl: 'highColor' '=' value=COLOR  ';';
 HrefDecl:        'href'        '=' value=STRING         ';';
 TypeDecl:        'type'        '=' value=BUTTON_TYPE    ';';
 ContentDecl:     'content'     '=' value=STRING         ';';
 TitlePosDecl:    'titlePos'    '=' value=TITLE_POS      ';';
 LegendPosDecl:   'legendPos'   '=' value=TITLE_POS      ';';
-ColorDecl:       'color'       '=' value=COLOR          ';';
 SourceDecl:      'source'      '=' value=STRING         ';';
 WidthDecl:       'width'       '=' value=SIZE           ';';
 HeightDecl:      'height'      '=' value=SIZE           ';';
