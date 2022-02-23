@@ -82,10 +82,14 @@ export function generateGameContext(context: Context, fileDir: string): void {
         });
 
         node.append(
-            "<Tabs/>", NL,
+            "</Tabs>", NL,
             "</Box>", NL,
         );
     }
+
+    node.append(
+        ")}", NL
+    );
 
     for (let i = 0; i < context.pages.length; i++) {
         generateConfigPage(context.pages[i], context.pages[i+1], context.name, node);

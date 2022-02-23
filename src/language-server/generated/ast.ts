@@ -201,6 +201,7 @@ export function isContext(item: unknown): item is Context {
 
 export interface DecoField extends AstNode {
     readonly $container: FieldGroupComponent;
+    decoField: SimpleDecoField | GaugeDecoField
     input: boolean
     output: boolean
 }
@@ -245,6 +246,7 @@ export function isField(item: unknown): item is Field {
 }
 
 export interface GaugeDecoField extends AstNode {
+    readonly $container: DecoField;
     field: Reference<Field>
     highColors: Array<ColorDecl>
     lowColors: Array<ColorDecl>
@@ -428,6 +430,7 @@ export function isShapeDecl(item: unknown): item is ShapeDecl {
 }
 
 export interface SimpleDecoField extends AstNode {
+    readonly $container: DecoField;
     field: Reference<Field>
     styles: Array<StyleDecl>
 }

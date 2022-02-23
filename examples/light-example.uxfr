@@ -29,28 +29,28 @@ config Config {
     skipable vertical page Page1 {
         FieldGroup perso_group{
             title= "Ton perso";
-            input nom;
-            input age;
+            input SimpleDecoration nom {}
+            input SimpleDecoration age {}
         }
         FieldGroup aspect_group{
             title= "Ta gueule";
-            input taille;
-            input eyes;
-            input isReady;
+            input SimpleDecoration taille{}
+            input SimpleDecoration eyes{}
+            input SimpleDecoration isReady{}
         }
     }
     
     skipable vertical page Page2 {
         FieldGroup stats{
             title= "Tes Stats";
-            input FOR;
-            input SAG;
-            input INT;
+            input SimpleDecoration FOR {}
+            input SimpleDecoration SAG {}
+            input SimpleDecoration INT {}
         }
         FieldGroup skills{
             title= "Tes Skills";
-            input lecture;
-            input pegu;
+            input SimpleDecoration lecture {}
+            input SimpleDecoration pegu {}
         }
     }
 }
@@ -64,21 +64,21 @@ game Game {
         
         FieldGroup stats{
             title= "Tes Stats";
-            output FOR;
-            output SAG;
-            output INT;
+            output SimpleDecoration FOR {}
+            output SimpleDecoration SAG {}
+            output SimpleDecoration INT {}
         }
 
         FieldGroup banane{
             title="Oui";
-            output nom;
-            output age;
-            output isReady;
+            output SimpleDecoration nom {}
+            output SimpleDecoration age {}
+            output SimpleDecoration isReady {}
         }
 
         FieldGroup skills{
             title="Skills";
-            output lecture;
+            output SimpleDecoration lecture {}
         }
         
     }

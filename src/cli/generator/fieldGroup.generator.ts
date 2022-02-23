@@ -18,7 +18,7 @@ export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: Compos
     // );
 
     fieldGroup.decoFields.forEach(decoField => {
-        const field = decoField.field.ref;
+        const field = decoField.decoField.field.ref;
         if (field)  generateField(decoField, node);
     });
 
@@ -32,9 +32,9 @@ export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: Compos
 }
 
 function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
-    const fieldName =  String(decoField.field.ref?.name);
-    const field =  decoField.field.ref;
-    if(isInput(decoField)){
+    const fieldName =  String(decoField.decoField.field.ref?.name);
+    const field =  decoField.decoField.field.ref;
+    if(decoField.input){
         node.append(
             "<FormField htmlFor='",fieldName,"-input' label='",fieldName,"' margin={{horizontal: 'medium'}}>", NL
         );
@@ -124,7 +124,7 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
         node.append(
             "</FormField>"
             )
-    } else if(isOutput(decoField)){
+    } else if(decoField.output){
 
         if(isSkillField_(field)){
             const skillSelectedVar = "skills."+fieldName+".selected";
@@ -219,12 +219,4 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
             )
         }
     }
-}
-
-function isInput(decoField: DecoField): boolean {
-    return decoField.input;    
-}
-
-function isOutput(decoField: DecoField): boolean {
-    return decoField.output;    
 }

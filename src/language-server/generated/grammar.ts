@@ -1554,25 +1554,29 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             ]
           },
           {
-            "$type": "Alternatives",
-            "elements": [
-              {
-                "$type": "RuleCall",
-                "arguments": [],
-                "rule": {
-                  "$refText": "SimpleDecoField"
+            "$type": "Assignment",
+            "feature": "decoField",
+            "operator": "=",
+            "terminal": {
+              "$type": "Alternatives",
+              "elements": [
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "SimpleDecoField"
+                  },
+                  "elements": []
                 },
-                "elements": []
-              },
-              {
-                "$type": "RuleCall",
-                "arguments": [],
-                "rule": {
-                  "$refText": "GaugeDecoField"
-                },
-                "elements": []
-              }
-            ]
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "GaugeDecoField"
+                  }
+                }
+              ]
+            }
           }
         ]
       }

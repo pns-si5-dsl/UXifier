@@ -3,7 +3,7 @@ import { Application, Context, /* ButtonComponent, Context, DecoField, FieldDecl
 import { extractDestinationAndName } from './cli-util';
 import { generateBoilerplate } from './generator/boilerplate.generator';
 import { generateApplication } from './generator/app.generator';
-import { generateContext } from './generator/context.generator';
+import { generateGameContext, generateConfigContext } from './generator/context.generator';
 import { generateFields } from './generator/fields.generator';
 
 export function generateProject(application: Application, filePath: string, destination: string | undefined): void {
@@ -27,11 +27,11 @@ export function generateProject(application: Application, filePath: string, dest
     
     // Generate the configuration.
     if (config) {
-        generateContext(config, srcPath);
+        generateConfigContext(config, srcPath);
     }
     
     // Generate the game.
     if (game) {
-        generateContext(game, srcPath);
+        generateGameContext(game, srcPath);
     }
 }
