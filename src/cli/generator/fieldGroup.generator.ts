@@ -42,6 +42,18 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
         if(isIntField_(field) || isStatField_(field)){
             node.append(
                 "<NumberInput id='",fieldName,"-input' placeholder='", fieldName, "'",NL,
+            );
+            if(field.mins[0]){
+                node.append(
+                    "min={",String(field.mins[0].value),"}", NL,
+                );
+            }
+            if(field.maxs[0]){
+                node.append(
+                    "max={",String(field.maxs[0].value),"}", NL,
+                );
+            }
+            node.append(
                 "value={state.",fieldName,"}", NL,
                 "onChange={e => {", NL,
                 "dispatch({type: 'up', value: {",fieldName,": e.target.value}})", NL,
@@ -50,6 +62,17 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
             )
         }
         if(isTextField_(field)){
+            if(field.selections[0]) {
+                node.append(
+                    "<Select id='",fieldName,"-input' placeholder='", fieldName, "'",NL,
+                    "value={state.",fieldName,"}", NL,
+                    "options={['",field.selections[0].values.join("','"),"']}",NL,
+                    "onChange={e => {", NL,
+                    "dispatch({type: 'up', value: {",fieldName,": e.target.value}})", NL,
+                    "}}", NL,
+                    "/>", NL
+                )
+            }
             node.append(
                 "<TextInput id='",fieldName,"-input' placeholder='", fieldName, "'",NL,
                 "value={state.",fieldName,"}", NL,

@@ -2,7 +2,7 @@ import { CompositeGeneratorNode, NL } from "langium";
 import { Page } from "../../language-server/generated/ast";
 import { generateComponent } from "./component.generator";
 
-export function generateConfigPage(page: Page, nextPage: Page | undefined, modelName: string, node: CompositeGeneratorNode): void {
+export function generateConfigPage(page: Page, nextPage: Page | undefined, modelName: string, node: CompositeGeneratorNode, endPath: string | undefined = undefined): void {
     
     node.append(
         NL, "export function ", page.name, "(props) {", NL,
@@ -28,6 +28,12 @@ export function generateConfigPage(page: Page, nextPage: Page | undefined, model
         node.append(
             "<Link to='/", modelName, "/", nextPage.name, "'>", NL,
             "<Button type='submit' primary label='Next'/>", NL,
+            "</Link>", NL,
+        );
+    } else if (endPath) {
+        node.append(
+            "<Link to='",endPath,"'>", NL,
+                "<Button type='submit' primary label='Finish'/>", NL,
             "</Link>", NL,
         );
     }
