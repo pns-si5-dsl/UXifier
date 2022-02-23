@@ -45,12 +45,16 @@
             "match": "(((?<=FieldGroup )|(?<=Button )|(?<=BoxComponent )|(?<=Text )|(?<=Image ))[\n\t\r ]*[^\n\t\n:({; ]+)"
         },
         {
+            "name": "support.variable.components.uxfr",
+            "match": "(((?<=SimpleDecoration )|(?<=GaugeDecoration ))[\n\t\r ]*[^\n\t\n:({; ]+)"
+        },
+        {
             "name": "support.class.uxfr",
-            "match": "(character|FieldGroup|CheckField|IntField|TextField|StatField|SkillField|config|game|page|Field|BoxComponent|Button|Text|Image|area)"
+            "match": "(character|FieldGroup|CheckField|IntField|TextField|StatField|SkillField|config|game|page|Field|BoxComponent|Button|Text|Image|area|SimpleDecoration|GaugeDecoration)"
         },
         {
             "name": "constant.language",
-            "match": "(navigation|label|href|type|style|content|titlePos|color|title|source|legendPos|legend|width|height|direction|borderColor|borderSize|boxColor|textColor|shape|align|description|affect|maxLength|minLength|max|min|regex|selection|stat)"
+            "match": "(navigation|label|href|type|style|content|titlePos|color|title|source|legendPos|legend|width|height|direction|borderColor|borderSize|boxColor|textColor|shape|align|description|affect|maxLength|minLength|max|min|regex|selection|stat|highColor|lowColor)"
         },
         {
             "name": "entity.name.function.uxfr",

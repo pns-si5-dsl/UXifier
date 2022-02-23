@@ -1,5 +1,5 @@
 import { ValidationAcceptor, ValidationCheck, ValidationRegistry } from 'langium';
-import { Application, Context, COLOR, Page, UxifierAstType, FieldGroupComponent, ButtonComponent, StyleDecl, TextComponent, ImageComponent, PageArea, AreaLine, Component, CheckField_, IntField_, TextField_, SkillField_, StatField_, ComponentBoxComponent } from './generated/ast';
+import { Application, Context, COLOR, Page, UxifierAstType, FieldGroupComponent, ButtonComponent, StyleDecl, TextComponent, ImageComponent, PageArea, AreaLine, Component, CheckField_, IntField_, TextField_, SkillField_, StatField_, ComponentBoxComponent, SimpleDecoField, GaugeDecoField } from './generated/ast';
 import { UxifierServices } from './uxifier-module';
 import * as util from './validator-util';
 
@@ -160,6 +160,16 @@ export class UxifierValidator {
         util.acceptUnique('title position', accept, component.titlePositions);
         util.acceptUnique('style', accept, component.styles);
         util.acceptMustContain('at least one decorated field', accept, component.decoFields, component, 'name');
+    }
+
+    checkSimpleDecoField(decoField: SimpleDecoField, accept: ValidationAcceptor): void {
+        util.acceptUnique('style', accept, decoField.styles);
+    }
+
+    checkGaugeDecoField(decoField: GaugeDecoField, accept: ValidationAcceptor): void {
+        util.acceptUnique('style', accept, decoField.styles);
+        util.acceptMustContain('a high color', accept, decoField.highColors, decoField);
+        util.acceptMustContain('a low color', accept, decoField.lowColors, decoField);
     }
 
     checkStyle(style: StyleDecl, accept: ValidationAcceptor): void {
