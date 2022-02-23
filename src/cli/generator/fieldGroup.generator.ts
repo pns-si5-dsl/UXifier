@@ -88,7 +88,7 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
                 'id="',fieldName,'-input"', NL,
                 "checked={state.",fieldName,"}", NL,
                 'label="', field.descriptions[0] ? field.descriptions[0].value : fieldName , '"', NL,
-                "onChange={(event) => dispatch({",NL,
+                "onChange={(e) => dispatch({",NL,
                     "type: 'up',",NL,
                     "value: {", NL,
                     fieldName,": e.target.checked,",NL,
@@ -100,7 +100,7 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
         if(isSkillField_(field)){
             const skillSelectedVar = "skills."+fieldName+".selected";
             const skillStatVar = "skills."+fieldName+".stat";
-            const skillVariationVar = "skills."+fieldName+".var";
+            const skillVariationVar = "skills."+fieldName+".variation";
             
             node.append(
                 "<CheckBox", NL,
@@ -128,9 +128,9 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
 
         if(isSkillField_(field)){
             const skillSelectedVar = "skills."+fieldName+".selected";
-            const skillActivatedVar = "skills."+fieldName+".selected";
+            const skillActivatedVar = "skills."+fieldName+".activated";
             const skillStatVar = "skills."+fieldName+".stat";
-            const skillVariationVar = "skills."+fieldName+".var";
+            const skillVariationVar = "skills."+fieldName+".variation";
 
             node.append(
                 "{state.",skillSelectedVar," &&",NL,
@@ -174,10 +174,10 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
         else if(isCheckField_(field)){
             node.append(
                 "<CheckBox", NL,
-                    "id='",fieldName,"'-output'", NL,
+                    "id='",fieldName,"-output'", NL,
                     "checked={state.",fieldName,"}", NL,
                     "label='", field.descriptions[0] ? field.descriptions[0].value : fieldName ," ' ", NL,
-                    "toggle=false", NL,
+                    "toggle={false}", NL,
                 "/>", NL
             )
         }
@@ -185,8 +185,8 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
         else if(isIntField_(field)){
             node.append(
                 "<Text", NL,
-                    "id='",fieldName,"'-output'", NL,
-                    "align-self='center", NL,
+                    "id='",fieldName,"-output'", NL,
+                    "align-self='center'", NL,
                     "> {state.",fieldName,"}" , NL,
                 "</Text>", NL
             )
@@ -195,9 +195,9 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
         else if(isTextField_(field)){
             node.append(
                 "<Heading", NL,
-                    "id='",fieldName,"'-output'", NL,
+                    "id='",fieldName,"-output'", NL,
                     "margin='large'", NL,
-                    "align-self='center", NL,
+                    "align-self='center'", NL,
                     "> {state.",fieldName,"}" , NL,
                 "</Heading>", NL
             )

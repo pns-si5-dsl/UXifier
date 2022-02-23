@@ -26,8 +26,8 @@ export function generateProject(application: Application, filePath: string, dest
     const game: Context | undefined = application.games[0];
     
     // Generate the configuration.
-    if (config) {
-        generateConfigContext(config, srcPath);
+    if (config && game) {
+        generateConfigContext(config, srcPath, '/'+game.name);
     }
     
     // Generate the game.

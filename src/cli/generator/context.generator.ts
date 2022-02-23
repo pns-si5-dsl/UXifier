@@ -98,7 +98,7 @@ export function generateGameContext(context: Context, fileDir: string): void {
     fs.writeFileSync(`${path.join(fileDir,context.name)}.js`, processGeneratorNode(node));
 }
 
-export function generateConfigContext(context: Context, fileDir: string): void {
+export function generateConfigContext(context: Context, fileDir: string, nextPath: string | undefined = undefined): void {
 
     const node = new CompositeGeneratorNode();
     insertImport(node);
@@ -174,7 +174,7 @@ export function generateConfigContext(context: Context, fileDir: string): void {
     }
 
     for (let i = 0; i < context.pages.length; i++) {
-        generateConfigPage(context.pages[i], context.pages[i+1], context.name, node);
+        generateConfigPage(context.pages[i], context.pages[i+1], context.name, node, nextPath);
     }
 
     fs.writeFileSync(`${path.join(fileDir,context.name)}.js`, processGeneratorNode(node));
