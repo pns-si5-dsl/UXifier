@@ -31,13 +31,14 @@ export function generateFields(fields: Field[], fileDir: string): void {
     node.append('skills: {', NL);
     skillsFields.forEach(field => {
         if(!isSkillField_(field)) return; 
+        const statVar = field.affects[0] ? field.affects[0].value.slice(0,-1) : '100';
         const statName = field.stats[0].value.ref?.name ? field.stats[0].value.ref?.name : "";
         node.append(
             field.name,': {',
             'selected: false,', NL,
             'activated: false,', NL,
             'stat: "',statName,'",', NL,
-            'variation: 100,', NL,
+            'variation: ',statVar,',', NL,
             '},', NL
         );
     })
