@@ -103,8 +103,6 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
             )
     } else if(isOutput(decoField)){
 
-        // TODO other
-
         if(isSkillField_(field)){
             const skillSelectedVar = "skills."+fieldName+".selected";
             const skillActivatedVar = "skills."+fieldName+".selected";
@@ -133,7 +131,8 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
                         "label={'",fieldName," (' + state.",skillStatVar," + '+' + state.",skillVariationVar," + '%)'}",NL,
                     "/>}",NL,
             )
-        } else if (isStatField_(field)){
+        } 
+        else if (isStatField_(field)){
             node.append(
                 "<Card background={'accent-1'} margin={'small'} pad={'small'} width={'xsmall'}>",NL,
                     "<CardHeader background={'accent-1'}>",NL,
@@ -146,6 +145,38 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
                     "    </Heading>",NL,
                     "</CardBody>",NL,
                 "</Card>",NL,
+            )
+        }
+         // TODO
+        else if(isCheckField_(field)){
+            node.append(
+                "<CheckBox", NL,
+                    "id='",fieldName,"'-output'", NL,
+                    "checked={state.",fieldName,"}", NL,
+                    "label='", field.descriptions[0] ? field.descriptions[0].value : fieldName ," ' ", NL,
+                    "toggle=false", NL,
+                "/>", NL
+            )
+        }
+        //TODO
+        else if(isIntField_(field)){
+            node.append(
+                "<Text", NL,
+                    "id='",fieldName,"'-output'", NL,
+                    "align-self='center", NL,
+                    "> {state.",fieldName,"}" , NL,
+                "</Text>", NL
+            )
+        }
+        //TODO
+        else if(isTextField_(field)){
+            node.append(
+                "<Heading", NL,
+                    "id='",fieldName,"'-output'", NL,
+                    "margin='large'", NL,
+                    "align-self='center", NL,
+                    "> {state.",fieldName,"}" , NL,
+                "</Heading>", NL
             )
         }
         else {
@@ -168,13 +199,9 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
 }
 
 function isInput(decoField: DecoField): boolean {
-    return true;
-    throw new Error("Not implemented");
-    
+    return decoField.input;    
 }
 
 function isOutput(decoField: DecoField): boolean {
-    //TODO
-    throw new Error("Not implemented");
-    
+    return decoField.output;    
 }
