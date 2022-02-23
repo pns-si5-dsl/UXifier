@@ -1,0 +1,184 @@
+character: MyCharacter;
+
+TextField name {
+    maxLength = 20;
+    minLength = 2;
+    regex = "[A-Z][a-z]+";
+}
+IntField age {
+    min = 0;
+    max = 100;
+}
+TextField race {
+    selection = [ "Elf", "Orc", 'Human' ];
+}
+IntField xp {
+    min = 0;
+    max = 10000;
+}
+CheckField isDead {
+    description = "Set to true when the player is dead.";
+}
+StatField FOR {
+    min = 1;
+    max = 100;
+}
+SkillField box {
+    stat = FOR;
+    affect = 15%;
+    description = "Physical sport to improve strenght.";
+}
+
+config MyConfig {
+    
+    navigation = side_menu;
+    
+    vertical page Page1 {
+        Text text1 {
+            title = "A title";
+            titlePos = top;
+            content = "A subtitle";
+            color = #aaa;
+            style {}
+        }
+        Text text2 {
+            title = "A title";
+            titlePos = left;
+            content = "A subtitle";
+        }
+        Text text3 {
+            content = "A subtitle";
+            style {
+                width = auto;
+                height = xxsmall;
+                direction = horizontal;
+                borderColor = #bbbbbb;
+                borderSize = xxlarge;
+                boxColor = #cccccc;
+                textColor = #dddddd;
+                shape = circular;
+                align = center;
+            }
+        }
+        Text text4 {
+            content = "A subtitle";
+            style {
+                width = xsmall;
+                height = small;
+                direction = vertical;
+                shape = rectangular;
+                align = left;
+            }
+        }
+        Text text5 {
+            content = "A subtitle";
+            style {
+                width = medium;
+                height = large;
+                align = right;
+            }
+        }
+        Text text6 {
+            content = "A subtitle";
+            style {
+                width = xlarge;
+                height = xxlarge;
+            }
+        }
+        Text text7 {
+            content = "A subtitle";
+            style {
+                width = 55px;
+                height = 54%;
+            }
+        }
+    }
+
+    horizontal page Page2 {
+        Image image1 {
+            source = "http://google/myImages/cat.png";
+            legend = "a cat";
+            legendPos = left;
+            style {}
+        }
+        Image image2 {
+            source = "http://google/myImages/tiger.png";
+            legendPos = top;
+        }
+        Image image3 {
+            source = "http://google/myImages/spider.png";
+        }
+    }
+
+    page Page3 {
+        FieldGroup filedGroup1 {
+            title = "physics";
+            titlePos = left;
+            style {}
+            input age;
+            input race;
+        }
+        FieldGroup filedGroup2 {
+            title = "description";
+            titlePos = top;
+            input name;
+            input xp;
+        }
+        FieldGroup filedGroup3 {
+            input isDead;
+        }
+    }
+}
+
+game MyGame {
+    
+    navigation = bottom_menu;
+    
+    skipable vertical page Page1 {
+        Button button {
+            label = "button";
+            href = "Page2";
+            type = primary;
+            style {}
+        }
+    }
+    
+    skipable horizontal page Page2 {
+        Button button {
+            label = "button";
+            href = "Page1";
+            type = secondary;
+        }
+    }
+
+    skipable page Page3 {
+        BoxComponent box {
+            Button button1 {
+                label = "button 1";
+            }
+            Button button2 {
+                label = "button 2";
+            }
+        }
+    }
+
+    grid page Page4 {
+        area {
+            |A A A B|
+            |C D D B|
+            |C D D B|
+        }
+        Text A {
+            content = "Text 1";
+        }
+        Text B {
+            content = "Text 2";
+        }
+        Text C {
+            content = "Text 3";
+        }
+        Text D {
+            content = "Text 4";
+        }
+    }
+}
