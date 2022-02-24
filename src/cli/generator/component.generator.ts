@@ -1,5 +1,5 @@
 import { CompositeGeneratorNode, NL } from "langium";
-import { Component, isButtonComponent, isFieldGroupComponent, isImageComponent, isTextComponent, TextComponent, ImageComponent } from "../../language-server/generated/ast";
+import { Component, isButtonComponent, isFieldGroupComponent, isImageComponent, isTextComponent, TextComponent, ImageComponent, isComponentBoxComponent, ComponentBoxComponent, ButtonComponent } from "../../language-server/generated/ast";
 import { generateFieldGroup } from "./fieldGroup.generator";
 
 export function generateComponent(component: Component, node: CompositeGeneratorNode): void {
@@ -17,11 +17,13 @@ export function generateComponent(component: Component, node: CompositeGenerator
     if (isFieldGroupComponent(component)) {
         generateFieldGroup(component, node);
     } else if (isButtonComponent(component)) {
-        // TODO
+        generateButtonComponent(component, node);
     } else if (isTextComponent(component)) {
         generateTextComponent(component, node);
     } else if (isImageComponent(component)) {
         generateImageComponent(component, node);
+    } else if (isComponentBoxComponent(component)) {
+        generateBoxComponent(component, node);
     }
 
     node.append(
@@ -43,5 +45,36 @@ function generateTextComponent(text: TextComponent, node: CompositeGeneratorNode
 function generateImageComponent(image: ImageComponent, node: CompositeGeneratorNode): void {
     node.append(
         "<Image fill src='",image.sources[0].value,"'/>", NL
+    );
+}
+
+function generateBoxComponent(box: ComponentBoxComponent, node: CompositeGeneratorNode): void {
+    node.append(
+        "<CardBody margin='large'>", NL,
+    ); 
+    box.components.forEach((innerComp) => {
+        generateComponent(innerComp, node);
+    });
+    node.append(
+        "</CardBody>", NL
+    );
+}
+
+function generateButtonComponent(button: ButtonComponent, node: CompositeGeneratorNode): void {
+    const label = button.titles[0] ? "label='"+button.titles[0].value+"' " : "" ;
+    const type = button.types[0] ? button.types[0].value+" " : "primary ";
+    
+    node.append(
+        "<CardBody>", NL,
+    );
+    if(button.hrefs[0]){
+        node.append("<Link to='",button.hrefs[0].value,"'>",NL);
+    }
+    node.append("<Button id='",button.name,"-button' ",type, label,"/>",NL)
+    if(button.hrefs[0]){
+        node.append("</Link>",NL);
+    }
+    node.append(
+        "</CardBody>", NL
     );
 }
