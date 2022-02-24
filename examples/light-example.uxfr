@@ -8,18 +8,27 @@ TextField eyes {}
 StatField FOR {}
 StatField SAG {}
 StatField INT {}
-
-CheckField isReady {}
+StatField END {}
+StatField ADR {}
+StatField CHA {}
 
 SkillField lecture {
     stat = INT;
     affect = 20%;
-    description= "test";
+    description= "ceci s'appelle la lecture t'as vu";
 }
-
 SkillField pegu {
     stat = FOR;
     affect = 100%;
+}
+SkillField charisme {
+    stat = CHA;
+    affect = 30%;
+}
+SkillField banane {
+    stat = END;
+    affect = 50%;
+    description = "c'est bon les bananes";
 }
 
 config Config {
@@ -36,7 +45,6 @@ config Config {
             title= "Ta gueule";
             input SimpleDecoration taille{}
             input SimpleDecoration eyes{}
-            input SimpleDecoration isReady{}
         }
     }
     
@@ -46,39 +54,67 @@ config Config {
             input SimpleDecoration FOR {}
             input SimpleDecoration SAG {}
             input SimpleDecoration INT {}
+            input SimpleDecoration END {}
+            input SimpleDecoration ADR {}
+            input SimpleDecoration CHA {}
         }
         FieldGroup skills{
             title= "Tes Skills";
             input SimpleDecoration lecture {}
             input SimpleDecoration pegu {}
+            input SimpleDecoration charisme {}
+            input SimpleDecoration banane {}
         }
     }
 }
 
-game Game {
+game GameDebilus {
     
     navigation = linear;
     
-    skipable horizontal page Ossef {
-
+    skipable grid page Game {
+        area {
+            |header header skills|
+            |inv life skills|
+            |inv stats stats|
+        }
         
         FieldGroup stats{
             title= "Tes Stats";
+            style {
+                direction = horizontal;
+            }
+            output SimpleDecoration FOR {}
+            output SimpleDecoration SAG {}
+            output SimpleDecoration INT {}
             output SimpleDecoration FOR {}
             output SimpleDecoration SAG {}
             output SimpleDecoration INT {}
         }
 
-        FieldGroup banane{
-            title="Oui";
+        FieldGroup header{
+            style {
+                direction = horizontal;
+            }
             output SimpleDecoration nom {}
             output SimpleDecoration age {}
-            output SimpleDecoration isReady {}
         }
 
         FieldGroup skills{
             title="Skills";
             output SimpleDecoration lecture {}
+            output SimpleDecoration pegu {}
+            output SimpleDecoration banane {}
+            output SimpleDecoration charisme {}
+        }
+
+        Text inv {
+            title = "Inventaire";
+            content = "Ceci est en cours de dev..";
+        }
+
+        Text life {
+            content = "100% tkt frere";
         }
         
     }

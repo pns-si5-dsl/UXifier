@@ -143,6 +143,8 @@ export class UxifierValidator {
         util.acceptUnique('title', accept, component.titles);
         util.acceptMustContain('at least one component', accept, component.components, component, 'name');
         util.acceptNoDuplicateNames(accept, component.components, 'name');
+        util.acceptUnique('style', accept, component.styles);
+        util.acceptUnique('title position', accept, component.titlePositions);
     }
 
     checkButtonComponent(component: ButtonComponent, accept: ValidationAcceptor): void {

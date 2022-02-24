@@ -75,7 +75,9 @@ Component returns Component:
 ComponentBoxComponent:
     'BoxComponent' name=ID '{'
         ( (titles+=TitleDecl)
-        | (components+=Component) )*
+        | (titlePositions+=TitlePosDecl)
+        | (styles+=StyleDecl) )*
+        (components+=Component)*
     '}' ;
 
 ButtonComponent:

@@ -966,18 +966,45 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               },
               {
                 "$type": "Assignment",
-                "feature": "components",
+                "feature": "titlePositions",
                 "operator": "+=",
                 "terminal": {
                   "$type": "RuleCall",
                   "arguments": [],
                   "rule": {
-                    "$refText": "Component"
+                    "$refText": "TitlePosDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "styles",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "StyleDecl"
                   }
                 },
                 "elements": []
               }
             ],
+            "cardinality": "*"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "components",
+            "operator": "+=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "Component"
+              }
+            },
+            "elements": [],
             "cardinality": "*"
           },
           {

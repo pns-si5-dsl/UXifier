@@ -166,6 +166,7 @@ export function isColorDecl(item: unknown): item is ColorDecl {
 export interface Component extends AstNode {
     readonly $container: Page | ComponentBoxComponent;
     name: string
+    styles: Array<StyleDecl>
     titles: Array<TitleDecl>
 }
 
@@ -487,7 +488,7 @@ export function isStringInitDecl(item: unknown): item is StringInitDecl {
 }
 
 export interface StyleDecl extends AstNode {
-    readonly $container: ButtonComponent | TextComponent | ImageComponent | FieldGroupComponent | SimpleDecoField | GaugeDecoField;
+    readonly $container: SimpleDecoField | GaugeDecoField | Component;
     aligns: Array<AlignDecl>
     borderColors: Array<BorderColorDecl>
     borderSizes: Array<BorderSizeDecl>
@@ -539,7 +540,7 @@ export function isTitleDecl(item: unknown): item is TitleDecl {
 }
 
 export interface TitlePosDecl extends AstNode {
-    readonly $container: TextComponent | FieldGroupComponent;
+    readonly $container: ComponentBoxComponent | TextComponent | FieldGroupComponent;
     value: TITLE_POS
 }
 
@@ -573,7 +574,6 @@ export function isWidthDecl(item: unknown): item is WidthDecl {
 
 export interface ButtonComponent extends Component {
     hrefs: Array<HrefDecl>
-    styles: Array<StyleDecl>
     types: Array<TypeDecl>
 }
 
@@ -585,6 +585,7 @@ export function isButtonComponent(item: unknown): item is ButtonComponent {
 
 export interface ComponentBoxComponent extends Component {
     components: Array<Component>
+    titlePositions: Array<TitlePosDecl>
 }
 
 export const ComponentBoxComponent = 'ComponentBoxComponent';
@@ -595,7 +596,6 @@ export function isComponentBoxComponent(item: unknown): item is ComponentBoxComp
 
 export interface FieldGroupComponent extends Component {
     decoFields: Array<DecoField>
-    styles: Array<StyleDecl>
     titlePositions: Array<TitlePosDecl>
 }
 
@@ -607,7 +607,6 @@ export function isFieldGroupComponent(item: unknown): item is FieldGroupComponen
 
 export interface ImageComponent extends Component {
     sources: Array<SourceDecl>
-    styles: Array<StyleDecl>
     titlePositions: Array<LegendPosDecl>
 }
 
@@ -620,7 +619,6 @@ export function isImageComponent(item: unknown): item is ImageComponent {
 export interface TextComponent extends Component {
     colors: Array<ColorDecl>
     contents: Array<ContentDecl>
-    styles: Array<StyleDecl>
     titlePositions: Array<TitlePosDecl>
 }
 
