@@ -1,18 +1,40 @@
 character: Test;
 
-TextField nom {}
-IntField age {}
+TextField nom {
+    initial = 'Charly';
+}
+IntField age {
+    initial = 20;
+}
 TextField taille {}
 TextField eyes {}
+IntField life {
+    initial = 100;
+    max = 100;
+    min = 0;
+}
 
-StatField FOR {}
-StatField SAG {}
-StatField INT {}
-StatField END {}
-StatField ADR {}
-StatField CHA {}
+StatField FOR {
+    min = 0;
+}
+StatField SAG {
+    min = 0;
+}
+StatField INT {
+    min = 0;
+}
+StatField END {
+    min = 0;
+}
+StatField ADR {
+    min = 0;
+}
+StatField CHA {
+    min = 0;
+}
 
 SkillField lecture {
+    initial = true;
     stat = INT;
     affect = 20%;
     description= "ceci s'appelle la lecture t'as vu";
@@ -26,6 +48,7 @@ SkillField charisme {
     affect = 30%;
 }
 SkillField banane {
+    initial = false;
     stat = END;
     affect = 50%;
     description = "c'est bon les bananes";
@@ -113,8 +136,16 @@ game GameDebilus {
             content = "Ceci est en cours de dev..";
         }
 
-        Text life {
-            content = "100% tkt frere";
+        FieldGroup life {
+            style {
+                align = center;
+            }
+            
+            input GaugeDecoration life {
+                style {
+                    shape = circular;
+                }
+            }
         }
         
     }

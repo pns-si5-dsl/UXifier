@@ -1,5 +1,5 @@
 import { CompositeGeneratorNode, NL } from "langium";
-import { FieldGroupComponent, DecoField, isIntField_, isStatField_, isTextField_, isCheckField_, isSkillField_ } from "../../language-server/generated/ast";
+import { FieldGroupComponent, DecoField, isIntField_, isStatField_, isTextField_, isCheckField_, isSkillField_, isGaugeDecoField, GaugeDecoField, IntField_, StatField_ } from "../../language-server/generated/ast";
 
 export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: CompositeGeneratorNode): void {
     const boxColor      = fieldGroup.styles[0]?.boxColors[0]      ? "background='" + fieldGroup.styles[0]?.boxColors[0].value + "' "  : "background='light-2' ";
@@ -38,11 +38,14 @@ export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: Compos
 function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
     const fieldName =  String(decoField.decoField.field.ref?.name);
     const field =  decoField.decoField.field.ref;
+
+    if(isGaugeDecoField(decoField.decoField) && (isIntField_(field) || isStatField_(field))){
+        generateGauge(decoField.decoField, field, node, decoField.input);
+    } else
     if(decoField.input){
         node.append(
             "<FormField htmlFor='",fieldName,"-input' label='",fieldName,"' margin={{horizontal: 'medium'}}>", NL
         );
-
         if(isIntField_(field) || isStatField_(field)){
             node.append(
                 "<NumberInput id='",fieldName,"-input' placeholder='", fieldName, "'",NL,
@@ -129,7 +132,6 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
             "</FormField>"
             )
     } else if(decoField.output){
-
         if(isSkillField_(field)){
             const skillSelectedVar = "skills."+fieldName+".selected";
             const skillActivatedVar = "skills."+fieldName+".activated";
@@ -221,6 +223,112 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
                 "</CardBody>", NL,
                 "</Card>", NL            
             )
+        }
+    }
+}
+
+function generateGauge(decoField: GaugeDecoField, field: IntField_|StatField_, node: CompositeGeneratorNode, hasChangeButton: boolean){
+    const fieldName =  String(decoField.field.ref?.name);
+
+    const valueVar = "state."+fieldName;
+    const valueMax = String(field.maxs[0] ? field.maxs[0].value : 100);
+    const valueMin = String(field.mins[0] ? field.mins[0].value : 0);
+
+    const isVertical = decoField.styles[0]?.directions[0]?.value.value == 'vertical';
+
+    const colorHigh = decoField.lowColors[0] ?   "'"+decoField.highColors[0].value.value+"'"  : "("+valueVar+"-"+valueMin+") * 100 / "+valueMax+" < 60   ? 'status-warning' : 'status-ok'";
+    const colorLow = decoField.highColors[0] ?   "'"+decoField.lowColors[0].value.value+"'"   : "'status-critical'";
+    
+    if(decoField.styles[0]?.shapes[0]?.value.value=="circular") {
+        node.append(
+            "<Box direction={'row'} gap={'medium'}>",NL,
+                "<Box fill={{vertical:true, horizontal:true}}>",NL,
+                    "<Meter",NL,
+                        "width={{max:'100%'}}",NL,
+                        "height={{max:'100%'}}",NL,
+                        "type='circle'",NL,
+                        "background='light-2'",NL,
+                        "thickness={'large'}",NL,
+                        "values={[{",NL,
+                            "value: (",valueVar,"-",valueMin,") * 100 / ",valueMax,",",NL,
+                            "color: (",valueVar,"-",valueMin,") * 100 / ",valueMax," < 30   ? ",colorLow,NL, 
+                                    ": ",colorHigh,NL,
+                        "}]}",NL,
+                    "/>",NL,
+                "</Box>",NL,
+        );
+        if(hasChangeButton) {
+            node.append(
+                    "<Box align={'end'} justify={'center'}>",NL,
+                        "<Button primary",NL,
+                            "margin={{vertical: 'small'}} icon={<Icons.Add/>} onClick={() => {",NL,
+                            "dispatch({type: 'up', value: {",fieldName,": ",valueVar," + 1}})",NL,
+                            "}}/>",NL,
+                        "<Button primary margin={{vertical: 'small'}} icon={<Icons.Subtract/>} onClick={() => {",NL,
+                            "dispatch({type: 'up', value: {",fieldName,": ",valueVar,"- 1}})",NL,
+                            "}}/>",NL,
+                    "</Box>",NL,
+            ); 
+        }
+        node.append(
+            "</Box>",NL
+        )
+    } else {
+        // linear gauge
+        if(isVertical){
+            node.append(
+                "<Box align={'center'}>",NL,
+                    "<Meter",NL,
+                        "direction={'vertical'}",NL,
+                        "background='light-2'",NL,
+                        "values={[{",NL,
+                        "value: (",valueVar,"-",valueMin,") * 100 / ",valueMax,",",NL,
+                        "color: (",valueVar,"-",valueMin,") * 100 / ",valueMax," < 30   ? ",colorLow,NL, 
+                                ": ",colorHigh,NL,
+                        "}]}",NL,
+                        "/>",NL,
+            ); 
+            if(hasChangeButton){
+                node.append(
+                        "<Button primary margin={{vertical: 'small'}}",NL,
+                            "icon={<Icons.Add/>} onClick={() => {",NL,
+                                "dispatch({type: 'up', value: {",fieldName,": ",valueVar," + 1}})",NL,
+                            "}}/>",NL,
+                        "<Button primary  icon={<Icons.Subtract/>} onClick={() => {",NL,
+                                "dispatch({type: 'up', value: {",fieldName,": ",valueVar," - 1}})",NL,
+                            "}}/>",NL,
+                );
+            }
+            node.append(
+                "</Box>",NL,
+            )
+        } else {
+            // horizontal gauge
+            node.append(
+                "<Box direction={'row'} align={'center'}>",NL,
+                    "<Meter",NL,
+                        "background='light-2'",NL,
+                        "values={[{",NL,
+                            "value: (",valueVar,"-",valueMin,") * 100 / ",valueMax,",",NL,
+                            "color: (",valueVar,"-",valueMin,") * 100 / ",valueMax," < 30   ? ",colorLow,NL, 
+                                    ": ",colorHigh,NL,
+                        "}]}",NL,
+                    "/>",NL,
+            ); 
+            if(hasChangeButton){
+                node.append(
+                    "<Button primary margin={{horizontal: 'small'}} icon={<Icons.Subtract/>} onClick={() => {",NL,
+                        "dispatch({type: 'up', value: {",fieldName,": ",valueVar," - 1}})",NL,
+                    "}}/>",NL,
+                    "<Button primary",NL,
+                            "icon={<Icons.Add/>} onClick={() => {",NL,
+                        "dispatch({type: 'up', value: {",fieldName,": ",valueVar," + 1}})",NL,
+                " }}/>",NL,
+                );
+            }
+            node.append(
+                "</Box>",NL,
+            );
         }
     }
 }

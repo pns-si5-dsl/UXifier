@@ -3002,25 +3002,21 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "BOOLEAN",
       "hiddenTokens": [],
+      "type": "string",
       "alternatives": {
-        "$type": "Assignment",
-        "feature": "value",
-        "operator": "=",
-        "terminal": {
-          "$type": "Alternatives",
-          "elements": [
-            {
-              "$type": "Keyword",
-              "value": "true",
-              "elements": []
-            },
-            {
-              "$type": "Keyword",
-              "value": "false"
-            }
-          ]
-        },
-        "elements": []
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "true",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "false",
+            "elements": []
+          }
+        ]
       }
     },
     {

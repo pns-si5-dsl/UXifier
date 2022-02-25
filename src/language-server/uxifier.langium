@@ -175,8 +175,8 @@ MinDecl:         'min'         '=' value=INT            ';';
 RegexDecl:       'regex'       '=' value=STRING         ';';
 SelectionDecl:   'selection'   '=' '[' ((values+=STRING) (',' values+=STRING)*)? ']' ';';
 
-BOOLEAN:
-    value=('true'|'false');
+BOOLEAN returns string:
+    ('true'|'false');
 NAVIGATION:
     value=('linear'|'side_menu'|'bottom_menu');
 AXE:

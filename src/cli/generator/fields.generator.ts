@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { CompositeGeneratorNode, NL, processGeneratorNode } from "langium";
 import path from 'path';
-import { Field, isSkillField_, isStatField_ } from "../../language-server/generated/ast";
+import { Field, isSkillField_, isStatField_, isTextField_ } from "../../language-server/generated/ast";
 
 export function generateFields(fields: Field[], fileDir: string): void {
 
@@ -21,21 +21,25 @@ export function generateFields(fields: Field[], fileDir: string): void {
     node.append("export const initialState = {", NL);
 
     other.forEach(field => {
-        node.append(field.name,': null,', NL);
+        const initValue = field.initials[0]?.value;
+        const initString = String(initValue ? (isTextField_(field) ? "'"+initValue+"'" : initValue) : "undefined");
+        node.append(field.name,': ',initString,',', NL);
     })
     statsFields.forEach(field => {
-        node.append(field.name,': 0,', NL);
+        const initValue = String(field.initials[0]?.value ? field.initials[0]?.value : 0);
+        node.append(field.name,': ',initValue,',', NL);
         node.append(field.name,'_incr: 100,', NL);
     })
     
     node.append('skills: {', NL);
     skillsFields.forEach(field => {
         if(!isSkillField_(field)) return; 
+        const initValue = String(field.initials[0] ? field.initials[0].value : "false");
         const statVar = field.affects[0] ? field.affects[0].value.slice(0,-1) : '100';
         const statName = field.stats[0].value.ref?.name ? field.stats[0].value.ref?.name : "";
         node.append(
-            field.name,': {',
-            'selected: false,', NL,
+            field.name,': {', NL,
+            'selected: ',initValue,',', NL,
             'activated: false,', NL,
             'stat: "',statName,'",', NL,
             'variation: ',statVar,',', NL,
