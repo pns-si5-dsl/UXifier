@@ -1,5 +1,5 @@
 import { ValidationAcceptor, ValidationCheck, ValidationRegistry } from 'langium';
-import { Application, Context, COLOR, Page, UxifierAstType, FieldGroupComponent, ButtonComponent, StyleDecl, TextComponent, ImageComponent, PageArea, AreaLine, Component, CheckField_, IntField_, TextField_, SkillField_, StatField_, ComponentBoxComponent, SimpleDecoField, GaugeDecoField } from './generated/ast';
+import { Application, Context, COLOR, Page, UxifierAstType, FieldGroupComponent, ButtonComponent, StyleDecl, TextComponent, ImageComponent, PageArea, AreaLine, Component, CheckField_, IntField_, TextField_, SkillField_, StatField_, ComponentBoxComponent, SimpleDecoField, GaugeDecoField, isIntField_, isStatField_ } from './generated/ast';
 import { UxifierServices } from './uxifier-module';
 import * as util from './validator-util';
 
@@ -31,6 +31,8 @@ export class UxifierValidationRegistry extends ValidationRegistry {
         this.register({ ImageComponent: validator.checkImageComponent } as UxifierChecks, validator);
         this.register({ FieldGroupComponent: validator.checkFieldsComponent } as UxifierChecks, validator);
         this.register({ StyleDecl: validator.checkStyle } as UxifierChecks, validator);
+        this.register({ SimpleDecoField: validator.checkSimpleDecoField } as UxifierChecks, validator);
+        this.register({ GaugeDecoField: validator.checkGaugeDecoField } as UxifierChecks, validator);
         this.register({ COLOR: validator.checkColorFormat } as UxifierChecks, validator);
     }
 }
@@ -107,6 +109,11 @@ export class UxifierValidator {
         util.acceptMustContain('at least one page', accept, context.pages, context, 'name');
         util.acceptUpperCaseFirstLetter(accept, context.name, context, 'name');
         util.acceptNoDuplicateNames(accept, context.pages, 'name');
+        context.pages.forEach(page => {
+            if (page.name.toLowerCase() === context.name.toLowerCase()) {
+                accept('error', 'A page and its context must have different names.', { node: page, property: 'name' });
+            }
+       })
     }
 
     checkPage(page: Page, accept: ValidationAcceptor): void {
@@ -185,8 +192,11 @@ export class UxifierValidator {
 
     checkGaugeDecoField(decoField: GaugeDecoField, accept: ValidationAcceptor): void {
         util.acceptUnique('style', accept, decoField.styles);
-        util.acceptMustContain('a high color', accept, decoField.highColors, decoField);
-        util.acceptMustContain('a low color', accept, decoField.lowColors, decoField);
+        util.acceptUnique('high color', accept, decoField.highColors);
+        util.acceptUnique('low color', accept, decoField.lowColors);
+        if (!(isIntField_(decoField.field.ref) || isStatField_(decoField.field.ref))) {
+            accept('error', 'A gauge decoration can only be used with an integer based field.', { node: decoField, property: 'field' });
+        }
     }
 
     checkStyle(style: StyleDecl, accept: ValidationAcceptor): void {

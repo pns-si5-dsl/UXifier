@@ -49,6 +49,12 @@
             "match": "(((?<=SimpleDecoration )|(?<=GaugeDecoration ))[\n\t\r ]*[^\n\t\n:({; ]+)"
         },
         {
+            "name": "string.quoted.double.components.uxfr",
+            "begin": "\\|",
+            "end": "\\|",
+            "contentName": "support.variable.components.area.uxfr"
+        },
+        {
             "name": "support.class.uxfr",
             "match": "(character|FieldGroup|CheckField|IntField|TextField|StatField|SkillField|config|game|page|Field|BoxComponent|Button|Text|Image|area|SimpleDecoration|GaugeDecoration)"
         },
@@ -65,8 +71,22 @@
             "match": "(bool|number|string)"
         },
         {
-            "name": "constant.numeric.uxfr",
+            "name": "constant.numeric.color.uxfr",
             "match": "((#[0-9a-f][0-9a-f][0-9a-f]([0-9a-f][0-9a-f][0-9a-f])?)|([0-9]px)|([0-9]%))"
+        },
+        {
+            "name": "constant.numeric.sizes.uxfr",
+            "match": "([0-9]px)|([0-9]%)"
+        },
+        {
+            "name": "constant.numeric.uxfr",
+            "match": "[0-9]+"
+        },
+        {
+            "name": "constant.numeric.uxfr",
+            "begin": "(?<=stat)[^\n\t\r]*=",
+            "end": ";",
+            "contentName": "support.variable.field.call.uxfr"
         }
     ]
   }
