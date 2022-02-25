@@ -2327,11 +2327,31 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "feature": "value",
             "operator": "=",
             "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "SIZE"
-              }
+              "$type": "Alternatives",
+              "elements": [
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "SIZE"
+                  },
+                  "elements": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PIXEL"
+                  }
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PERCENT"
+                  }
+                }
+              ]
             }
           },
           {
@@ -2363,11 +2383,31 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "feature": "value",
             "operator": "=",
             "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "SIZE"
-              }
+              "$type": "Alternatives",
+              "elements": [
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "SIZE"
+                  },
+                  "elements": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PIXEL"
+                  }
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PERCENT"
+                  }
+                }
+              ]
             }
           },
           {
@@ -2471,11 +2511,31 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "feature": "value",
             "operator": "=",
             "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "SIZE"
-              }
+              "$type": "Alternatives",
+              "elements": [
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "SIZE"
+                  },
+                  "elements": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PIXEL"
+                  }
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PERCENT"
+                  }
+                }
+              ]
             }
           },
           {
@@ -3137,22 +3197,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
           {
             "$type": "Keyword",
             "value": "auto",
-            "elements": []
-          },
-          {
-            "$type": "RuleCall",
-            "arguments": [],
-            "rule": {
-              "$refText": "PIXEL"
-            },
-            "elements": []
-          },
-          {
-            "$type": "RuleCall",
-            "arguments": [],
-            "rule": {
-              "$refText": "PERCENT"
-            },
             "elements": []
           }
         ]

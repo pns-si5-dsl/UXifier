@@ -66,7 +66,7 @@ export function isBorderColorDecl(item: unknown): item is BorderColorDecl {
 
 export interface BorderSizeDecl extends AstNode {
     readonly $container: StyleDecl;
-    value: SIZE
+    value: SIZE | string | string
 }
 
 export const BorderSizeDecl = 'BorderSizeDecl';
@@ -208,7 +208,7 @@ export function isGaugeDecoField(item: unknown): item is GaugeDecoField {
 
 export interface HeightDecl extends AstNode {
     readonly $container: StyleDecl;
-    value: SIZE
+    value: SIZE | string | string
 }
 
 export const HeightDecl = 'HeightDecl';
@@ -454,7 +454,7 @@ export function isTypeDecl(item: unknown): item is TypeDecl {
 
 export interface WidthDecl extends AstNode {
     readonly $container: StyleDecl;
-    value: SIZE
+    value: SIZE | string | string
 }
 
 export const WidthDecl = 'WidthDecl';
@@ -584,7 +584,7 @@ export type AXE = 'horizontal' | 'vertical'
 
 export type BUTTON_TYPE = 'primary' | 'secondary'
 
-export type SIZE = string
+export type SIZE = 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto'
 
 export type SHAPE = 'rectangular' | 'circular'
 

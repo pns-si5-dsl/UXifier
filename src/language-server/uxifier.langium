@@ -156,11 +156,11 @@ ContentDecl:     'content'     '=' value=STRING         ';';
 TitlePosDecl:    'titlePos'    '=' value=TITLE_POS      ';';
 LegendPosDecl:   'legendPos'   '=' value=TITLE_POS      ';';
 SourceDecl:      'source'      '=' value=STRING         ';';
-WidthDecl:       'width'       '=' value=SIZE           ';';
-HeightDecl:      'height'      '=' value=SIZE           ';';
+WidthDecl:       'width'       '=' value=(SIZE|PIXEL|PERCENT)          ';';
+HeightDecl:      'height'      '=' value=(SIZE|PIXEL|PERCENT)          ';';
 DirectionDecl:   'direction'   '=' value=AXE            ';';
 BorderColorDecl: 'borderColor' '=' value=COLOR          ';';
-BorderSizeDecl:  'borderSize'  '=' value=SIZE           ';';
+BorderSizeDecl:  'borderSize'  '=' value=(SIZE|PIXEL|PERCENT)          ';';
 BoxColorDecl:    'boxColor'    '=' value=COLOR          ';';
 TextColorDecl:   'textColor'   '=' value=COLOR          ';';
 ShapeDecl:       'shape'       '=' value=SHAPE          ';';
@@ -184,7 +184,7 @@ AXE returns string:
 BUTTON_TYPE returns string:
     ('primary'|'secondary');
 SIZE returns string:
-    ('xxsmall'|'xsmall'|'small'|'medium'|'large'|'xlarge'|'xxlarge'|'auto'|PIXEL|PERCENT);
+    ('xxsmall'|'xsmall'|'small'|'medium'|'large'|'xlarge'|'xxlarge'|'auto');
 SHAPE returns string:
     ('rectangular'|'circular');
 ALIGN returns string:
