@@ -3,10 +3,10 @@ import { Component, isButtonComponent, isFieldGroupComponent, isImageComponent, 
 import { generateFieldGroup } from "./fieldGroup.generator";
 
 export function generateComponent(component: Component, node: CompositeGeneratorNode): void {
-    const titleBoxColor = component.styles[0]?.borderColors[0] ? "background='" + component.styles[0]?.borderColors[0].value + "' " : "background='light-3' ";
-    const borderBoxColor = component.styles[0]?.borderColors[0] ? "background='" + component.styles[0]?.borderColors[0].value + "' " : "background='light-3' ";
+    const titleBoxColor = component.styles[0]?.borderColors[0] ? "background='" + component.styles[0]?.borderColors[0].value.value + "' " : "background='light-3' ";
+    const borderBoxColor = component.styles[0]?.borderColors[0] ? "background='" + component.styles[0]?.borderColors[0].value.value + "' " : "background='light-3' ";
     const borderBoxSize = component.styles[0]?.borderSizes[0] ? "pad='" + component.styles[0]?.borderSizes[0].value + "' " : "";
-    const titleColor = component.styles[0]?.textColors[0] ? "color='" + component.styles[0]?.textColors[0].value + "' " : "";
+    const titleColor = component.styles[0]?.textColors[0] ? "color='" + component.styles[0]?.textColors[0].value.value + "' " : "";
     const width = component.styles[0]?.widths[0] ? "width='" + component.styles[0]?.widths[0].value + "' " : "";
     const height = component.styles[0]?.heights[0] ? "height='" + component.styles[0]?.heights[0].value + "' " : "";
     const round = component.styles[0]?.shapes[0]?.value.value == 'circular' ? "round='50%' " : "";
@@ -39,8 +39,8 @@ export function generateComponent(component: Component, node: CompositeGenerator
 }
 
 function generateTextComponent(text: TextComponent, node: CompositeGeneratorNode): void {
-    const boxColor      = text.styles[0]?.boxColors[0]      ? "background='" + text.styles[0]?.boxColors[0].value + "' "    : "background='light-2' ";
-    const textColor     = text.styles[0]?.textColors[0]     ? "color='" + text.styles[0]?.textColors[0].value + "' "        : "";
+    const boxColor      = text.styles[0]?.boxColors[0]      ? "background='" + text.styles[0]?.boxColors[0].value.value + "' "    : "background='light-2' ";
+    const textColor     = text.styles[0]?.textColors[0]     ? "color='" + text.styles[0]?.textColors[0].value.value + "' "        : "";
     const width         = text.styles[0]?.widths[0]         ? "width='" + text.styles[0]?.widths[0].value + "' "            : "";
     const round         = text.styles[0]?.shapes[0]?.value.value == 'circular' ?            "round='50%' "                  : "";
     const direction     = text.styles[0]?.directions[0]?.value.value == 'horizontal' ? "direction='row' wrap "              : "";
@@ -62,8 +62,8 @@ function generateImageComponent(image: ImageComponent, node: CompositeGeneratorN
 }
 
 function generateBoxComponent(box: ComponentBoxComponent, node: CompositeGeneratorNode): void {
-    const boxColor      = box.styles[0]?.boxColors[0]      ? "background='" + box.styles[0]?.boxColors[0].value + "' "  : "";
-    const textColor     = box.styles[0]?.textColors[0]     ? "color='" + box.styles[0]?.textColors[0].value + "' "      : "";
+    const boxColor      = box.styles[0]?.boxColors[0]      ? "background='" + box.styles[0]?.boxColors[0].value.value + "' "  : "";
+    const textColor     = box.styles[0]?.textColors[0]     ? "color='" + box.styles[0]?.textColors[0].value.value + "' "      : "";
     const width         = box.styles[0]?.widths[0]         ? "width='" + box.styles[0]?.widths[0].value + "' "          : "";
     const round         = box.styles[0]?.shapes[0]?.value.value == 'circular'       ? "round='50%' "                    : "";
     const direction     = box.styles[0]?.directions[0]?.value.value == 'horizontal' ? "direction='row' wrap "           : "";
@@ -81,8 +81,8 @@ function generateBoxComponent(box: ComponentBoxComponent, node: CompositeGenerat
 }
 
 function generateButtonComponent(button: ButtonComponent, node: CompositeGeneratorNode): void {
-    const boxColor      = button.styles[0]?.boxColors[0]      ? "background='" + button.styles[0]?.boxColors[0].value + "' "  : "";
-    const textColor     = button.styles[0]?.textColors[0]     ? "color='" + button.styles[0]?.textColors[0].value + "' "      : "";
+    const boxColor      = button.styles[0]?.boxColors[0]      ? "background='" + button.styles[0]?.boxColors[0].value.value + "' "  : "";
+    const textColor     = button.styles[0]?.textColors[0]     ? "color='" + button.styles[0]?.textColors[0].value.value + "' "      : "";
     const width         = button.styles[0]?.widths[0]         ? "width='" + button.styles[0]?.widths[0].value + "' "          : "";
     const round         = button.styles[0]?.shapes[0]?.value.value == 'circular'       ? "round='50%' "                    : "";
     const label = button.titles[0] ? "label='"+button.titles[0].value+"' " : "" ;

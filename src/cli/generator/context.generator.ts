@@ -17,22 +17,22 @@ export function generateGameContext(context: Context, fileDir: string): void {
 
     if(context.navigation.value == 'bottom_menu'){
         //todo if bottom menu
+       
         node.append(
             "<Box fill={true}>", NL,
             "<Box", NL,
             "pad='medium'", NL,
-            "fill='vertical'", NL,
+            "fill", NL,
+            "overflow='auto'", NL,
             "background='light-1'>", NL,
             "<Outlet/>", NL,
             "<Box height='xsmall'/>", NL,
             "</Box>", NL,
             "<Nav", NL,
-            "style={{position: 'fixed', bottom: 0, width: '100%'}}", NL,
-            "basis='full'", NL,
             "direction='row'", NL,
             "background='brand'", NL,
             "pad='medium'", NL,
-            ">", NL,
+            ">", NL
         );
     
         context.pages.forEach(page => {
@@ -41,9 +41,7 @@ export function generateGameContext(context: Context, fileDir: string): void {
         
         node.append(
             "</Nav>", NL,
-            "</Box>", NL,
-            ");", NL,
-            "}", NL,
+            "</Box>", NL
         );
     } else if (context.navigation.value == 'side_menu'){
         node.append(

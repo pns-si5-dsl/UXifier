@@ -2,8 +2,8 @@ import { CompositeGeneratorNode, NL } from "langium";
 import { FieldGroupComponent, DecoField, isIntField_, isStatField_, isTextField_, isCheckField_, isSkillField_, isGaugeDecoField, GaugeDecoField, IntField_, StatField_ } from "../../language-server/generated/ast";
 
 export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: CompositeGeneratorNode): void {
-    const boxColor      = fieldGroup.styles[0]?.boxColors[0]      ? "background='" + fieldGroup.styles[0]?.boxColors[0].value + "' "  : "background='light-2' ";
-    const textColor     = fieldGroup.styles[0]?.textColors[0]     ? "color='" + fieldGroup.styles[0]?.textColors[0].value + "' "      : "";
+    const boxColor      = fieldGroup.styles[0]?.boxColors[0]      ? "background='" + fieldGroup.styles[0]?.boxColors[0].value.value + "' "  : "background='light-2' ";
+    const textColor     = fieldGroup.styles[0]?.textColors[0]     ? "color='" + fieldGroup.styles[0]?.textColors[0].value.value + "' "      : "";
     const width         = fieldGroup.styles[0]?.widths[0]         ? "width='" + fieldGroup.styles[0]?.widths[0].value + "' "          : "";
     const round         = fieldGroup.styles[0]?.shapes[0]?.value.value == 'circular'       ? "round='50%' "                           : "";
     const direction     = fieldGroup.styles[0]?.directions[0]?.value.value == 'horizontal' ? "direction='row' wrap "                  : "";
