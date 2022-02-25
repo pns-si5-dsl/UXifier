@@ -115,17 +115,24 @@ config MyConfig {
             title = "physics";
             titlePos = left;
             style {}
-            input age;
-            input race;
+            input SimpleDecoration age {
+                style {
+                    textColor = #0f0;
+                }
+            }
+            input SimpleDecoration race {}
         }
         FieldGroup filedGroup2 {
             title = "description";
             titlePos = top;
-            input name;
-            input xp;
+            input SimpleDecoration name{}
+            input GaugeDecoration xp{
+                highColor = #00f;
+                lowColor = #f00;
+            }
         }
         FieldGroup filedGroup3 {
-            input isDead;
+            input SimpleDecoration isDead{}
         }
     }
 }

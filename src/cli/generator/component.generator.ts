@@ -9,7 +9,7 @@ export function generateComponent(component: Component, node: CompositeGenerator
     const titleColor = component.styles[0]?.textColors[0] ? "color='" + component.styles[0]?.textColors[0].value.value + "' " : "";
     const width = component.styles[0]?.widths[0] ? "width='" + component.styles[0]?.widths[0].value + "' " : "";
     const height = component.styles[0]?.heights[0] ? "height='" + component.styles[0]?.heights[0].value + "' " : "";
-    const round = component.styles[0]?.shapes[0]?.value.value == 'circular' ? "round='50%' " : "";
+    const round = component.styles[0]?.shapes[0]?.value == 'circular' ? "round='50%' " : "";
 
     node.append("<Card margin='small' ",borderBoxSize, borderBoxColor, width, height,round," gridArea='", component.name, "'>", NL);
     if (component.titles[0]) {
@@ -42,10 +42,10 @@ function generateTextComponent(text: TextComponent, node: CompositeGeneratorNode
     const boxColor      = text.styles[0]?.boxColors[0]      ? "background='" + text.styles[0]?.boxColors[0].value.value + "' "    : "background='light-2' ";
     const textColor     = text.styles[0]?.textColors[0]     ? "color='" + text.styles[0]?.textColors[0].value.value + "' "        : "";
     const width         = text.styles[0]?.widths[0]         ? "width='" + text.styles[0]?.widths[0].value + "' "            : "";
-    const round         = text.styles[0]?.shapes[0]?.value.value == 'circular' ?            "round='50%' "                  : "";
-    const direction     = text.styles[0]?.directions[0]?.value.value == 'horizontal' ? "direction='row' wrap "              : "";
-    const align         = text.styles[0]?.aligns[0]?.value.value == 'right'      ? "align='end' " 
-                        : text.styles[0]?.aligns[0]?.value.value == 'center'    ? "align='center' justify='center' "        : "";
+    const round         = text.styles[0]?.shapes[0]?.value == 'circular' ?            "round='50%' "                  : "";
+    const direction     = text.styles[0]?.directions[0]?.value == 'horizontal' ? "direction='row' wrap "              : "";
+    const align         = text.styles[0]?.aligns[0]?.value == 'right'      ? "align='end' " 
+                        : text.styles[0]?.aligns[0]?.value == 'center'    ? "align='center' justify='center' "        : "";
     node.append(
         "<CardBody margin='large' ",boxColor,textColor, width, round, direction, align,">", NL,
         "<Text>", NL,
@@ -65,10 +65,10 @@ function generateBoxComponent(box: ComponentBoxComponent, node: CompositeGenerat
     const boxColor      = box.styles[0]?.boxColors[0]      ? "background='" + box.styles[0]?.boxColors[0].value.value + "' "  : "";
     const textColor     = box.styles[0]?.textColors[0]     ? "color='" + box.styles[0]?.textColors[0].value.value + "' "      : "";
     const width         = box.styles[0]?.widths[0]         ? "width='" + box.styles[0]?.widths[0].value + "' "          : "";
-    const round         = box.styles[0]?.shapes[0]?.value.value == 'circular'       ? "round='50%' "                    : "";
-    const direction     = box.styles[0]?.directions[0]?.value.value == 'horizontal' ? "direction='row' wrap "           : "";
-    const align         = box.styles[0]?.aligns[0]?.value.value == 'right'          ? "align='end' " 
-                        : box.styles[0]?.aligns[0]?.value.value == 'center'         ? "align='center' justify='center' ": "";
+    const round         = box.styles[0]?.shapes[0]?.value == 'circular'       ? "round='50%' "                    : "";
+    const direction     = box.styles[0]?.directions[0]?.value == 'horizontal' ? "direction='row' wrap "           : "";
+    const align         = box.styles[0]?.aligns[0]?.value == 'right'          ? "align='end' " 
+                        : box.styles[0]?.aligns[0]?.value == 'center'         ? "align='center' justify='center' ": "";
     node.append(
         "<CardBody margin='large' ",boxColor,textColor, width, round, direction, align,">", NL,
     ); 
@@ -84,7 +84,7 @@ function generateButtonComponent(button: ButtonComponent, node: CompositeGenerat
     const boxColor      = button.styles[0]?.boxColors[0]      ? "background='" + button.styles[0]?.boxColors[0].value.value + "' "  : "";
     const textColor     = button.styles[0]?.textColors[0]     ? "color='" + button.styles[0]?.textColors[0].value.value + "' "      : "";
     const width         = button.styles[0]?.widths[0]         ? "width='" + button.styles[0]?.widths[0].value + "' "          : "";
-    const round         = button.styles[0]?.shapes[0]?.value.value == 'circular'       ? "round='50%' "                    : "";
+    const round         = button.styles[0]?.shapes[0]?.value == 'circular'       ? "round='50%' "                    : "";
     const label = button.titles[0] ? "label='"+button.titles[0].value+"' " : "" ;
     const type = button.types[0] ? button.types[0].value+" " : "primary ";
     
