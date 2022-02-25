@@ -1983,6 +1983,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "BoolInitDecl",
       "hiddenTokens": [],
+      "type": "InitDecl",
       "alternatives": {
         "$type": "Group",
         "elements": [
@@ -2019,6 +2020,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "IntInitDecl",
       "hiddenTokens": [],
+      "type": "InitDecl",
       "alternatives": {
         "$type": "Group",
         "elements": [
@@ -2055,6 +2057,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "StringInitDecl",
       "hiddenTokens": [],
+      "type": "InitDecl",
       "alternatives": {
         "$type": "Group",
         "elements": [

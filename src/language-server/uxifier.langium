@@ -141,15 +141,15 @@ GaugeDecoField:
         | (highColors+=HighColorDecl) )*
     '}' ;
 
-TitleDecl     returns TitleDecl: 'title'     '=' value=STRING ';';
-LegendDecl    returns TitleDecl: 'legend'    '=' value=STRING ';';
-LabelDecl     returns TitleDecl: 'label'     '=' value=STRING ';';
-ColorDecl     returns ColorDecl: 'color'     '=' value=COLOR  ';';
-LowColorDecl  returns ColorDecl: 'lowColor'  '=' value=COLOR  ';';
-HighColorDecl returns ColorDecl: 'highColor' '=' value=COLOR  ';';
-BoolInitDecl:    'initial'     '=' value=BOOLEAN        ';';
-IntInitDecl:     'initial'     '=' value=INT            ';';
-StringInitDecl:  'initial'     '=' value=STRING         ';';
+TitleDecl      returns TitleDecl: 'title'     '=' value=STRING  ';';
+LegendDecl     returns TitleDecl: 'legend'    '=' value=STRING  ';';
+LabelDecl      returns TitleDecl: 'label'     '=' value=STRING  ';';
+ColorDecl      returns ColorDecl: 'color'     '=' value=COLOR   ';';
+LowColorDecl   returns ColorDecl: 'lowColor'  '=' value=COLOR   ';';
+HighColorDecl  returns ColorDecl: 'highColor' '=' value=COLOR   ';';
+BoolInitDecl   returns InitDecl:  'initial'   '=' value=BOOLEAN ';';
+IntInitDecl    returns InitDecl:  'initial'   '=' value=INT     ';';
+StringInitDecl returns InitDecl:  'initial'   '=' value=STRING  ';';
 HrefDecl:        'href'        '=' value=STRING         ';';
 TypeDecl:        'type'        '=' value=BUTTON_TYPE    ';';
 ContentDecl:     'content'     '=' value=STRING         ';';
