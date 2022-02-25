@@ -177,27 +177,27 @@ SelectionDecl:   'selection'   '=' '[' ((values+=STRING) (',' values+=STRING)*)?
 
 BOOLEAN returns string:
     ('true'|'false');
-NAVIGATION:
-    value=('linear'|'side_menu'|'bottom_menu');
-AXE:
-    value=('horizontal'|'vertical');
-BUTTON_TYPE:
-    value=('primary'|'secondary');
-SIZE:
-    value=('xxsmall'|'xsmall'|'small'|'medium'|'large'|'xlarge'|'xxlarge'|'auto'|PIXEL|PERCENT);
-SHAPE:
-    value=('rectangular'|'circular');
-ALIGN:
-    value=('left'|'right'|'center');
-TITLE_POS:
-    value=('left'|'top');
+NAVIGATION returns string:
+    ('linear'|'side_menu'|'bottom_menu');
+AXE returns string:
+    ('horizontal'|'vertical');
+BUTTON_TYPE returns string:
+    ('primary'|'secondary');
+SIZE returns string:
+    ('xxsmall'|'xsmall'|'small'|'medium'|'large'|'xlarge'|'xxlarge'|'auto'|PIXEL|PERCENT);
+SHAPE returns string:
+    ('rectangular'|'circular');
+ALIGN returns string:
+    ('left'|'right'|'center');
+TITLE_POS returns string:
+    ('left'|'top');
 COLOR:
     value=HEXA_COLOR;
 
 
 terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
-terminal PIXEL: /[0-9]+px/;
+terminal PIXEL returns string: /[0-9]+px/;
 terminal PERCENT returns string : /[0-9]+%/;
 terminal STRING: /"[^"]*"|'[^']*'/;
 terminal HEXA_COLOR returns string: /#[0-9a-f]+/;

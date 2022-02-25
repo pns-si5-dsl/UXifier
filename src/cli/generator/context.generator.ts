@@ -15,7 +15,7 @@ export function generateGameContext(context: Context, fileDir: string): void {
         "return (", NL,
     );
 
-    if(context.navigation.value == 'bottom_menu'){
+    if(context.navigation == 'bottom_menu'){
         //todo if bottom menu
         node.append(
             "<Box fill={true}>", NL,
@@ -45,7 +45,7 @@ export function generateGameContext(context: Context, fileDir: string): void {
             ");", NL,
             "}", NL,
         );
-    } else if (context.navigation.value == 'side_menu'){
+    } else if (context.navigation == 'side_menu'){
         node.append(
             "<Box fill={true} direction='row'>", NL,
             "<Sidebar background='brand' >", NL,
@@ -108,7 +108,7 @@ export function generateConfigContext(context: Context, fileDir: string, nextPat
         "return (", NL,
     );
 
-    if(context.navigation.value == 'bottom_menu'){
+    if(context.navigation == 'bottom_menu'){
         //todo if bottom menu
         node.append(
             "<Box fill={true}>", NL,
@@ -137,7 +137,7 @@ export function generateConfigContext(context: Context, fileDir: string, nextPat
             ");", NL,
             "}", NL,
         );
-    } else if (context.navigation.value == 'side_menu'){
+    } else if (context.navigation == 'side_menu'){
         node.append(
             "<Box fill={true} direction='row'>", NL,
             "<Sidebar background='brand' >", NL,

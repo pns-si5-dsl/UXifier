@@ -3024,29 +3024,26 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "NAVIGATION",
       "hiddenTokens": [],
+      "type": "string",
       "alternatives": {
-        "$type": "Assignment",
-        "feature": "value",
-        "operator": "=",
-        "terminal": {
-          "$type": "Alternatives",
-          "elements": [
-            {
-              "$type": "Keyword",
-              "value": "linear",
-              "elements": []
-            },
-            {
-              "$type": "Keyword",
-              "value": "side_menu"
-            },
-            {
-              "$type": "Keyword",
-              "value": "bottom_menu"
-            }
-          ]
-        },
-        "elements": []
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "linear",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "side_menu",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "bottom_menu",
+            "elements": []
+          }
+        ]
       }
     },
     {
@@ -3054,25 +3051,21 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "AXE",
       "hiddenTokens": [],
+      "type": "string",
       "alternatives": {
-        "$type": "Assignment",
-        "feature": "value",
-        "operator": "=",
-        "terminal": {
-          "$type": "Alternatives",
-          "elements": [
-            {
-              "$type": "Keyword",
-              "value": "horizontal",
-              "elements": []
-            },
-            {
-              "$type": "Keyword",
-              "value": "vertical"
-            }
-          ]
-        },
-        "elements": []
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "horizontal",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "vertical",
+            "elements": []
+          }
+        ]
       }
     },
     {
@@ -3080,25 +3073,21 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "BUTTON_TYPE",
       "hiddenTokens": [],
+      "type": "string",
       "alternatives": {
-        "$type": "Assignment",
-        "feature": "value",
-        "operator": "=",
-        "terminal": {
-          "$type": "Alternatives",
-          "elements": [
-            {
-              "$type": "Keyword",
-              "value": "primary",
-              "elements": []
-            },
-            {
-              "$type": "Keyword",
-              "value": "secondary"
-            }
-          ]
-        },
-        "elements": []
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "primary",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "secondary",
+            "elements": []
+          }
+        ]
       }
     },
     {
@@ -3106,63 +3095,67 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "SIZE",
       "hiddenTokens": [],
+      "type": "string",
       "alternatives": {
-        "$type": "Assignment",
-        "feature": "value",
-        "operator": "=",
-        "terminal": {
-          "$type": "Alternatives",
-          "elements": [
-            {
-              "$type": "Keyword",
-              "value": "xxsmall",
-              "elements": []
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "xxsmall",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "xsmall",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "small",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "medium",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "large",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "xlarge",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "xxlarge",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "auto",
+            "elements": []
+          },
+          {
+            "$type": "RuleCall",
+            "arguments": [],
+            "rule": {
+              "$refText": "PIXEL"
             },
-            {
-              "$type": "Keyword",
-              "value": "xsmall"
+            "elements": []
+          },
+          {
+            "$type": "RuleCall",
+            "arguments": [],
+            "rule": {
+              "$refText": "PERCENT"
             },
-            {
-              "$type": "Keyword",
-              "value": "small"
-            },
-            {
-              "$type": "Keyword",
-              "value": "medium"
-            },
-            {
-              "$type": "Keyword",
-              "value": "large"
-            },
-            {
-              "$type": "Keyword",
-              "value": "xlarge"
-            },
-            {
-              "$type": "Keyword",
-              "value": "xxlarge"
-            },
-            {
-              "$type": "Keyword",
-              "value": "auto"
-            },
-            {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "PIXEL"
-              }
-            },
-            {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "PERCENT"
-              }
-            }
-          ]
-        },
-        "elements": []
+            "elements": []
+          }
+        ]
       }
     },
     {
@@ -3170,25 +3163,21 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "SHAPE",
       "hiddenTokens": [],
+      "type": "string",
       "alternatives": {
-        "$type": "Assignment",
-        "feature": "value",
-        "operator": "=",
-        "terminal": {
-          "$type": "Alternatives",
-          "elements": [
-            {
-              "$type": "Keyword",
-              "value": "rectangular",
-              "elements": []
-            },
-            {
-              "$type": "Keyword",
-              "value": "circular"
-            }
-          ]
-        },
-        "elements": []
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "rectangular",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "circular",
+            "elements": []
+          }
+        ]
       }
     },
     {
@@ -3196,29 +3185,26 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "ALIGN",
       "hiddenTokens": [],
+      "type": "string",
       "alternatives": {
-        "$type": "Assignment",
-        "feature": "value",
-        "operator": "=",
-        "terminal": {
-          "$type": "Alternatives",
-          "elements": [
-            {
-              "$type": "Keyword",
-              "value": "left",
-              "elements": []
-            },
-            {
-              "$type": "Keyword",
-              "value": "right"
-            },
-            {
-              "$type": "Keyword",
-              "value": "center"
-            }
-          ]
-        },
-        "elements": []
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "left",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "right",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "center",
+            "elements": []
+          }
+        ]
       }
     },
     {
@@ -3226,25 +3212,21 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "parameters": [],
       "name": "TITLE_POS",
       "hiddenTokens": [],
+      "type": "string",
       "alternatives": {
-        "$type": "Assignment",
-        "feature": "value",
-        "operator": "=",
-        "terminal": {
-          "$type": "Alternatives",
-          "elements": [
-            {
-              "$type": "Keyword",
-              "value": "left",
-              "elements": []
-            },
-            {
-              "$type": "Keyword",
-              "value": "top"
-            }
-          ]
-        },
-        "elements": []
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "left",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "top",
+            "elements": []
+          }
+        ]
       }
     },
     {
@@ -3279,6 +3261,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "TerminalRule",
       "name": "PIXEL",
+      "type": "string",
       "regex": "[0-9]+px"
     },
     {

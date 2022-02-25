@@ -5,10 +5,10 @@ export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: Compos
     const boxColor      = fieldGroup.styles[0]?.boxColors[0]      ? "background='" + fieldGroup.styles[0]?.boxColors[0].value + "' "  : "background='light-2' ";
     const textColor     = fieldGroup.styles[0]?.textColors[0]     ? "color='" + fieldGroup.styles[0]?.textColors[0].value + "' "      : "";
     const width         = fieldGroup.styles[0]?.widths[0]         ? "width='" + fieldGroup.styles[0]?.widths[0].value + "' "          : "";
-    const round         = fieldGroup.styles[0]?.shapes[0]?.value.value == 'circular'       ? "round='50%' "                           : "";
-    const direction     = fieldGroup.styles[0]?.directions[0]?.value.value == 'horizontal' ? "direction='row' wrap "                  : "";
-    const align         = fieldGroup.styles[0]?.aligns[0]?.value.value == 'right'          ? "align='end' " 
-                        : fieldGroup.styles[0]?.aligns[0]?.value.value == 'center'         ? "align='center' justify='center' "       : "";
+    const round         = fieldGroup.styles[0]?.shapes[0]?.value == 'circular'       ? "round='50%' "                           : "";
+    const direction     = fieldGroup.styles[0]?.directions[0]?.value == 'horizontal' ? "direction='row' wrap "                  : "";
+    const align         = fieldGroup.styles[0]?.aligns[0]?.value == 'right'          ? "align='end' " 
+                        : fieldGroup.styles[0]?.aligns[0]?.value == 'center'         ? "align='center' justify='center' "       : "";
 
     // node.append(
     //     "<Card margin='small' background='light-2'>", NL
@@ -234,12 +234,12 @@ function generateGauge(decoField: GaugeDecoField, field: IntField_|StatField_, n
     const valueMax = String(field.maxs[0] ? field.maxs[0].value : 100);
     const valueMin = String(field.mins[0] ? field.mins[0].value : 0);
 
-    const isVertical = decoField.styles[0]?.directions[0]?.value.value == 'vertical';
+    const isVertical = decoField.styles[0]?.directions[0]?.value == 'vertical';
 
     const colorHigh = decoField.lowColors[0] ?   "'"+decoField.highColors[0].value.value+"'"  : "("+valueVar+"-"+valueMin+") * 100 / "+valueMax+" < 60   ? 'status-warning' : 'status-ok'";
     const colorLow = decoField.highColors[0] ?   "'"+decoField.lowColors[0].value.value+"'"   : "'status-critical'";
     
-    if(decoField.styles[0]?.shapes[0]?.value.value=="circular") {
+    if(decoField.styles[0]?.shapes[0]?.value=="circular") {
         node.append(
             "<Box direction={'row'} gap={'medium'}>",NL,
                 "<Box fill={{vertical:true, horizontal:true}}>",NL,
