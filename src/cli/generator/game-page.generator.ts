@@ -13,7 +13,7 @@ export function generateGamePage(page: Page, nextPage: Page | undefined, modelNa
     if (page.grid) {
         node.append(
             "<Grid", NL,
-            "fill gap='small'", NL,
+            "fill", NL,
             "areas={[", NL
         );
         page.areas[0]?.lines.forEach(line => {

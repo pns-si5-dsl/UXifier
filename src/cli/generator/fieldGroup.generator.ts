@@ -36,6 +36,19 @@ export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: Compos
 }
 
 function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
+    const boxColor      = decoField.decoField.styles[0]?.boxColors[0]      ? "background='" + decoField.decoField.styles[0]?.boxColors[0].value.value + "' "  : "background='light-2' ";
+    const textColor     = decoField.decoField.styles[0]?.textColors[0]     ? "color='" + decoField.decoField.styles[0]?.textColors[0].value.value + "' "      : "";
+    const borderColor      = decoField.decoField.styles[0]?.borderColors[0]      ? "background='" + decoField.decoField.styles[0]?.borderColors[0].value.value + "' "  : "background='light-3' ";
+    const borderSizes      = decoField.decoField.styles[0]?.borderSizes[0]      ? "pad='" + decoField.decoField.styles[0]?.borderSizes[0].value + "' "  : "pad={'small'}";
+    const width         = decoField.decoField.styles[0]?.widths[0]         ? "width='" + decoField.decoField.styles[0]?.widths[0].value + "' "          : "";
+    const height         = decoField.decoField.styles[0]?.heights[0]         ? "height='" + decoField.decoField.styles[0]?.heights[0].value + "' "          : "";
+    // const round         = decoField.decoField.styles[0]?.shapes[0]?.value == 'circular'       ? "round='50%' "                           : "";
+    const isVertical    = decoField.decoField.styles[0]?.directions[0]?.value == 'vertical';
+    const direction     = decoField.decoField.styles[0]?.directions[0]?.value == 'horizontal' ? "direction='row' "                  : "";
+    const align         = decoField.decoField.styles[0]?.aligns[0]?.value == 'right'          ? "align='end' " 
+                        : decoField.decoField.styles[0]?.aligns[0]?.value == 'center'         ? "align='center' justify='center' "       : "";
+    const sizeLvl = " level={"+sizeToLevel(decoField.decoField.styles[0]?.widths[0]?.value)+"} ";
+
     const fieldName =  String(decoField.decoField.field.ref?.name);
     const field =  decoField.decoField.field.ref;
 
@@ -44,7 +57,7 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
     } else
     if(decoField.input){
         node.append(
-            "<FormField htmlFor='",fieldName,"-input' label='",fieldName,"' margin={{horizontal: 'medium'}}>", NL
+            "<FormField htmlFor='",fieldName,"-input' label='",fieldName,"' margin={{horizontal: 'medium'}} ",align,width,height,textColor,boxColor,">", NL
         );
         if(isIntField_(field) || isStatField_(field)){
             node.append(
@@ -140,6 +153,7 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
 
             node.append(
                 "{state.",skillSelectedVar," &&",NL,
+                    "<Box margin='small'>",NL,
                     "<CheckBox",NL,
                         "id='skills-",fieldName,"-output'",NL,
                         "checked={state.",skillActivatedVar,"}",NL,
@@ -158,18 +172,18 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
                             "})",NL,
                         "}}",NL,
                         "label={'",fieldName," (' + state.",skillStatVar," + '+' + state.",skillVariationVar," + '%)'}",NL,
-                    "/>}",NL,
+                    "/></Box>}",NL,
             )
         } 
         else if (isStatField_(field)){
+            const ntextColor     = decoField.decoField.styles[0]?.textColors[0] ? "" + decoField.decoField.styles[0]?.textColors[0].value.value      : "";
             node.append(
-                "<Card background={'accent-1'} margin={'small'} pad={'small'} width={'xsmall'}>",NL,
-                    "<CardHeader background={'accent-1'}>",NL,
+                "<Card margin={'small'} ",borderColor,borderSizes, width,height,direction,">",NL,
+                    "<CardHeader ",borderColor,">",NL,
                     fieldName,NL,
                     "</CardHeader>",NL,
-                    "<CardBody background={'light-1'} round={'xsmall'} align={'center'}",NL,
-                    "          justify={'center'}>",NL,
-                    "    <Heading margin='none' color={state.",fieldName,"_incr>100 ? 'neutral-1' : ''}>",NL,
+                    "<CardBody round={'xsmall'} pad={{horizontal:'small'}} ", align, boxColor,NL,">",NL,
+                    "    <Heading margin='none' color={state.",fieldName,"_incr>100 ? 'neutral-1' : '",ntextColor,"'}>",NL,
                     "        {Math.round(state.",fieldName," * state.",fieldName,"_incr/100)}",NL,
                     "    </Heading>",NL,
                     "</CardBody>",NL,
@@ -190,38 +204,39 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
         //TODO
         else if(isIntField_(field)){
             node.append(
-                "<Text", NL,
+                "<Heading", NL,
+                    "margin='medium'",NL,
                     "id='",fieldName,"-output'", NL,
+                    sizeLvl,NL,
                     "align-self='center'", NL,
-                    "> {state.",fieldName,"}" , NL,
-                "</Text>", NL
+                    "> ",fieldName,": {state.",fieldName,"}" , NL,
+                "</Heading>", NL
             )
         }
         //TODO
         else if(isTextField_(field)){
             node.append(
                 "<Heading", NL,
+                    "margin='medium'",NL,
                     "id='",fieldName,"-output'", NL,
-                    "margin='large'", NL,
-                    "align-self='center'", NL,
-                    "> {state.",fieldName,"}" , NL,
+                    sizeLvl,NL,
+                    "> ",fieldName,": ",isVertical? "<br/>":"",NL,
+                    "{state.",fieldName,"}" , NL,
                 "</Heading>", NL
             )
         }
         else {
             node.append(
-                "<Card>", NL,
-            )
-            node.append(
-                "<CardHeader pad='small' background='light-3'>", NL,
-                fieldName, NL,
-                "</CardHeader>", NL,
-            );  
-            node.append(
-                "<CardBody>", NL,
-                "{state.", fieldName, "}", NL,
-                "</CardBody>", NL,
-                "</Card>", NL            
+                "<Card margin={'small'} ",borderColor,borderSizes, width,height,">",NL,
+                    "<CardHeader ",borderColor,">",NL,
+                    fieldName,NL,
+                    "</CardHeader>",NL,
+                    "<CardBody round={'xsmall'} ", align, borderColor,NL,">",NL,
+                    "    <Heading margin='none'>",NL,
+                    "        {state.",fieldName,"}",NL,
+                    "    </Heading>",NL,
+                    "</CardBody>",NL,
+                "</Card>",NL,
             )
         }
     }
@@ -346,5 +361,18 @@ function generateGauge(decoField: GaugeDecoField, field: IntField_|StatField_, n
                 "</Box>",NL,
             );
         }
+    }
+}
+
+function sizeToLevel(size: string): number{
+    switch(size){
+        case 'xxlarge': return 1;
+        case 'xlarge': return 2;
+        case 'large': return 3;
+        case 'medium': return 4;
+        case 'small': return 5;
+        case 'xsmall': return 6;
+        case 'xxsmall': return 7;
+        default: return 4;
     }
 }
