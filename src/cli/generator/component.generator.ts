@@ -3,6 +3,11 @@ import { Component, isButtonComponent, isFieldGroupComponent, isImageComponent, 
 import { generateFieldGroup } from "./fieldGroup.generator";
 
 export function generateComponent(component: Component, node: CompositeGeneratorNode): void {
+    if(isFieldGroupComponent(component)) component.titlePositions
+    let titlePos = '';
+    if (isFieldGroupComponent(component) || isImageComponent(component) || isTextComponent(component) || isComponentBoxComponent(component)){
+        titlePos = component.titlePositions[0]?.value == 'left' ?  "direction='row' " : '';
+    }
     const titleBoxColor = component.styles[0]?.borderColors[0] ? "background='" + component.styles[0]?.borderColors[0].value.value + "' " : "background='light-3' ";
     const borderBoxColor = component.styles[0]?.borderColors[0] ? "background='" + component.styles[0]?.borderColors[0].value.value + "' " : "background='light-3' ";
     const borderBoxSize = component.styles[0]?.borderSizes[0] ? "pad='" + component.styles[0]?.borderSizes[0].value + "' " : "";
@@ -11,7 +16,7 @@ export function generateComponent(component: Component, node: CompositeGenerator
     const height = component.styles[0]?.heights[0] ? "height='" + component.styles[0]?.heights[0].value + "' " : "";
     const round = component.styles[0]?.shapes[0]?.value == 'circular' ? "round='50%' " : "";
 
-    node.append("<Card margin='small' ",borderBoxSize, borderBoxColor, width, height,round," gridArea='", component.name, "'>", NL);
+    node.append("<Card margin='small' ",borderBoxSize, borderBoxColor, width, height,round,titlePos," gridArea='", component.name, "'>", NL);
     if (component.titles[0]) {
         node.append(
           "<CardHeader pad='small' ",titleBoxColor,titleColor,">", NL,
