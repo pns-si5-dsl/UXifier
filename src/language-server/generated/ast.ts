@@ -277,7 +277,7 @@ export function isPage(item: unknown): item is Page {
 
 export interface PageArea extends AstNode {
     readonly $container: Page;
-    device: DEVICE_TYPE
+    device: SCREEN_SIZE
     filled: boolean
     lines: Array<AreaLine>
     name: 'area'
@@ -559,7 +559,7 @@ export type ALIGN = 'left' | 'right' | 'center'
 
 export type TITLE_POS = 'left' | 'top'
 
-export type DEVICE_TYPE = 'mobileDevice' | 'tabletDevice' | 'computerDevice'
+export type SCREEN_SIZE = 'smallScreen' | 'mediumScreen' | 'largeScreen'
 
 export type UxifierAstType = 'AffectDecl' | 'AlignDecl' | 'Application' | 'AreaLine' | 'BorderColorDecl' | 'BoxColorDecl' | 'COLOR' | 'ColorDecl' | 'Component' | 'ContentDecl' | 'Context' | 'DecoField' | 'DescriptionDecl' | 'DirectionDecl' | 'Field' | 'GaugeDecoField' | 'HrefDecl' | 'InitDecl' | 'MaxDecl' | 'MaxLengthDecl' | 'MinDecl' | 'MinLengthDecl' | 'Page' | 'PageArea' | 'RegexDecl' | 'SelectionDecl' | 'ShapeDecl' | 'SimpleDecoField' | 'SizeDecl' | 'SourceDecl' | 'StatDecl' | 'StyleDecl' | 'TextColorDecl' | 'TitleDecl' | 'TitlePosDecl' | 'TypeDecl' | 'ButtonComponent' | 'ComponentBoxComponent' | 'FieldGroupComponent' | 'ImageComponent' | 'TextComponent' | 'CheckField_' | 'IntField_' | 'SkillField_' | 'StatField_' | 'TextField_';
 

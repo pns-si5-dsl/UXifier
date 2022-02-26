@@ -61,7 +61,7 @@ Page:
     '}' ;
 
 PageArea:
-    (device=DEVICE_TYPE)? (filled?='matchWindow')?  name='area' '{'
+    (filled?='matchWindow')? (device=SCREEN_SIZE)? name='area' '{'
         (lines+=AreaLine)*
     '}'
     ;
@@ -191,8 +191,8 @@ ALIGN returns string:
     ('left'|'right'|'center');
 TITLE_POS returns string:
     ('left'|'top');
-DEVICE_TYPE returns string:
-    ('mobileDevice'|'tabletDevice'|'computerDevice');
+SCREEN_SIZE returns string:
+    ('smallScreen'|'mediumScreen'|'largeScreen');
 COLOR:
     value=HEXA_COLOR;
 

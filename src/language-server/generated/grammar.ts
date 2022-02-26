@@ -836,25 +836,25 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "elements": [
           {
             "$type": "Assignment",
-            "feature": "device",
-            "operator": "=",
+            "feature": "filled",
+            "operator": "?=",
             "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "DEVICE_TYPE"
-              }
+              "$type": "Keyword",
+              "value": "matchWindow"
             },
             "elements": [],
             "cardinality": "?"
           },
           {
             "$type": "Assignment",
-            "feature": "filled",
-            "operator": "?=",
+            "feature": "device",
+            "operator": "=",
             "terminal": {
-              "$type": "Keyword",
-              "value": "matchWindow"
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "SCREEN_SIZE"
+              }
             },
             "elements": [],
             "cardinality": "?"
@@ -3395,7 +3395,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "ParserRule",
       "parameters": [],
-      "name": "DEVICE_TYPE",
+      "name": "SCREEN_SIZE",
       "hiddenTokens": [],
       "type": "string",
       "alternatives": {
@@ -3403,17 +3403,17 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "elements": [
           {
             "$type": "Keyword",
-            "value": "mobileDevice",
+            "value": "smallScreen",
             "elements": []
           },
           {
             "$type": "Keyword",
-            "value": "tabletDevice",
+            "value": "mediumScreen",
             "elements": []
           },
           {
             "$type": "Keyword",
-            "value": "computerDevice",
+            "value": "largeScreen",
             "elements": []
           }
         ]
