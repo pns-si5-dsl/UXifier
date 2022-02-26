@@ -20,7 +20,7 @@ export function acceptNoDuplicateNames<T extends AstNode & {name: string}>(accep
         const id = item.name;
         if (identifiers.includes(id.toLocaleLowerCase())) {
             const info = prop?{ node: item, property: prop }:{ node: item };
-            accept('error', item.$type+' name already defined', info);
+            accept('error', item.$type+' name already defined.', info);
         } else {
             identifiers.push(id.toLocaleLowerCase());
         }

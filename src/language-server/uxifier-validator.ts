@@ -113,18 +113,28 @@ export class UxifierValidator {
             if (page.name.toLowerCase() === context.name.toLowerCase()) {
                 accept('error', 'A page and its context must have different names.', { node: page, property: 'name' });
             }
-       })
+        })
+        if (context.navigation && context.pages.length < 2) {
+            accept('info', 'Impossible navigation for less than 2 pages.', { node: context, property: 'navigation' });
+        }
     }
 
     checkPage(page: Page, accept: ValidationAcceptor): void {
         util.acceptMustContain('at least one component', accept, page.components, page, 'name');
         util.acceptUpperCaseFirstLetter(accept, page.name, page, 'name');
         util.acceptNoDuplicateNames(accept, page.components, 'name');
-        if (page.grid) {
-            util.acceptMustContain('an area declaration', accept, page.areas, page, 'grid');
-            util.acceptUnique('area', accept, page.areas);
+        if (page.axe && page.areas.length > 0) {
+            accept('warning', 'Property overriden by an area definition.', { node: page, property: 'axe' });
         }
-        else util.acceptMustNotContain('an area declaration', accept, page.areas, page, 'name')
+        const devices: string[] = [];
+        page.areas.forEach(area => {
+            const device = area.device?area.device:'default';
+            if (devices.includes(device.toLocaleLowerCase())) {
+                accept('error', device+' area already defined.', { node: area, property: 'device' });
+            } else {
+                devices.push(device.toLocaleLowerCase());
+            }
+        });
     }
 
     checkPageArea(area: PageArea, accept: ValidationAcceptor): void {

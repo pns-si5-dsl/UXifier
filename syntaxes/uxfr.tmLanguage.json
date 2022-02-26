@@ -64,7 +64,7 @@
         },
         {
             "name": "entity.name.function.uxfr",
-            "match": "(grid|skipable|linear|side_menu|bottom_menu|horizontal|vertical|primary|secondary|xxsmall|xsmall|small|medium|xxlarge|xlarge|large|auto|rectangular|circular|left|right|top|center|input|output)"
+            "match": "(grid|matchWindow|linear|side_menu|bottom_menu|horizontal|vertical|primary|secondary|xxsmall|xsmall|small|medium|xxlarge|xlarge|large|auto|rectangular|circular|left|right|top|center|input|output|mobileDevice|tabletDevice|computerDevice)"
         },
         {
             "name": "entity.name.tag.uxfr",

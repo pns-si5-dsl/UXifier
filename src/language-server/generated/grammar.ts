@@ -199,44 +199,60 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             }
           },
           {
-            "$type": "Keyword",
-            "value": "{"
-          },
-          {
             "$type": "Alternatives",
             "elements": [
               {
-                "$type": "Assignment",
-                "feature": "descriptions",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "DescriptionDecl"
+                "$type": "Group",
+                "elements": [
+                  {
+                    "$type": "Keyword",
+                    "value": "{",
+                    "elements": []
+                  },
+                  {
+                    "$type": "Alternatives",
+                    "elements": [
+                      {
+                        "$type": "Assignment",
+                        "feature": "descriptions",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "DescriptionDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "initials",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "BoolInitDecl"
+                          }
+                        },
+                        "elements": []
+                      }
+                    ],
+                    "cardinality": "*"
+                  },
+                  {
+                    "$type": "Keyword",
+                    "value": "}"
                   }
-                },
-                "elements": []
+                ]
               },
               {
-                "$type": "Assignment",
-                "feature": "initials",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "BoolInitDecl"
-                  }
-                },
+                "$type": "Keyword",
+                "value": ";",
                 "elements": []
               }
-            ],
-            "cardinality": "*"
-          },
-          {
-            "$type": "Keyword",
-            "value": "}"
+            ]
           }
         ]
       }
@@ -267,57 +283,73 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             }
           },
           {
-            "$type": "Keyword",
-            "value": "{"
-          },
-          {
             "$type": "Alternatives",
             "elements": [
               {
-                "$type": "Assignment",
-                "feature": "maxs",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "MaxDecl"
+                "$type": "Group",
+                "elements": [
+                  {
+                    "$type": "Keyword",
+                    "value": "{",
+                    "elements": []
+                  },
+                  {
+                    "$type": "Alternatives",
+                    "elements": [
+                      {
+                        "$type": "Assignment",
+                        "feature": "maxs",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "MaxDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "mins",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "MinDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "initials",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "IntInitDecl"
+                          }
+                        },
+                        "elements": []
+                      }
+                    ],
+                    "cardinality": "*"
+                  },
+                  {
+                    "$type": "Keyword",
+                    "value": "}"
                   }
-                },
-                "elements": []
+                ]
               },
               {
-                "$type": "Assignment",
-                "feature": "mins",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "MinDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "initials",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "IntInitDecl"
-                  }
-                },
+                "$type": "Keyword",
+                "value": ";",
                 "elements": []
               }
-            ],
-            "cardinality": "*"
-          },
-          {
-            "$type": "Keyword",
-            "value": "}"
+            ]
           }
         ]
       }
@@ -348,57 +380,73 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             }
           },
           {
-            "$type": "Keyword",
-            "value": "{"
-          },
-          {
             "$type": "Alternatives",
             "elements": [
               {
-                "$type": "Assignment",
-                "feature": "maxs",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "MaxDecl"
+                "$type": "Group",
+                "elements": [
+                  {
+                    "$type": "Keyword",
+                    "value": "{",
+                    "elements": []
+                  },
+                  {
+                    "$type": "Alternatives",
+                    "elements": [
+                      {
+                        "$type": "Assignment",
+                        "feature": "maxs",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "MaxDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "mins",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "MinDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "initials",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "IntInitDecl"
+                          }
+                        },
+                        "elements": []
+                      }
+                    ],
+                    "cardinality": "*"
+                  },
+                  {
+                    "$type": "Keyword",
+                    "value": "}"
                   }
-                },
-                "elements": []
+                ]
               },
               {
-                "$type": "Assignment",
-                "feature": "mins",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "MinDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "initials",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "IntInitDecl"
-                  }
-                },
+                "$type": "Keyword",
+                "value": ";",
                 "elements": []
               }
-            ],
-            "cardinality": "*"
-          },
-          {
-            "$type": "Keyword",
-            "value": "}"
+            ]
           }
         ]
       }
@@ -429,83 +477,99 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             }
           },
           {
-            "$type": "Keyword",
-            "value": "{"
-          },
-          {
             "$type": "Alternatives",
             "elements": [
               {
-                "$type": "Assignment",
-                "feature": "maxLengths",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "MaxLengthDecl"
+                "$type": "Group",
+                "elements": [
+                  {
+                    "$type": "Keyword",
+                    "value": "{",
+                    "elements": []
+                  },
+                  {
+                    "$type": "Alternatives",
+                    "elements": [
+                      {
+                        "$type": "Assignment",
+                        "feature": "maxLengths",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "MaxLengthDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "minLengths",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "MinLengthDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "selections",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "SelectionDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "regexs",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "RegexDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "initials",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "StringInitDecl"
+                          }
+                        },
+                        "elements": []
+                      }
+                    ],
+                    "cardinality": "*"
+                  },
+                  {
+                    "$type": "Keyword",
+                    "value": "}"
                   }
-                },
-                "elements": []
+                ]
               },
               {
-                "$type": "Assignment",
-                "feature": "minLengths",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "MinLengthDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "selections",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "SelectionDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "regexs",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "RegexDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "initials",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "StringInitDecl"
-                  }
-                },
+                "$type": "Keyword",
+                "value": ";",
                 "elements": []
               }
-            ],
-            "cardinality": "*"
-          },
-          {
-            "$type": "Keyword",
-            "value": "}"
+            ]
           }
         ]
       }
@@ -691,17 +755,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "elements": [
           {
             "$type": "Assignment",
-            "feature": "skipable",
-            "operator": "?=",
-            "terminal": {
-              "$type": "Keyword",
-              "value": "skipable"
-            },
-            "elements": [],
-            "cardinality": "?"
-          },
-          {
-            "$type": "Assignment",
             "feature": "axe",
             "operator": "=",
             "terminal": {
@@ -710,17 +763,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               "rule": {
                 "$refText": "AXE"
               }
-            },
-            "elements": [],
-            "cardinality": "?"
-          },
-          {
-            "$type": "Assignment",
-            "feature": "grid",
-            "operator": "?=",
-            "terminal": {
-              "$type": "Keyword",
-              "value": "grid"
             },
             "elements": [],
             "cardinality": "?"
@@ -794,13 +836,37 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "elements": [
           {
             "$type": "Assignment",
+            "feature": "device",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "DEVICE_TYPE"
+              }
+            },
+            "elements": [],
+            "cardinality": "?"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "filled",
+            "operator": "?=",
+            "terminal": {
+              "$type": "Keyword",
+              "value": "matchWindow"
+            },
+            "elements": [],
+            "cardinality": "?"
+          },
+          {
+            "$type": "Assignment",
             "feature": "name",
             "operator": "=",
             "terminal": {
               "$type": "Keyword",
               "value": "area"
-            },
-            "elements": []
+            }
           },
           {
             "$type": "Keyword",
@@ -1418,135 +1484,151 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "elements": []
           },
           {
-            "$type": "Keyword",
-            "value": "{"
-          },
-          {
             "$type": "Alternatives",
             "elements": [
               {
-                "$type": "Assignment",
-                "feature": "widths",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "WidthDecl"
+                "$type": "Group",
+                "elements": [
+                  {
+                    "$type": "Keyword",
+                    "value": "{",
+                    "elements": []
+                  },
+                  {
+                    "$type": "Alternatives",
+                    "elements": [
+                      {
+                        "$type": "Assignment",
+                        "feature": "widths",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "WidthDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "heights",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "HeightDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "directions",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "DirectionDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "borderColors",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "BorderColorDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "borderSizes",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "BorderSizeDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "boxColors",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "BoxColorDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "textColors",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "TextColorDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "shapes",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "ShapeDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "aligns",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "AlignDecl"
+                          }
+                        },
+                        "elements": []
+                      }
+                    ],
+                    "cardinality": "*"
+                  },
+                  {
+                    "$type": "Keyword",
+                    "value": "}"
                   }
-                },
-                "elements": []
+                ]
               },
               {
-                "$type": "Assignment",
-                "feature": "heights",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "HeightDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "directions",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "DirectionDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "borderColors",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "BorderColorDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "borderSizes",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "BorderSizeDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "boxColors",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "BoxColorDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "textColors",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "TextColorDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "shapes",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "ShapeDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "aligns",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "AlignDecl"
-                  }
-                },
+                "$type": "Keyword",
+                "value": ";",
                 "elements": []
               }
-            ],
-            "cardinality": "*"
-          },
-          {
-            "$type": "Keyword",
-            "value": "}"
+            ]
           }
         ]
       }
@@ -1645,26 +1727,42 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             }
           },
           {
-            "$type": "Keyword",
-            "value": "{"
-          },
-          {
-            "$type": "Assignment",
-            "feature": "styles",
-            "operator": "+=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "StyleDecl"
+            "$type": "Alternatives",
+            "elements": [
+              {
+                "$type": "Group",
+                "elements": [
+                  {
+                    "$type": "Keyword",
+                    "value": "{",
+                    "elements": []
+                  },
+                  {
+                    "$type": "Assignment",
+                    "feature": "styles",
+                    "operator": "+=",
+                    "terminal": {
+                      "$type": "RuleCall",
+                      "arguments": [],
+                      "rule": {
+                        "$refText": "StyleDecl"
+                      }
+                    },
+                    "elements": [],
+                    "cardinality": "*"
+                  },
+                  {
+                    "$type": "Keyword",
+                    "value": "}"
+                  }
+                ]
+              },
+              {
+                "$type": "Keyword",
+                "value": ";",
+                "elements": []
               }
-            },
-            "elements": [],
-            "cardinality": "*"
-          },
-          {
-            "$type": "Keyword",
-            "value": "}"
+            ]
           }
         ]
       }
@@ -1701,57 +1799,73 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             }
           },
           {
-            "$type": "Keyword",
-            "value": "{"
-          },
-          {
             "$type": "Alternatives",
             "elements": [
               {
-                "$type": "Assignment",
-                "feature": "styles",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "StyleDecl"
+                "$type": "Group",
+                "elements": [
+                  {
+                    "$type": "Keyword",
+                    "value": "{",
+                    "elements": []
+                  },
+                  {
+                    "$type": "Alternatives",
+                    "elements": [
+                      {
+                        "$type": "Assignment",
+                        "feature": "styles",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "StyleDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "lowColors",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "LowColorDecl"
+                          }
+                        },
+                        "elements": []
+                      },
+                      {
+                        "$type": "Assignment",
+                        "feature": "highColors",
+                        "operator": "+=",
+                        "terminal": {
+                          "$type": "RuleCall",
+                          "arguments": [],
+                          "rule": {
+                            "$refText": "HighColorDecl"
+                          }
+                        },
+                        "elements": []
+                      }
+                    ],
+                    "cardinality": "*"
+                  },
+                  {
+                    "$type": "Keyword",
+                    "value": "}"
                   }
-                },
-                "elements": []
+                ]
               },
               {
-                "$type": "Assignment",
-                "feature": "lowColors",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "LowColorDecl"
-                  }
-                },
-                "elements": []
-              },
-              {
-                "$type": "Assignment",
-                "feature": "highColors",
-                "operator": "+=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "HighColorDecl"
-                  }
-                },
+                "$type": "Keyword",
+                "value": ";",
                 "elements": []
               }
-            ],
-            "cardinality": "*"
-          },
-          {
-            "$type": "Keyword",
-            "value": "}"
+            ]
           }
         ]
       }
@@ -2092,6 +2206,251 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "ParserRule",
       "parameters": [],
+      "name": "TitlePosDecl",
+      "hiddenTokens": [],
+      "type": "TitlePosDecl",
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "titlePos",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "="
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "TITLE_POS"
+              }
+            }
+          },
+          {
+            "$type": "Keyword",
+            "value": ";"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "LegendPosDecl",
+      "hiddenTokens": [],
+      "type": "TitlePosDecl",
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "legendPos",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "="
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "TITLE_POS"
+              }
+            }
+          },
+          {
+            "$type": "Keyword",
+            "value": ";"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "WidthDecl",
+      "hiddenTokens": [],
+      "type": "SizeDecl",
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "width",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "="
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "Alternatives",
+              "elements": [
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "SIZE"
+                  },
+                  "elements": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PIXEL"
+                  }
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PERCENT"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "$type": "Keyword",
+            "value": ";"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "HeightDecl",
+      "hiddenTokens": [],
+      "type": "SizeDecl",
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "height",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "="
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "Alternatives",
+              "elements": [
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "SIZE"
+                  },
+                  "elements": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PIXEL"
+                  }
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PERCENT"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "$type": "Keyword",
+            "value": ";"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "BorderSizeDecl",
+      "hiddenTokens": [],
+      "type": "SizeDecl",
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "borderSize",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "="
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "Alternatives",
+              "elements": [
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "SIZE"
+                  },
+                  "elements": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PIXEL"
+                  }
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "PERCENT"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "$type": "Keyword",
+            "value": ";"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
       "name": "HrefDecl",
       "hiddenTokens": [],
       "alternatives": {
@@ -2200,78 +2559,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "ParserRule",
       "parameters": [],
-      "name": "TitlePosDecl",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Group",
-        "elements": [
-          {
-            "$type": "Keyword",
-            "value": "titlePos",
-            "elements": []
-          },
-          {
-            "$type": "Keyword",
-            "value": "="
-          },
-          {
-            "$type": "Assignment",
-            "feature": "value",
-            "operator": "=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "TITLE_POS"
-              }
-            }
-          },
-          {
-            "$type": "Keyword",
-            "value": ";"
-          }
-        ]
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "LegendPosDecl",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Group",
-        "elements": [
-          {
-            "$type": "Keyword",
-            "value": "legendPos",
-            "elements": []
-          },
-          {
-            "$type": "Keyword",
-            "value": "="
-          },
-          {
-            "$type": "Assignment",
-            "feature": "value",
-            "operator": "=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "TITLE_POS"
-              }
-            }
-          },
-          {
-            "$type": "Keyword",
-            "value": ";"
-          }
-        ]
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
       "name": "SourceDecl",
       "hiddenTokens": [],
       "alternatives": {
@@ -2296,118 +2583,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               "rule": {
                 "$refText": "STRING"
               }
-            }
-          },
-          {
-            "$type": "Keyword",
-            "value": ";"
-          }
-        ]
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "WidthDecl",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Group",
-        "elements": [
-          {
-            "$type": "Keyword",
-            "value": "width",
-            "elements": []
-          },
-          {
-            "$type": "Keyword",
-            "value": "="
-          },
-          {
-            "$type": "Assignment",
-            "feature": "value",
-            "operator": "=",
-            "terminal": {
-              "$type": "Alternatives",
-              "elements": [
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "SIZE"
-                  },
-                  "elements": []
-                },
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "PIXEL"
-                  }
-                },
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "PERCENT"
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "$type": "Keyword",
-            "value": ";"
-          }
-        ]
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "HeightDecl",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Group",
-        "elements": [
-          {
-            "$type": "Keyword",
-            "value": "height",
-            "elements": []
-          },
-          {
-            "$type": "Keyword",
-            "value": "="
-          },
-          {
-            "$type": "Assignment",
-            "feature": "value",
-            "operator": "=",
-            "terminal": {
-              "$type": "Alternatives",
-              "elements": [
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "SIZE"
-                  },
-                  "elements": []
-                },
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "PIXEL"
-                  }
-                },
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "PERCENT"
-                  }
-                }
-              ]
             }
           },
           {
@@ -2480,62 +2655,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               "rule": {
                 "$refText": "COLOR"
               }
-            }
-          },
-          {
-            "$type": "Keyword",
-            "value": ";"
-          }
-        ]
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "BorderSizeDecl",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Group",
-        "elements": [
-          {
-            "$type": "Keyword",
-            "value": "borderSize",
-            "elements": []
-          },
-          {
-            "$type": "Keyword",
-            "value": "="
-          },
-          {
-            "$type": "Assignment",
-            "feature": "value",
-            "operator": "=",
-            "terminal": {
-              "$type": "Alternatives",
-              "elements": [
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "SIZE"
-                  },
-                  "elements": []
-                },
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "PIXEL"
-                  }
-                },
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "PERCENT"
-                  }
-                }
-              ]
             }
           },
           {
@@ -3268,6 +3387,33 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
           {
             "$type": "Keyword",
             "value": "top",
+            "elements": []
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "DEVICE_TYPE",
+      "hiddenTokens": [],
+      "type": "string",
+      "alternatives": {
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "mobileDevice",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "tabletDevice",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "computerDevice",
             "elements": []
           }
         ]
