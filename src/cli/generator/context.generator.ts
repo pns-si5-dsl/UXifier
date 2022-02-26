@@ -181,7 +181,7 @@ function insertImport(node: CompositeGeneratorNode): void {
         "import {", NL,
             "Box, Card, Grid, ResponsiveContext, Text, List, Button,", NL,
             "Nav, Stack, Form, FormField, Image, Layer,", NL,
-            "Heading, Tabs, Tab, Meter, CardHeader, CardBody, CardFooter, TextInput, CheckBox,", NL,
+            "Heading, Sidebar, Tabs, Tab, Meter, CardHeader, CardBody, CardFooter, TextInput, CheckBox,", NL,
         "} from 'grommet';", NL,
         "import {Link, Outlet} from \"react-router-dom\";", NL,
         "import {PersoContext} from \"./character\";", NL,
