@@ -7,36 +7,76 @@ export function generateGamePage(page: Page, nextPage: Page | undefined, modelNa
     node.append(
         NL, "export function ", page.name, "(props) {", NL,
         "const [state, dispatch] = React.useContext(PersoContext)", NL,
+    );
+    if (page.areas[0]) generateGridConst(page, node);
+    node.append(
         "return (", NL
     );
 
-    if (page.grid) {
+    if (page.areas[0]) {
         node.append(
             "<Grid", NL,
-            "fill", NL,
-            "areas={[", NL
-        );
-        page.areas[0]?.lines.forEach(line => {
-            node.append("['", line.components.map(r => r.ref?.name).filter(e => e).join("','"), "'],", NL);
-        });
-        node.append(
-            "]}", NL,
-            "", NL,
-            "", NL,
+            "areas={responsiveGrid[size]}",NL,
+            "fill={responsiveFill[size]}", NL,
             ">", NL
         );
     } else {
         node.append("<Box margin='medium' fill>", NL);
     }
 
+            "small:"
     page.components.forEach(component => {
         generateComponent(component, node);
     });
     
-    if(page.grid) {
+    if(page.areas[0]) {
         node.append("</Grid>", NL);
     } else {
         node.append("</Box>", NL);
     }
     node.append(")}", NL);
+}
+
+function generateGridConst(page: Page, node: CompositeGeneratorNode){
+    const defaultGrid = page.areas.find((area) => !area.device) || page.areas[0];
+    const smallGrid = page.areas.find((area) => area.device == 'mobileDevice') || defaultGrid;
+    const mediumGrid = page.areas.find((area) => area.device == 'tabletDevice') || defaultGrid;
+    const largeGrid = page.areas.find((area) => area.device == 'computerDevice') || defaultGrid;
+
+    node.append(
+        "const size = React.useContext(ResponsiveContext);",NL
+    )
+    node.append(
+        "const responsiveGrid = {",NL,
+            "small:[",NL
+    );
+    smallGrid.lines.forEach(line => {
+        node.append("['", line.components.map(r => r.ref?.name).filter(e => e).join("','"), "'],", NL);
+    });
+    node.append(
+            "],",NL,
+            "medium:[",NL
+    );
+    mediumGrid.lines.forEach(line => {
+        node.append("['", line.components.map(r => r.ref?.name).filter(e => e).join("','"), "'],", NL);
+    });
+    node.append(
+            "],",NL,
+            "large:[",NL
+    );
+    largeGrid.lines.forEach(line => {
+        node.append("['", line.components.map(r => r.ref?.name).filter(e => e).join("','"), "'],", NL);
+    });
+    node.append(
+            "],",NL,
+        "};",NL
+    )
+
+    node.append(
+        "const responsiveFill = {",NL,
+            "small: ", String(smallGrid.filled), ",",NL,
+            "medium: ",String(mediumGrid.filled),",",NL,
+            "large: ", String(largeGrid.filled), ",",NL,
+        "};",NL
+    )
 }
