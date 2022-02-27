@@ -39,9 +39,9 @@ export function generateGamePage(page: Page, nextPage: Page | undefined, modelNa
 
 function generateGridConst(page: Page, node: CompositeGeneratorNode){
     const defaultGrid = page.areas.find((area) => !area.device) || page.areas[0];
-    const smallGrid = page.areas.find((area) => area.device == 'mobileDevice') || defaultGrid;
-    const mediumGrid = page.areas.find((area) => area.device == 'tabletDevice') || defaultGrid;
-    const largeGrid = page.areas.find((area) => area.device == 'computerDevice') || defaultGrid;
+    const smallGrid = page.areas.find((area) => area.device == 'smallScreen') || defaultGrid;
+    const mediumGrid = page.areas.find((area) => area.device == 'mediumScreen') || defaultGrid;
+    const largeGrid = page.areas.find((area) => area.device == 'largeScreen') || defaultGrid;
 
     node.append(
         "const size = React.useContext(ResponsiveContext);",NL
