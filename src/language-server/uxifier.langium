@@ -205,11 +205,11 @@ StyleDecl:
 
 // ==== ABSTRACT DECORATED FIELD ===
 DecoField returns DecoField:
-    (SimpleDecoField|GaugeDecoField);           // Concrete available decorated fields
+    ((input?='input')|(output?='output'))       // Input or output decoration style (optional)
+    decoField=(SimpleDecoField|GaugeDecoField); // Concrete available decorated fields
 
 // ==== SIMPLE DECORATED FIELD ====
 SimpleDecoField:
-    ((input?='input')|(output?='output'))       // Input or output decoration style (optional)
     'SimpleDecoration' field=[Field|ID] (('{'   // Type definition and field reference, body into braces
         ( (styles+=StyleDecl) )*                // The style declaration (one max)
     '}') | ';') ;                               // Semicolon can be used instead of a body

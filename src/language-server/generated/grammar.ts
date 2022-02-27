@@ -1624,33 +1624,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "hiddenTokens": [],
       "type": "DecoField",
       "alternatives": {
-        "$type": "Alternatives",
-        "elements": [
-          {
-            "$type": "RuleCall",
-            "arguments": [],
-            "rule": {
-              "$refText": "SimpleDecoField"
-            },
-            "elements": []
-          },
-          {
-            "$type": "RuleCall",
-            "arguments": [],
-            "rule": {
-              "$refText": "GaugeDecoField"
-            },
-            "elements": []
-          }
-        ]
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "SimpleDecoField",
-      "hiddenTokens": [],
-      "alternatives": {
         "$type": "Group",
         "elements": [
           {
@@ -1679,8 +1652,45 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             ]
           },
           {
+            "$type": "Assignment",
+            "feature": "decoField",
+            "operator": "=",
+            "terminal": {
+              "$type": "Alternatives",
+              "elements": [
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "SimpleDecoField"
+                  },
+                  "elements": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "GaugeDecoField"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "SimpleDecoField",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
             "$type": "Keyword",
-            "value": "SimpleDecoration"
+            "value": "SimpleDecoration",
+            "elements": []
           },
           {
             "$type": "Assignment",
