@@ -30,7 +30,7 @@
         },
         {
             "name": "support.variable.character.uxfr",
-            "match": "((?<=character: )[\n\t\r ]*[^\n\t\n:({; ]+)"
+            "match": "((?<=charSheet: )[\n\t\r ]*[^\n\t\n:({; ]+)"
         },
         {
             "name": "support.variable.fields.uxfr",
@@ -56,7 +56,7 @@
         },
         {
             "name": "support.class.uxfr",
-            "match": "(character|FieldGroup|CheckField|IntField|TextField|StatField|SkillField|config|game|page|Field|BoxComponent|Button|Text|Image|area|SimpleDecoration|GaugeDecoration)"
+            "match": "(charSheet|FieldGroup|CheckField|IntField|TextField|StatField|SkillField|config|game|page|Field|BoxComponent|Button|Text|Image|area|SimpleDecoration|GaugeDecoration)"
         },
         {
             "name": "constant.language",
@@ -64,7 +64,7 @@
         },
         {
             "name": "entity.name.function.uxfr",
-            "match": "(grid|matchWindow|linear|side_menu|bottom_menu|horizontal|vertical|primary|secondary|xxsmall|xsmall|small|medium|xxlarge|xlarge|large|auto|rectangular|circular|left|right|top|center|input|output|smallScreen|mediumScreen|largeScreen)"
+            "match": "(grid|matchWindow|linear|side_menu|bottom_menu|horizontal|vertical|primary|secondary|smallScreen|mediumScreen|largeScreen|xxsmall|xsmall|small|medium|xxlarge|xlarge|large|auto|rectangular|circular|left|right|top|center|input|output)"
         },
         {
             "name": "entity.name.tag.uxfr",

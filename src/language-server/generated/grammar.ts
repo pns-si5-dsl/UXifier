@@ -25,14 +25,14 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "ParserRule",
       "parameters": [],
-      "name": "Application",
+      "name": "CharSheet",
       "hiddenTokens": [],
       "alternatives": {
         "$type": "Group",
         "elements": [
           {
             "$type": "Keyword",
-            "value": "character",
+            "value": "charSheet",
             "elements": []
           },
           {
@@ -1484,151 +1484,135 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "elements": []
           },
           {
+            "$type": "Keyword",
+            "value": "{"
+          },
+          {
             "$type": "Alternatives",
             "elements": [
               {
-                "$type": "Group",
-                "elements": [
-                  {
-                    "$type": "Keyword",
-                    "value": "{",
-                    "elements": []
-                  },
-                  {
-                    "$type": "Alternatives",
-                    "elements": [
-                      {
-                        "$type": "Assignment",
-                        "feature": "widths",
-                        "operator": "+=",
-                        "terminal": {
-                          "$type": "RuleCall",
-                          "arguments": [],
-                          "rule": {
-                            "$refText": "WidthDecl"
-                          }
-                        },
-                        "elements": []
-                      },
-                      {
-                        "$type": "Assignment",
-                        "feature": "heights",
-                        "operator": "+=",
-                        "terminal": {
-                          "$type": "RuleCall",
-                          "arguments": [],
-                          "rule": {
-                            "$refText": "HeightDecl"
-                          }
-                        },
-                        "elements": []
-                      },
-                      {
-                        "$type": "Assignment",
-                        "feature": "directions",
-                        "operator": "+=",
-                        "terminal": {
-                          "$type": "RuleCall",
-                          "arguments": [],
-                          "rule": {
-                            "$refText": "DirectionDecl"
-                          }
-                        },
-                        "elements": []
-                      },
-                      {
-                        "$type": "Assignment",
-                        "feature": "borderColors",
-                        "operator": "+=",
-                        "terminal": {
-                          "$type": "RuleCall",
-                          "arguments": [],
-                          "rule": {
-                            "$refText": "BorderColorDecl"
-                          }
-                        },
-                        "elements": []
-                      },
-                      {
-                        "$type": "Assignment",
-                        "feature": "borderSizes",
-                        "operator": "+=",
-                        "terminal": {
-                          "$type": "RuleCall",
-                          "arguments": [],
-                          "rule": {
-                            "$refText": "BorderSizeDecl"
-                          }
-                        },
-                        "elements": []
-                      },
-                      {
-                        "$type": "Assignment",
-                        "feature": "boxColors",
-                        "operator": "+=",
-                        "terminal": {
-                          "$type": "RuleCall",
-                          "arguments": [],
-                          "rule": {
-                            "$refText": "BoxColorDecl"
-                          }
-                        },
-                        "elements": []
-                      },
-                      {
-                        "$type": "Assignment",
-                        "feature": "textColors",
-                        "operator": "+=",
-                        "terminal": {
-                          "$type": "RuleCall",
-                          "arguments": [],
-                          "rule": {
-                            "$refText": "TextColorDecl"
-                          }
-                        },
-                        "elements": []
-                      },
-                      {
-                        "$type": "Assignment",
-                        "feature": "shapes",
-                        "operator": "+=",
-                        "terminal": {
-                          "$type": "RuleCall",
-                          "arguments": [],
-                          "rule": {
-                            "$refText": "ShapeDecl"
-                          }
-                        },
-                        "elements": []
-                      },
-                      {
-                        "$type": "Assignment",
-                        "feature": "aligns",
-                        "operator": "+=",
-                        "terminal": {
-                          "$type": "RuleCall",
-                          "arguments": [],
-                          "rule": {
-                            "$refText": "AlignDecl"
-                          }
-                        },
-                        "elements": []
-                      }
-                    ],
-                    "cardinality": "*"
-                  },
-                  {
-                    "$type": "Keyword",
-                    "value": "}"
+                "$type": "Assignment",
+                "feature": "widths",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "WidthDecl"
                   }
-                ]
+                },
+                "elements": []
               },
               {
-                "$type": "Keyword",
-                "value": ";",
+                "$type": "Assignment",
+                "feature": "heights",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "HeightDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "directions",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "DirectionDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "borderColors",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "BorderColorDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "borderSizes",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "BorderSizeDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "boxColors",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "BoxColorDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "textColors",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "TextColorDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "shapes",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "ShapeDecl"
+                  }
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "aligns",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "AlignDecl"
+                  }
+                },
                 "elements": []
               }
-            ]
+            ],
+            "cardinality": "*"
+          },
+          {
+            "$type": "Keyword",
+            "value": "}"
           }
         ]
       }
@@ -1639,6 +1623,33 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
       "name": "DecoField",
       "hiddenTokens": [],
       "type": "DecoField",
+      "alternatives": {
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "RuleCall",
+            "arguments": [],
+            "rule": {
+              "$refText": "SimpleDecoField"
+            },
+            "elements": []
+          },
+          {
+            "$type": "RuleCall",
+            "arguments": [],
+            "rule": {
+              "$refText": "GaugeDecoField"
+            },
+            "elements": []
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "SimpleDecoField",
+      "hiddenTokens": [],
       "alternatives": {
         "$type": "Group",
         "elements": [
@@ -1668,45 +1679,8 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             ]
           },
           {
-            "$type": "Assignment",
-            "feature": "decoField",
-            "operator": "=",
-            "terminal": {
-              "$type": "Alternatives",
-              "elements": [
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "SimpleDecoField"
-                  },
-                  "elements": []
-                },
-                {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "GaugeDecoField"
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "SimpleDecoField",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Group",
-        "elements": [
-          {
             "$type": "Keyword",
-            "value": "SimpleDecoration",
-            "elements": []
+            "value": "SimpleDecoration"
           },
           {
             "$type": "Assignment",
@@ -1776,9 +1750,33 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "$type": "Group",
         "elements": [
           {
+            "$type": "Alternatives",
+            "elements": [
+              {
+                "$type": "Assignment",
+                "feature": "input",
+                "operator": "?=",
+                "terminal": {
+                  "$type": "Keyword",
+                  "value": "input"
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "output",
+                "operator": "?=",
+                "terminal": {
+                  "$type": "Keyword",
+                  "value": "output"
+                },
+                "elements": []
+              }
+            ]
+          },
+          {
             "$type": "Keyword",
-            "value": "GaugeDecoration",
-            "elements": []
+            "value": "GaugeDecoration"
           },
           {
             "$type": "Assignment",

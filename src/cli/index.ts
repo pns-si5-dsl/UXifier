@@ -1,14 +1,14 @@
 import colors from 'colors';
 import { Command } from 'commander';
 import { languageMetaData } from '../language-server/generated/module';
-import { Application } from '../language-server/generated/ast';
+import { CharSheet } from '../language-server/generated/ast';
 import { createUxifierServices } from '../language-server/uxifier-module';
 import { extractAstNode } from './cli-util';
 import { generateProject } from './generator';
 import fs from 'fs';
 
 export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
-    const model = await extractAstNode<Application>(fileName, languageMetaData.fileExtensions, createUxifierServices());
+    const model = await extractAstNode<CharSheet>(fileName, languageMetaData.fileExtensions, createUxifierServices());
     generateProject(model, fileName, opts.destination);
     console.log(colors.green(`Project generated successfully`));
 };

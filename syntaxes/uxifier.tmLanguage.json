@@ -10,7 +10,7 @@
     },
     {
       "name": "keyword.control.uxifier",
-      "match": "\\b(affect|align|area|auto|borderColor|borderSize|bottom_menu|boxColor|BoxComponent|Button|center|character|CheckField|circular|color|config|content|description|direction|false|FieldGroup|game|GaugeDecoration|height|highColor|horizontal|href|Image|initial|input|IntField|label|large|largeScreen|left|legend|legendPos|linear|lowColor|matchWindow|max|maxLength|medium|mediumScreen|min|minLength|navigation|output|page|primary|rectangular|regex|right|secondary|selection|shape|side_menu|SimpleDecoration|SkillField|small|smallScreen|source|stat|StatField|style|Text|textColor|TextField|title|titlePos|top|true|type|vertical|width|xlarge|xsmall|xxlarge|xxsmall)\\b"
+      "match": "\\b(affect|align|area|auto|borderColor|borderSize|bottom_menu|boxColor|BoxComponent|Button|center|charSheet|CheckField|circular|color|config|content|description|direction|false|FieldGroup|game|GaugeDecoration|height|highColor|horizontal|href|Image|initial|input|IntField|label|large|largeScreen|left|legend|legendPos|linear|lowColor|matchWindow|max|maxLength|medium|mediumScreen|min|minLength|navigation|output|page|primary|rectangular|regex|right|secondary|selection|shape|side_menu|SimpleDecoration|SkillField|small|smallScreen|source|stat|StatField|style|Text|textColor|TextField|title|titlePos|top|true|type|vertical|width|xlarge|xsmall|xxlarge|xxsmall)\\b"
     },
     {
       "name": "keyword.symbol.uxifier",

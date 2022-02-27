@@ -29,19 +29,6 @@ export function isAlignDecl(item: unknown): item is AlignDecl {
     return reflection.isInstance(item, AlignDecl);
 }
 
-export interface Application extends AstNode {
-    configs: Array<Context>
-    fields: Array<Field>
-    games: Array<Context>
-    name: string
-}
-
-export const Application = 'Application';
-
-export function isApplication(item: unknown): item is Application {
-    return reflection.isInstance(item, Application);
-}
-
 export interface AreaLine extends AstNode {
     readonly $container: PageArea;
     components: Array<Reference<Component>>
@@ -73,6 +60,19 @@ export const BoxColorDecl = 'BoxColorDecl';
 
 export function isBoxColorDecl(item: unknown): item is BoxColorDecl {
     return reflection.isInstance(item, BoxColorDecl);
+}
+
+export interface CharSheet extends AstNode {
+    configs: Array<Context>
+    fields: Array<Field>
+    games: Array<Context>
+    name: string
+}
+
+export const CharSheet = 'CharSheet';
+
+export function isCharSheet(item: unknown): item is CharSheet {
+    return reflection.isInstance(item, CharSheet);
 }
 
 export interface COLOR extends AstNode {
@@ -122,7 +122,7 @@ export function isContentDecl(item: unknown): item is ContentDecl {
 }
 
 export interface Context extends AstNode {
-    readonly $container: Application;
+    readonly $container: CharSheet;
     name: string
     navigation: NAVIGATION
     pages: Array<Page>
@@ -136,9 +136,10 @@ export function isContext(item: unknown): item is Context {
 
 export interface DecoField extends AstNode {
     readonly $container: FieldGroupComponent;
-    decoField: SimpleDecoField | GaugeDecoField
+    field: Reference<Field>
     input: boolean
     output: boolean
+    styles: Array<StyleDecl>
 }
 
 export const DecoField = 'DecoField';
@@ -170,7 +171,7 @@ export function isDirectionDecl(item: unknown): item is DirectionDecl {
 }
 
 export interface Field extends AstNode {
-    readonly $container: Application;
+    readonly $container: CharSheet;
     initials: Array<InitDecl>
     name: string
 }
@@ -179,20 +180,6 @@ export const Field = 'Field';
 
 export function isField(item: unknown): item is Field {
     return reflection.isInstance(item, Field);
-}
-
-export interface GaugeDecoField extends AstNode {
-    readonly $container: DecoField;
-    field: Reference<Field>
-    highColors: Array<ColorDecl>
-    lowColors: Array<ColorDecl>
-    styles: Array<StyleDecl>
-}
-
-export const GaugeDecoField = 'GaugeDecoField';
-
-export function isGaugeDecoField(item: unknown): item is GaugeDecoField {
-    return reflection.isInstance(item, GaugeDecoField);
 }
 
 export interface HrefDecl extends AstNode {
@@ -322,18 +309,6 @@ export function isShapeDecl(item: unknown): item is ShapeDecl {
     return reflection.isInstance(item, ShapeDecl);
 }
 
-export interface SimpleDecoField extends AstNode {
-    readonly $container: DecoField;
-    field: Reference<Field>
-    styles: Array<StyleDecl>
-}
-
-export const SimpleDecoField = 'SimpleDecoField';
-
-export function isSimpleDecoField(item: unknown): item is SimpleDecoField {
-    return reflection.isInstance(item, SimpleDecoField);
-}
-
 export interface SizeDecl extends AstNode {
     readonly $container: StyleDecl;
     value: SIZE | string
@@ -368,7 +343,7 @@ export function isStatDecl(item: unknown): item is StatDecl {
 }
 
 export interface StyleDecl extends AstNode {
-    readonly $container: SimpleDecoField | GaugeDecoField | Component;
+    readonly $container: Component | DecoField;
     aligns: Array<AlignDecl>
     borderColors: Array<BorderColorDecl>
     borderSizes: Array<SizeDecl>
@@ -486,6 +461,26 @@ export function isTextComponent(item: unknown): item is TextComponent {
     return reflection.isInstance(item, TextComponent);
 }
 
+export interface GaugeDecoField extends DecoField {
+    highColors: Array<ColorDecl>
+    lowColors: Array<ColorDecl>
+}
+
+export const GaugeDecoField = 'GaugeDecoField';
+
+export function isGaugeDecoField(item: unknown): item is GaugeDecoField {
+    return reflection.isInstance(item, GaugeDecoField);
+}
+
+export interface SimpleDecoField extends DecoField {
+}
+
+export const SimpleDecoField = 'SimpleDecoField';
+
+export function isSimpleDecoField(item: unknown): item is SimpleDecoField {
+    return reflection.isInstance(item, SimpleDecoField);
+}
+
 export interface CheckField_ extends Field {
     descriptions: Array<DescriptionDecl>
 }
@@ -561,14 +556,14 @@ export type TITLE_POS = 'left' | 'top'
 
 export type SCREEN_SIZE = 'smallScreen' | 'mediumScreen' | 'largeScreen'
 
-export type UxifierAstType = 'AffectDecl' | 'AlignDecl' | 'Application' | 'AreaLine' | 'BorderColorDecl' | 'BoxColorDecl' | 'COLOR' | 'ColorDecl' | 'Component' | 'ContentDecl' | 'Context' | 'DecoField' | 'DescriptionDecl' | 'DirectionDecl' | 'Field' | 'GaugeDecoField' | 'HrefDecl' | 'InitDecl' | 'MaxDecl' | 'MaxLengthDecl' | 'MinDecl' | 'MinLengthDecl' | 'Page' | 'PageArea' | 'RegexDecl' | 'SelectionDecl' | 'ShapeDecl' | 'SimpleDecoField' | 'SizeDecl' | 'SourceDecl' | 'StatDecl' | 'StyleDecl' | 'TextColorDecl' | 'TitleDecl' | 'TitlePosDecl' | 'TypeDecl' | 'ButtonComponent' | 'ComponentBoxComponent' | 'FieldGroupComponent' | 'ImageComponent' | 'TextComponent' | 'CheckField_' | 'IntField_' | 'SkillField_' | 'StatField_' | 'TextField_';
+export type UxifierAstType = 'AffectDecl' | 'AlignDecl' | 'AreaLine' | 'BorderColorDecl' | 'BoxColorDecl' | 'CharSheet' | 'COLOR' | 'ColorDecl' | 'Component' | 'ContentDecl' | 'Context' | 'DecoField' | 'DescriptionDecl' | 'DirectionDecl' | 'Field' | 'HrefDecl' | 'InitDecl' | 'MaxDecl' | 'MaxLengthDecl' | 'MinDecl' | 'MinLengthDecl' | 'Page' | 'PageArea' | 'RegexDecl' | 'SelectionDecl' | 'ShapeDecl' | 'SizeDecl' | 'SourceDecl' | 'StatDecl' | 'StyleDecl' | 'TextColorDecl' | 'TitleDecl' | 'TitlePosDecl' | 'TypeDecl' | 'ButtonComponent' | 'ComponentBoxComponent' | 'FieldGroupComponent' | 'ImageComponent' | 'TextComponent' | 'GaugeDecoField' | 'SimpleDecoField' | 'CheckField_' | 'IntField_' | 'SkillField_' | 'StatField_' | 'TextField_';
 
-export type UxifierAstReference = 'AreaLine:components' | 'GaugeDecoField:field' | 'SimpleDecoField:field' | 'StatDecl:value';
+export type UxifierAstReference = 'AreaLine:components' | 'DecoField:field' | 'StatDecl:value';
 
 export class UxifierAstReflection implements AstReflection {
 
     getAllTypes(): string[] {
-        return ['AffectDecl', 'AlignDecl', 'Application', 'AreaLine', 'BorderColorDecl', 'BoxColorDecl', 'COLOR', 'ColorDecl', 'Component', 'ContentDecl', 'Context', 'DecoField', 'DescriptionDecl', 'DirectionDecl', 'Field', 'GaugeDecoField', 'HrefDecl', 'InitDecl', 'MaxDecl', 'MaxLengthDecl', 'MinDecl', 'MinLengthDecl', 'Page', 'PageArea', 'RegexDecl', 'SelectionDecl', 'ShapeDecl', 'SimpleDecoField', 'SizeDecl', 'SourceDecl', 'StatDecl', 'StyleDecl', 'TextColorDecl', 'TitleDecl', 'TitlePosDecl', 'TypeDecl', 'ButtonComponent', 'ComponentBoxComponent', 'FieldGroupComponent', 'ImageComponent', 'TextComponent', 'CheckField_', 'IntField_', 'SkillField_', 'StatField_', 'TextField_'];
+        return ['AffectDecl', 'AlignDecl', 'AreaLine', 'BorderColorDecl', 'BoxColorDecl', 'CharSheet', 'COLOR', 'ColorDecl', 'Component', 'ContentDecl', 'Context', 'DecoField', 'DescriptionDecl', 'DirectionDecl', 'Field', 'HrefDecl', 'InitDecl', 'MaxDecl', 'MaxLengthDecl', 'MinDecl', 'MinLengthDecl', 'Page', 'PageArea', 'RegexDecl', 'SelectionDecl', 'ShapeDecl', 'SizeDecl', 'SourceDecl', 'StatDecl', 'StyleDecl', 'TextColorDecl', 'TitleDecl', 'TitlePosDecl', 'TypeDecl', 'ButtonComponent', 'ComponentBoxComponent', 'FieldGroupComponent', 'ImageComponent', 'TextComponent', 'GaugeDecoField', 'SimpleDecoField', 'CheckField_', 'IntField_', 'SkillField_', 'StatField_', 'TextField_'];
     }
 
     isInstance(node: unknown, type: string): boolean {
@@ -586,6 +581,10 @@ export class UxifierAstReflection implements AstReflection {
             case ImageComponent:
             case TextComponent: {
                 return this.isSubtype(Component, supertype);
+            }
+            case GaugeDecoField:
+            case SimpleDecoField: {
+                return this.isSubtype(DecoField, supertype);
             }
             case CheckField_:
             case IntField_:
@@ -605,10 +604,7 @@ export class UxifierAstReflection implements AstReflection {
             case 'AreaLine:components': {
                 return Component;
             }
-            case 'GaugeDecoField:field': {
-                return Field;
-            }
-            case 'SimpleDecoField:field': {
+            case 'DecoField:field': {
                 return Field;
             }
             case 'StatDecl:value': {

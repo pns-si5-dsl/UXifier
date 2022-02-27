@@ -1,145 +1,235 @@
-grammar Uxifier
-hidden(WS, SL_COMMENT, ML_COMMENT)
+grammar Uxifier                     // Grammar name
+hidden(WS, SL_COMMENT, ML_COMMENT)  // Ignore spaces and comments
 
-Application:
-    'character' ':' name=ID ';'
-    ( (fields+=Field)
-    | ('config' configs+=Context)
-    | ('game' games+=Context) )*
+// ==== MAIN RULE ====
+CharSheet:
+    'charSheet' ':' name=ID ';'     // Define the name of the application
+    // Use list attributes in OR statement to handle unordered lists
+    // and customise errors.
+    // "because Unordered groups are currently not supported" - Langium.
+    ( (fields+=Field)               // List of fields (variables of the character sheet)
+    | ('config' configs+=Context)   // The character configuration phase (one)
+    | ('game' games+=Context) )*    // The character game phase (one)
     ;
 
+
+
+
+/* ###################################################
+
+                        FIELDS
+
+   ################################################### */
+
+// ==== ABSTRACT FIELD ===
 Field returns Field:
-    (CheckField_|IntField_|StatField_|TextField_|SkillField_);
+    (CheckField_|IntField_|StatField_|TextField_|SkillField_); // Concrete available fields
 
-CheckField_:
-    'CheckField' name=ID (('{'
-        ( (descriptions+=DescriptionDecl)
-        | (initials+=BoolInitDecl) )*
-    '}') | ';') ;
+// ==== BOOLEAN CHECK FIELD ====
+CheckField_:                                // Underscore after the name to avoid conflicts
+    'CheckField' name=ID (('{'              // Type and name definition, body into braces
+        ( (descriptions+=DescriptionDecl)   // The description declaration (one max)
+        | (initials+=BoolInitDecl) )*       // The initial boolean declaration (one max) 
+    '}') | ';') ;                           // Semicolon can be used instead of a body
 
-IntField_:
-    'IntField' name=ID (('{'
-        ( (maxs+=MaxDecl)
-        | (mins+=MinDecl)
-        | (initials+=IntInitDecl) )*
-    '}') | ';') ;
+// ==== INTEGER FIELD ====
+IntField_:                                  // Underscore after the name to avoid conflicts
+    'IntField' name=ID (('{'                // Type and name definition, body into braces
+        ( (maxs+=MaxDecl)                   // The max integer declaration (one max)
+        | (mins+=MinDecl)                   // The min integer declaration (one max)
+        | (initials+=IntInitDecl) )*        // The initial integer declaration (one max)
+    '}') | ';') ;                           // Semicolon can be used instead of a body
 
-StatField_:
-    'StatField' name=ID (('{'
-        ( (maxs+=MaxDecl)
-        | (mins+=MinDecl)
-        | (initials+=IntInitDecl) )*
-    '}') | ';') ;
+// ==== STATISTIC FIELD ====
+StatField_:                                 // Underscore after the name to avoid conflicts
+    'StatField' name=ID (('{'               // Type and name definition, body into braces
+        ( (maxs+=MaxDecl)                   // The max integer declaration (one max)
+        | (mins+=MinDecl)                   // The min integer declaration (one max)
+        | (initials+=IntInitDecl) )*        // The initial integer declaration (one max)
+    '}') | ';') ;                           // Semicolon can be used instead of a body
 
-TextField_:
-    'TextField' name=ID (('{'
-        ( (maxLengths+=MaxLengthDecl)
-        | (minLengths+=MinLengthDecl)
-        | (selections+=SelectionDecl)
-        | (regexs+=RegexDecl)
-        | (initials+=StringInitDecl) )*
-    '}') | ';') ;
+// ==== TEXT FIELD ====
+TextField_:                                 // Underscore after the name to avoid conflicts
+    'TextField' name=ID (('{'               // Type and name definition, body into braces
+        ( (maxLengths+=MaxLengthDecl)       // The text maximum length declaration (one max) 
+        | (minLengths+=MinLengthDecl)       // The text minimum length declaration (one max)
+        | (selections+=SelectionDecl)       // The selection of possible texts declaration (one max)
+        | (regexs+=RegexDecl)               // The regular expression format declaration (one max)
+        | (initials+=StringInitDecl) )*     // The initial text declaration (one max)
+    '}') | ';') ;                           // Semicolon can be used instead of a body
 
-SkillField_:
-    'SkillField' name=ID '{'
-        ( (descriptions+=DescriptionDecl)
-        | (affects+=AffectDecl)
-        | (stats+=StatDecl)
-        | (initials+=BoolInitDecl) )*
-    '}' ;
+// ==== SKILL FIELD ====
+SkillField_:                                // Underscore after the name to avoid conflicts
+    'SkillField' name=ID '{'                // Type and name definition, body into braces
+        ( (descriptions+=DescriptionDecl)   // The description declaration (one max)
+        | (affects+=AffectDecl)             // The impact on the linked statistic declaration (one)
+        | (stats+=StatDecl)                 // The linked statistic declaration (one)
+        | (initials+=BoolInitDecl) )*       // The initial boolean declaration (one max)
+    '}' ;  
 
+
+
+
+/* ###################################################
+
+                        CONTEXT
+
+   ################################################### */
+
+// ==== CONTEXT ===
 Context:
-    name=ID '{'
-        ('navigation' '=' navigation=NAVIGATION ';')?
-        (pages+=Page)*
+    name=ID '{'                                         // Name definition, body into braces
+        ('navigation' '=' navigation=NAVIGATION ';')?   // The navigation type (optional)
+        (pages+=Page)*                                  // List of pages (one min)
     '}' ;
 
+
+
+
+/* ###################################################
+
+                        PAGE
+
+   ################################################### */
+
+// ==== PAGE ===
 Page:
-    (axe=AXE)? 'page' name=ID '{'
-        ( (areas+=PageArea)
-        | (components+=Component) )*
+    (axe=AXE)?                              // Display axe option [vertical or horizontal] (optional)
+    'page' name=ID '{'                      // Name definition, body into braces
+        ( (areas+=PageArea)                 // List of page areas for distinct screen sizes (optional)
+        | (components+=Component) )*        // List of components displayed into the page (one min)
     '}' ;
 
+// ==== PAGE GRID DISPOSITION ====
 PageArea:
-    (filled?='matchWindow')? (device=SCREEN_SIZE)? name='area' '{'
-        (lines+=AreaLine)*
-    '}'
-    ;
+    (filled?='matchWindow')?                // Not scrollable page option (optional)
+    (device=SCREEN_SIZE)?                   // Screen size option (optional)
+    name='area' '{'                         // Name definition, body into braces
+        (lines+=AreaLine)*                  // List of lines with the same size (one min)
+    '}' ;
 
+// ==== GRID LINE ====
 AreaLine:
-    '|' (components+=[Component|ID])* '|';
+    '|' (components+=[Component|ID])* '|';  // List of component references (one min)
 
+
+
+
+/* ###################################################
+
+                        COMPONENTS
+
+   ################################################### */
+
+// ==== ABSTRACT COMPONENT ===
 Component returns Component:
     (ButtonComponent|TextComponent|ImageComponent|FieldGroupComponent|ComponentBoxComponent);
 
+// ==== BOX COMPONENT ====
 ComponentBoxComponent:
-    'BoxComponent' name=ID '{'
-        ( (titles+=TitleDecl)
-        | (titlePositions+=TitlePosDecl)
-        | (styles+=StyleDecl) )*
-        (components+=Component)*
+    'BoxComponent' name=ID '{'              // Name definition, body into braces
+        ( (titles+=TitleDecl)               // The title declaration (one max)
+        | (titlePositions+=TitlePosDecl)    // The title position (one max)
+        | (styles+=StyleDecl) )*            // The style declaration (one max)
+        (components+=Component)*            // List of components (one min)
     '}' ;
 
+// ==== BUTTON COMPONENT ====
 ButtonComponent:
-    'Button' name=ID '{'
-        ( (titles+=LabelDecl)
-        | (hrefs+=HrefDecl)
-        | (types+=TypeDecl)
-        | (styles+=StyleDecl) )*
+    'Button' name=ID '{'                    // Name definition, body into braces
+        ( (titles+=LabelDecl)               // The label declaration (one)
+        | (hrefs+=HrefDecl)                 // The link declaration (one max)
+        | (types+=TypeDecl)                 // The button type declaration (one max)
+        | (styles+=StyleDecl) )*            // The style declaration (one max)
     '}' ;
 
+// ==== TEXT COMPONENT ====
 TextComponent:
-    'Text' name=ID '{'
-        ( (contents+=ContentDecl)
-        | (titles+=TitleDecl)
-        | (titlePositions+=TitlePosDecl)
-        | (colors+=ColorDecl)
-        | (styles+=StyleDecl) )*
+    'Text' name=ID '{'                      // Name definition, body into braces
+        ( (contents+=ContentDecl)           // The content text declaration (one)
+        | (titles+=TitleDecl)               // The title declaration (one max)
+        | (titlePositions+=TitlePosDecl)    // The title position declaration (one max)
+        | (colors+=ColorDecl)               // The text color declaration (one max)
+        | (styles+=StyleDecl) )*            // The style declaration (one max)
     '}' ;
 
+// ==== IMAGE COMPONENT ====
 ImageComponent:
-    'Image' name=ID '{'
-        ( (sources+=SourceDecl)
-        | (titles+=LegendDecl)
-        | (titlePositions+=LegendPosDecl)
-        | (styles+=StyleDecl) )*
+    'Image' name=ID '{'                     // Name definition, body into braces
+        ( (sources+=SourceDecl)             // The image source link declaration (one)
+        | (titles+=LegendDecl)              // The legend declaration (one max)
+        | (titlePositions+=LegendPosDecl)   // The legend position declaration (one max)
+        | (styles+=StyleDecl) )*            // The style declaration (one max)
     '}' ;
 
+// ==== MULTIPLE FIELDS COMPONENT ====
 FieldGroupComponent:
-    'FieldGroup' name=ID '{'
-        ( (titles+=TitleDecl)
-        | (titlePositions+=TitlePosDecl)
-        | (styles+=StyleDecl) )*
-        (decoFields+=DecoField)*
+    'FieldGroup' name=ID '{'                // Name definition, body into braces
+        ( (titles+=TitleDecl)               // The title declaration (one max)
+        | (titlePositions+=TitlePosDecl)    // The title position declaration (one max)
+        | (styles+=StyleDecl) )*            // The style declaration (one max)
+        (decoFields+=DecoField)*            // List of decorated fields (one min)
     '}' ;
 
+
+
+
+/* ###################################################
+
+                        STYLE
+
+   ################################################### */
+
+// ==== STYLE ===
 StyleDecl:
-    'style' (('{'
-        ( (widths+=WidthDecl)
-        | (heights+=HeightDecl)
-        | (directions+=DirectionDecl)
-        | (borderColors+=BorderColorDecl)
-        | (borderSizes+=BorderSizeDecl)
-        | (boxColors+=BoxColorDecl)
-        | (textColors+=TextColorDecl)
-        | (shapes+=ShapeDecl)
-        | (aligns+=AlignDecl) )*
-    '}') | ';') ;
+    'style' '{'                             // Body into braces
+        ( (widths+=WidthDecl)               // Width declaration (one max)
+        | (heights+=HeightDecl)             // Height declaration (one max)
+        | (directions+=DirectionDecl)       // Direction declaration (one max)
+        | (borderColors+=BorderColorDecl)   // Border color declaration (one max)
+        | (borderSizes+=BorderSizeDecl)     // Border size declaration (one max)
+        | (boxColors+=BoxColorDecl)         // Box color declaration (one max)
+        | (textColors+=TextColorDecl)       // Text or title color declaration (one max)
+        | (shapes+=ShapeDecl)               // Shape type declaration (one max)
+        | (aligns+=AlignDecl) )*            // Alignment declaration (one max)
+    '}' ;
 
+
+
+
+/* ###################################################
+
+                    DECORATED FIELDS
+
+   ################################################### */
+
+// ==== ABSTRACT DECORATED FIELD ===
 DecoField returns DecoField:
-    ((input?='input')|(output?='output')) decoField=(SimpleDecoField|GaugeDecoField);
+    (SimpleDecoField|GaugeDecoField);           // Concrete available decorated fields
 
+// ==== SIMPLE DECORATED FIELD ====
 SimpleDecoField:
-    'SimpleDecoration' field=[Field|ID] (('{'
-        ( (styles+=StyleDecl) )*
-    '}') | ';') ;
+    ((input?='input')|(output?='output'))       // Input or output decoration style (optional)
+    'SimpleDecoration' field=[Field|ID] (('{'   // Type definition and field reference, body into braces
+        ( (styles+=StyleDecl) )*                // The style declaration (one max)
+    '}') | ';') ;                               // Semicolon can be used instead of a body
 
 GaugeDecoField:
-    'GaugeDecoration' field=[Field|ID] (('{'
-        ( (styles+=StyleDecl)
-        | (lowColors+=LowColorDecl)
-        | (highColors+=HighColorDecl) )*
-    '}') | ';') ;
+    ((input?='input')|(output?='output'))       // Input or output decoration style (optional)
+    'GaugeDecoration' field=[Field|ID] (('{'    // Type definition and field reference, body into braces
+        ( (styles+=StyleDecl)                   // The style declaration (one max)
+        | (lowColors+=LowColorDecl)             // The low value color declaration (one max)
+        | (highColors+=HighColorDecl) )*        // The high value color declaration (one max)
+    '}') | ';') ;                               // Semicolon can be used instead of a body
+
+
+
+
+/* ###################################################
+
+                    DECLARATIONS
+
+   ################################################### */
 
 TitleDecl      returns TitleDecl:    'title'      '=' value=STRING               ';';
 LegendDecl     returns TitleDecl:    'legend'     '=' value=STRING               ';';
@@ -175,6 +265,17 @@ MinDecl:         'min'         '=' value=INT            ';';
 RegexDecl:       'regex'       '=' value=STRING         ';';
 SelectionDecl:   'selection'   '=' '[' ((values+=STRING) (',' values+=STRING)*)? ']' ';';
 
+
+
+
+/* ###################################################
+
+                        TYPES
+
+   ################################################### */
+
+// (No terminals because of conflicts and to allow validation)
+
 BOOLEAN returns string:
     ('true'|'false');
 NAVIGATION returns string:
@@ -196,6 +297,14 @@ SCREEN_SIZE returns string:
 COLOR:
     value=HEXA_COLOR;
 
+
+
+
+/* ###################################################
+
+                        TERMINALS
+
+   ################################################### */
 
 terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
