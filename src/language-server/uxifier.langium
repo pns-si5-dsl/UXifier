@@ -215,7 +215,6 @@ SimpleDecoField:
     '}') | ';') ;                               // Semicolon can be used instead of a body
 
 GaugeDecoField:
-    ((input?='input')|(output?='output'))       // Input or output decoration style (optional)
     'GaugeDecoration' field=[Field|ID] (('{'    // Type definition and field reference, body into braces
         ( (styles+=StyleDecl)                   // The style declaration (one max)
         | (lowColors+=LowColorDecl)             // The low value color declaration (one max)
