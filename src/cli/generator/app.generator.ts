@@ -100,7 +100,7 @@ export function generateApplication(application: Application, fileDir: string): 
 
 function insertImport(node: CompositeGeneratorNode): void {
     node.append(
-        "import './App.css';", NL,
+        "import './CharSheet.css';", NL,
         "import {Box, Button, Grommet, Heading} from 'grommet';",NL,
         "import {Notification} from 'grommet-icons';",NL,
         "import {useState} from 'react';", NL,

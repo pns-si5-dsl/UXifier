@@ -185,9 +185,7 @@ export interface GaugeDecoField extends AstNode {
     readonly $container: DecoField;
     field: Reference<Field>
     highColors: Array<ColorDecl>
-    input: boolean
     lowColors: Array<ColorDecl>
-    output: boolean
     styles: Array<StyleDecl>
 }
 
