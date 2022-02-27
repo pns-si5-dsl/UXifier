@@ -58,9 +58,10 @@ config Config {
     
     navigation = bottom_menu;
     
-    skipable vertical page Page1 {
+    vertical page Page1 {
         FieldGroup perso_group{
             title= "Ton perso";
+            titlePos = left;
             input SimpleDecoration nom {}
             input SimpleDecoration age {}
         }
@@ -71,9 +72,12 @@ config Config {
         }
     }
     
-    skipable vertical page Page2 {
+    vertical page Page2 {
         FieldGroup stats{
             title= "Tes Stats";
+            style {
+                direction = horizontal;
+                }
             input SimpleDecoration FOR {}
             input SimpleDecoration SAG {}
             input SimpleDecoration INT {}
@@ -93,34 +97,87 @@ config Config {
 
 game GameDebilus {
     
-    navigation = linear;
-    
-    skipable grid page Game {
-        area {
+    page Game {
+        matchWindow area {
             |header header skills|
             |inv life skills|
             |inv stats stats|
+        }
+
+        smallScreen area {
+            |header header|
+            |skills life|
+            |skills stats|
+            |inv stats|
+
         }
         
         FieldGroup stats{
             title= "Tes Stats";
             style {
                 direction = horizontal;
+                borderColor = #000000;
+                boxColor = #ffffff;
+                borderSize = xsmall;
             }
-            output SimpleDecoration FOR {}
-            output SimpleDecoration SAG {}
-            output SimpleDecoration INT {}
-            output SimpleDecoration FOR {}
-            output SimpleDecoration SAG {}
-            output SimpleDecoration INT {}
+            output SimpleDecoration FOR {
+                style {
+                    borderColor = #ff0000;
+                    width = xsmall;
+                    align = center;
+                }
+            }
+            output SimpleDecoration SAG {
+                style {
+                    borderColor = #00ff00;
+                    width = xsmall;
+                    align = center;
+                }
+            }
+            output SimpleDecoration INT {
+                style {
+                    borderColor = #0000ff;
+                    width = xsmall;
+                    align = center;
+                }
+            }
+            output SimpleDecoration ADR {
+                style {
+                    borderColor = #ff00ff;
+                    width = xsmall;
+                    align = center;
+                }
+            }
+            output SimpleDecoration END {
+                style {
+                    borderColor = #ffff00;
+                    width = xsmall;
+                    align = center;
+                }
+            }
+            output SimpleDecoration CHA {
+                style {
+                    borderColor = #00ffff;
+                    width = xsmall;
+                    align = center;
+                }
+            }
         }
 
         FieldGroup header{
             style {
                 direction = horizontal;
             }
-            output SimpleDecoration nom {}
-            output SimpleDecoration age {}
+            output SimpleDecoration nom {
+                style {
+                    width= large;
+                }
+            }
+            output SimpleDecoration age {
+                style {
+                    width= small;
+                }
+            }
         }
 
         FieldGroup skills{
