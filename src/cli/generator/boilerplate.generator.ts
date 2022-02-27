@@ -1,7 +1,7 @@
 import fs from 'fs';
 import fse from 'fs-extra';
 import path from "path";
-import { Application } from '../../language-server/generated/ast';
+import { CharSheet as Application } from '../../language-server/generated/ast';
 
 export function generateBoilerplate(application: Application, destinationPath: string): string {
     const resourcePath = path.join(__dirname, "..", "..", "..", "resources");
@@ -18,7 +18,7 @@ export function generateBoilerplate(application: Application, destinationPath: s
     }
 
     // App.css.
-    writeFile(resourcePath, destinationPath, 'App.css', application.name);
+    writeFile(resourcePath, destinationPath, 'CharSheet.css', application.name);
 
     // index.js.
     writeFile(resourcePath, destinationPath, 'index.js', application.name);

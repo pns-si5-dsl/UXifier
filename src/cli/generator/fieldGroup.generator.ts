@@ -25,7 +25,7 @@ export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: Compos
     );
 
     fieldGroup.decoFields.forEach(decoField => {
-        const field = decoField.decoField.field.ref;
+        const field = decoField.field.ref;
         if (field)  generateField(decoField, node);
     });
 
@@ -36,24 +36,24 @@ export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: Compos
 }
 
 function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
-    const boxColor      = decoField.decoField.styles[0]?.boxColors[0]      ? "background='" + decoField.decoField.styles[0]?.boxColors[0].value.value + "' "  : "background='light-2' ";
-    const textColor     = decoField.decoField.styles[0]?.textColors[0]     ? "color='" + decoField.decoField.styles[0]?.textColors[0].value.value + "' "      : "";
-    const borderColor      = decoField.decoField.styles[0]?.borderColors[0]      ? "background='" + decoField.decoField.styles[0]?.borderColors[0].value.value + "' "  : "background='light-3' ";
-    const borderSizes      = decoField.decoField.styles[0]?.borderSizes[0]      ? "pad='" + decoField.decoField.styles[0]?.borderSizes[0].value + "' "  : "pad={'small'}";
-    const width         = decoField.decoField.styles[0]?.widths[0]         ? "width='" + decoField.decoField.styles[0]?.widths[0].value + "' "          : "";
-    const height         = decoField.decoField.styles[0]?.heights[0]         ? "height='" + decoField.decoField.styles[0]?.heights[0].value + "' "          : "";
+    const boxColor      = decoField.styles[0]?.boxColors[0]      ? "background='" + decoField.styles[0]?.boxColors[0].value.value + "' "  : "background='light-2' ";
+    const textColor     = decoField.styles[0]?.textColors[0]     ? "color='" + decoField.styles[0]?.textColors[0].value.value + "' "      : "";
+    const borderColor   = decoField.styles[0]?.borderColors[0]   ? "background='" + decoField.styles[0]?.borderColors[0].value.value + "' "  : "background='light-3' ";
+    const borderSizes   = decoField.styles[0]?.borderSizes[0]    ? "pad='" + decoField.styles[0]?.borderSizes[0].value + "' "  : "pad={'small'}";
+    const width         = decoField.styles[0]?.widths[0]         ? "width='" + decoField.styles[0]?.widths[0].value + "' "          : "";
+    const height        = decoField.styles[0]?.heights[0]        ? "height='" + decoField.styles[0]?.heights[0].value + "' "          : "";
     // const round         = decoField.decoField.styles[0]?.shapes[0]?.value == 'circular'       ? "round='50%' "                           : "";
-    const isVertical    = decoField.decoField.styles[0]?.directions[0]?.value == 'vertical';
-    const direction     = decoField.decoField.styles[0]?.directions[0]?.value == 'horizontal' ? "direction='row' "                  : "";
-    const align         = decoField.decoField.styles[0]?.aligns[0]?.value == 'right'          ? "align='end' " 
-                        : decoField.decoField.styles[0]?.aligns[0]?.value == 'center'         ? "align='center' justify='center' "       : "";
-    const sizeLvl = " level={"+sizeToLevel(decoField.decoField.styles[0]?.widths[0]?.value)+"} ";
+    const isVertical    = decoField.styles[0]?.directions[0]?.value == 'vertical';
+    const direction     = decoField.styles[0]?.directions[0]?.value == 'horizontal' ? "direction='row' "                  : "";
+    const align         = decoField.styles[0]?.aligns[0]?.value == 'right'          ? "align='end' " 
+                        : decoField.styles[0]?.aligns[0]?.value == 'center'         ? "align='center' justify='center' "       : "";
+    const sizeLvl = " level={"+sizeToLevel(decoField.styles[0]?.widths[0]?.value)+"} ";
 
-    const fieldName =  String(decoField.decoField.field.ref?.name);
-    const field =  decoField.decoField.field.ref;
+    const fieldName =  String(decoField.field.ref?.name);
+    const field =  decoField.field.ref;
 
-    if(isGaugeDecoField(decoField.decoField) && (isIntField_(field) || isStatField_(field))){
-        generateGauge(decoField.decoField, field, node, decoField.input);
+    if(isGaugeDecoField(decoField) && (isIntField_(field) || isStatField_(field))){
+        generateGauge(decoField, field, node, decoField.input);
     } else
     if(decoField.input){
         node.append(
@@ -176,7 +176,7 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
             )
         } 
         else if (isStatField_(field)){
-            const ntextColor     = decoField.decoField.styles[0]?.textColors[0] ? "" + decoField.decoField.styles[0]?.textColors[0].value.value      : "";
+            const ntextColor     = decoField.styles[0]?.textColors[0] ? "" + decoField.styles[0]?.textColors[0].value.value      : "";
             node.append(
                 "<Card margin={'small'} ",borderColor,borderSizes, width,height,direction,">",NL,
                     "<CardHeader ",borderColor,">",NL,

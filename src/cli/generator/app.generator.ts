@@ -2,7 +2,7 @@ import fs from 'fs';
 import { processGeneratorNode } from 'langium';
 import { CompositeGeneratorNode, NL } from 'langium';
 import path from 'path';
-import { Application, Context } from '../../language-server/generated/ast';
+import { CharSheet as Application, Context } from '../../language-server/generated/ast';
 
 export function generateApplication(application: Application, fileDir: string): void {
 

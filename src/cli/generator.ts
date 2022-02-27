@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { Application, Context, /* ButtonComponent, Context, DecoField, FieldDecl, FieldsComponent, ImageComponent, isButtonComponent, isFieldsComponent, isImageComponent, isTextComponent, PageDecl, TextComponent */ } from '../language-server/generated/ast';
+import { CharSheet as Application, Context, /* ButtonComponent, Context, DecoField, FieldDecl, FieldsComponent, ImageComponent, isButtonComponent, isFieldsComponent, isImageComponent, isTextComponent, PageDecl, TextComponent */ } from '../language-server/generated/ast';
 import { extractDestinationAndName } from './cli-util';
 import { generateBoilerplate } from './generator/boilerplate.generator';
 import { generateApplication } from './generator/app.generator';
