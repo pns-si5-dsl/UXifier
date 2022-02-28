@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# IDEs and editors
+/.idea
+
 # User-specific files
 *.rsuser
 *.suo
@@ -10,7 +13,7 @@
 *.userosscache
 *.sln.docstates
 examples/generated
-generated 
+generated
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

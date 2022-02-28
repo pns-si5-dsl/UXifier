@@ -1,4 +1,4 @@
-character: Test;
+charSheet: Test;
 
 TextField nom {
     initial = 'Charly';
