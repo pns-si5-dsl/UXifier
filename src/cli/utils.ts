@@ -21,7 +21,12 @@ export async function extractDocument(fileName: string, extensions: string[], se
 
     const validationErrors = buildResult.diagnostics.filter(e => e.severity === 1);
     if (validationErrors.length > 0) {
-        console.error(colors.red('There are validation errors:'));
+        if (validationErrors.length === 1) {
+            console.error(colors.red(`${validationErrors.length} error has been detected:`));
+        } else {
+            console.error(colors.red(`${validationErrors.length} errors have been detected:`));
+        }
+
         for (const validationError of validationErrors) {
             console.error(colors.red(
                 `line ${validationError.range.start.line}: ${validationError.message} [${document.textDocument.getText(validationError.range)}]`

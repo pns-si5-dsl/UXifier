@@ -180,7 +180,7 @@ game GameDebilus {
             }
         }
 
-        FieldGroup skills{
+        FieldGroup skills {
             title="Skills";
             output SimpleDecoration lecture {}
             output SimpleDecoration pegu {}
