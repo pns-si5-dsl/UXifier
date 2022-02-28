@@ -7,6 +7,7 @@ export function generateGamePage(page: Page, nextPage: Page | undefined, modelNa
     node.append(
         NL, "export function ", page.name, "(props) {", NL,
         "const [state, dispatch] = React.useContext(PersoContext)", NL,
+        "const [currentNewInvItem, setCurrentNewInvItem] = React.useState('');",NL
     );
     if (page.areas[0]) generateGridConst(page, node);
     node.append(
@@ -44,7 +45,7 @@ export function generateGridConst(page: Page, node: CompositeGeneratorNode){
     const largeGrid = page.areas.find((area) => area.device == 'largeScreen') || defaultGrid;
 
     node.append(
-        "const size = React.useContext(ResponsiveContext);",NL
+        "const size = React.useContext(ResponsiveContext);",NL,
     )
     node.append(
         "const responsiveGrid = {",NL,

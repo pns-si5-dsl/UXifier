@@ -1,5 +1,5 @@
 import { CompositeGeneratorNode, NL } from "langium";
-import { Component, isButtonComponent, isFieldGroupComponent, isImageComponent, isTextComponent, TextComponent, ImageComponent, isComponentBoxComponent, ComponentBoxComponent, ButtonComponent } from "../../language-server/generated/ast";
+import { Component, isButtonComponent, isFieldGroupComponent, isImageComponent, isTextComponent, TextComponent, ImageComponent, isComponentBoxComponent, ComponentBoxComponent, ButtonComponent, isItemListComponent, ItemListComponent } from "../../language-server/generated/ast";
 import { generateFieldGroup } from "./fieldGroup.generator";
 
 export function generateComponent(component: Component, node: CompositeGeneratorNode): void {
@@ -35,6 +35,8 @@ export function generateComponent(component: Component, node: CompositeGenerator
         generateImageComponent(component, node);
     } else if (isComponentBoxComponent(component)) {
         generateBoxComponent(component, node);
+    } else if (isItemListComponent(component)){
+        generateItemListComponent(component, node);
     }
 
     node.append(
@@ -105,5 +107,82 @@ function generateButtonComponent(button: ButtonComponent, node: CompositeGenerat
     }
     node.append(
         "</CardBody>", NL
+    );
+}
+
+function generateItemListComponent(component: ItemListComponent, node: CompositeGeneratorNode){
+    const fielName = 'inventory';
+    const boxColor      = component.styles[0]?.boxColors[0]      ? "background='" + component.styles[0]?.boxColors[0].value.value + "' "  : "";
+    const textColor     = component.styles[0]?.textColors[0]     ? "color='" + component.styles[0]?.textColors[0].value.value + "' "      : "";
+    const align         = component.styles[0]?.aligns[0]?.value == 'right'          ? "align='end' " 
+                        : component.styles[0]?.aligns[0]?.value == 'center'         ? "align='center' justify='center' ": "";
+    node.append(
+        "<CardBody fill overflow={{vertical: 'auto'}} ",boxColor,textColor, align,">", NL,
+    ); 
+    node.append(
+            "<List",NL,
+                "primaryKey='name'",NL,
+                "secondaryKey='count'",NL,
+                "data={state.",fielName,"?.sort()?.reduce((result, item) => {",NL,
+                    "const idx = result.items.indexOf(item);",NL,
+                    "if(idx !== -1){",NL,
+                        "result.result[idx].count+=1;",NL,
+                    "} else {",NL,
+                        "result.items.push(item);",NL,
+                        "result.result.push({ name: item, count: 1 });",NL,
+                    "}",NL,
+                    "return result;",NL,
+                "}, { items: [], result: [] }).result}",NL,
+                "action={(item, index) =>",NL,
+                    "<Box direction={'row'}>",NL,
+                        "<Button",NL,
+                            "plain",NL,
+                            "icon={<Icons.AddCircle/>}",NL,
+                            "onClick={() => {",NL,
+                                "dispatch({",NL,
+                                    "type: 'up',",NL,
+                                    "value: {",NL,
+                                        fielName,": state.",fielName,".concat([item.name]),",NL,
+                                    "}",NL,
+                                "});",NL,
+                            "}}/>",NL,
+                        "<Button",NL,
+                            "plain",NL,
+                            "icon={<Icons.SubtractCircle/>}",NL,
+                            "onClick={() => {",NL,
+                                "const idx = state.",fielName,".findIndex((i) => i === item.name);",NL,
+                                "dispatch({",NL,
+                                    "type: 'up',",NL,
+                                    "value: {",NL,
+                                        fielName,": state.",fielName,".slice(0, idx).concat(state.",fielName,".slice(idx+1))",NL,
+                                    "}",NL,
+                                "})",NL,
+                            "}}/>",NL,
+                    "</Box>",NL,
+                "}",NL,
+            "/>",NL,
+        "</CardBody>",NL,
+        "<CardFooter direction={'row'}",NL,
+                    "pad={'small'}>",NL,
+            "<TextInput",NL,
+                "margin={'small'}",NL,
+                "value={currentNewInvItem}",NL,
+                "onChange={(event) => setCurrentNewInvItem(event.target.value)}",NL,
+                "placeholder={'New item'}",NL,
+            "/>",NL,
+            "<Button",NL,
+                "plain",NL,
+                "icon={<Icons.AddCircle/>}",NL,
+                "onClick={() => {",NL,
+                    "if (!currentNewInvItem) return;",NL,
+                    "dispatch({",NL,
+                        "type: 'up',",NL,
+                        "value: {",NL,
+                            fielName,": state.",fielName,".concat([currentNewInvItem]),",NL,
+                        "}",NL,
+                    "});",NL,
+                    "setCurrentNewInvItem('');",NL,
+                "}}/>",NL,
+        "</CardFooter>",NL
     );
 }

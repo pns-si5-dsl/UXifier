@@ -31,6 +31,7 @@ export class UxifierValidationRegistry extends ValidationRegistry {
         this.register({ ButtonComponent: validator.checkButtonComponent } as UxifierChecks, validator);
         this.register({ TextComponent: validator.checkTextComponent } as UxifierChecks, validator);
         this.register({ ImageComponent: validator.checkImageComponent } as UxifierChecks, validator);
+        this.register({ ItemListComponent: validator.checkItemListComponent } as UxifierChecks, validator);
         this.register({ FieldGroupComponent: validator.checkFieldsComponent } as UxifierChecks, validator);
         this.register({ StyleDecl: validator.checkStyle } as UxifierChecks, validator);
         this.register({ SimpleDecoField: validator.checkSimpleDecoField } as UxifierChecks, validator);
@@ -241,6 +242,13 @@ export class UxifierValidator {
         util.acceptUnique('title position', accept, component.titlePositions);
         util.acceptUnique('style', accept, component.styles);
         util.acceptMustContain('at least one decorated field', accept, component.decoFields, component, 'name');
+    }
+
+
+    checkItemListComponent(component: FieldGroupComponent, accept: ValidationAcceptor): void {
+        util.acceptUnique('title', accept, component.titles);
+        util.acceptUnique('title position', accept, component.titlePositions);
+        util.acceptUnique('style', accept, component.styles);
     }
 
 

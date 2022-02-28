@@ -131,9 +131,7 @@ export function generateConfigContext(context: Context, fileDir: string, nextPat
         
         node.append(
             "</Nav>", NL,
-            "</Box>", NL,
-            ");", NL,
-            "}", NL,
+            "</Box>", NL
         );
     } else if (context.navigation == 'side_menu'){
         node.append(
@@ -167,6 +165,11 @@ export function generateConfigContext(context: Context, fileDir: string, nextPat
             "</Box>", NL,
         );
     }
+    
+
+    node.append(
+        ")}", NL
+    );
 
     for (let i = 0; i < context.pages.length; i++) {
         generateConfigPage(context.pages[i], context.pages[i+1], context.name, node, nextPath);

@@ -123,7 +123,7 @@ AreaLine:
 
 // ==== ABSTRACT COMPONENT ===
 Component returns Component:
-    (ButtonComponent|TextComponent|ImageComponent|FieldGroupComponent|ComponentBoxComponent);
+    (ButtonComponent|TextComponent|ImageComponent|FieldGroupComponent|ComponentBoxComponent|ItemListComponent);
 
 // ==== BOX COMPONENT ====
 ComponentBoxComponent:
@@ -169,6 +169,14 @@ FieldGroupComponent:
         | (titlePositions+=TitlePosDecl)    // The title position declaration (one max)
         | (styles+=StyleDecl) )*            // The style declaration (one max)
         (decoFields+=DecoField)*            // List of decorated fields (one min)
+    '}' ;
+
+// ==== INVENTORY COMPONENT ====
+ItemListComponent:
+    'ListComponent' name=ID '{'             // Name definition, body into braces
+        ( (titles+=TitleDecl)               // The title declaration (one max)
+        | (titlePositions+=TitlePosDecl)    // The title position declaration (one max)
+        | (styles+=StyleDecl) )*            // The style declaration (one max)
     '}' ;
 
 

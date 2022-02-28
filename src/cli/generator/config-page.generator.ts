@@ -8,6 +8,7 @@ export function generateConfigPage(page: Page, nextPage: Page | undefined, model
     node.append(
         NL, "export function ", page.name, "(props) {", NL,
         "const [state, dispatch] = React.useContext(PersoContext)", NL,
+        "const [currentNewInvItem, setCurrentNewInvItem] = React.useState('');",NL,
     );
     if (page.areas[0]) generateGridConst(page, node);
     node.append(
