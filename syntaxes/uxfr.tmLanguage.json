@@ -76,14 +76,14 @@
         },
         {
             "name": "constant.numeric.sizes.uxfr",
-            "match": "([0-9]px)|([0-9]%)"
+            "match": "[0-9]+(px|%)"
         },
         {
             "name": "constant.numeric.uxfr",
             "match": "[0-9]+"
         },
         {
-            "name": "constant.numeric.uxfr",
+            "name": "support.variable.fields.call.uxfr",
             "begin": "(?<=stat)[^\n\t\r]*=",
             "end": ";",
             "contentName": "support.variable.field.call.uxfr"

@@ -176,6 +176,34 @@ FieldGroupComponent:
 
 /* ###################################################
 
+                    DECORATED FIELDS
+
+   ################################################### */
+
+// ==== ABSTRACT DECORATED FIELD ===
+DecoField returns DecoField:
+    ((input?='input')|(output?='output'))       // Input or output decoration style (optional)
+    decoField=(SimpleDecoField|GaugeDecoField); // Concrete available decorated fields
+
+// ==== SIMPLE DECORATED FIELD ====
+SimpleDecoField:
+    'SimpleDecoration' field=[Field|ID] (('{'   // Type definition and field reference, body into braces
+        ( (styles+=StyleDecl) )*                // The style declaration (one max)
+    '}') | ';') ;                               // Semicolon can be used instead of a body
+
+// ==== GAUGE DECORATED FIELD ====
+GaugeDecoField:
+    'GaugeDecoration' field=[Field|ID] (('{'    // Type definition and field reference, body into braces
+        ( (styles+=StyleDecl)                   // The style declaration (one max)
+        | (lowColors+=LowColorDecl)             // The low value color declaration (one max)
+        | (highColors+=HighColorDecl) )*        // The high value color declaration (one max)
+    '}') | ';') ; 
+
+
+
+
+/* ###################################################
+
                         STYLE
 
    ################################################### */
@@ -192,34 +220,7 @@ StyleDecl:
         | (textColors+=TextColorDecl)       // Text or title color declaration (one max)
         | (shapes+=ShapeDecl)               // Shape type declaration (one max)
         | (aligns+=AlignDecl) )*            // Alignment declaration (one max)
-    '}' ;
-
-
-
-
-/* ###################################################
-
-                    DECORATED FIELDS
-
-   ################################################### */
-
-// ==== ABSTRACT DECORATED FIELD ===
-DecoField returns DecoField:
-    ((input?='input')|(output?='output'))       // Input or output decoration style (optional)
-    decoField=(SimpleDecoField|GaugeDecoField); // Concrete available decorated fields
-
-// ==== SIMPLE DECORATED FIELD ====
-SimpleDecoField:
-    'SimpleDecoration' field=[Field|ID] (('{'   // Type definition and field reference, body into braces
-        ( (styles+=StyleDecl) )*                // The style declaration (one max)
-    '}') | ';') ;                               // Semicolon can be used instead of a body
-
-GaugeDecoField:
-    'GaugeDecoration' field=[Field|ID] (('{'    // Type definition and field reference, body into braces
-        ( (styles+=StyleDecl)                   // The style declaration (one max)
-        | (lowColors+=LowColorDecl)             // The low value color declaration (one max)
-        | (highColors+=HighColorDecl) )*        // The high value color declaration (one max)
-    '}') | ';') ;                               // Semicolon can be used instead of a body
+    '}' ;                              // Semicolon can be used instead of a body
 
 
 

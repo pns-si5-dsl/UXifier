@@ -64,6 +64,17 @@ export class UxifierValidator {
         const config: Context = charSheet.configs[0];
         const game: Context = charSheet.games[0];
         if(game && config) util.acceptNoDuplicateNames(accept, [config, game], 'name');
+
+        config.pages.forEach(page => this.checkConfigPage(page, accept));
+    }
+
+
+    checkConfigPage(page: Page, accept: ValidationAcceptor): void {
+        page.areas.forEach(area => {
+            if (area.filled) {
+                accept('error', 'Impossible use of the match parent option in the configuration context', { node: area, property: 'filled' });
+            }
+        })
     }
 
 
@@ -278,7 +289,7 @@ export class UxifierValidator {
         
         // The hexa color format must be made of 3 or 6 hexa values
         if (hexaColor.value.length != 4 && hexaColor.value.length != 7) {
-            accept('error', 'Wrong hexadecimal color format.\nFormat exemples: #09f or #a5f5b0', { node: hexaColor });
+            accept('error', 'Wrong hexadecimal color format.\nFormat examples: #09f or #a5f5b0', { node: hexaColor });
         }
     }
 }
