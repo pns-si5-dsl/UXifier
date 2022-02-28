@@ -136,7 +136,7 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
                         "}", NL,
                     "})", NL,
                 "}}", NL,
-                "label={'lecture (' + state.",skillStatVar," + '+' + state.",skillVariationVar," + '%)'}", NL,
+                "label={'",fieldName," (' + state.",skillStatVar," + '+' + state.",skillVariationVar," + '%)'}", NL,
             "/>", NL
             )
         }
@@ -285,12 +285,12 @@ function generateGauge(decoField: GaugeDecoField, field: IntField_|StatField_, n
                         "<Button primary",NL,
                             buttonColor, buttonTxtColor, NL,
                             "margin={{vertical: 'small'}} icon={<Icons.Add/>} onClick={() => {",NL,
-                            "dispatch({type: 'up', value: {",fieldName,": ",valueVar," + 1}})",NL,
+                            "dispatch({type: 'up', value: {",fieldName,": ",valueVar," < ",valueMax," ? ",valueVar," + 1 : ",valueVar," }})",NL,
                             "}}/>",NL,
                         "<Button primary",NL,
                             buttonColor, buttonTxtColor, NL,
                             " margin={{vertical: 'small'}} icon={<Icons.Subtract/>} onClick={() => {",NL,
-                            "dispatch({type: 'up', value: {",fieldName,": ",valueVar,"- 1}})",NL,
+                            "dispatch({type: 'up', value: {",fieldName,": ",valueVar," > ",valueMin," ? ",valueVar," - 1 : ",valueVar," }})",NL,
                             "}}/>",NL,
                     "</Box>",NL,
             ); 
@@ -318,12 +318,12 @@ function generateGauge(decoField: GaugeDecoField, field: IntField_|StatField_, n
                         "<Button primary margin={{vertical: 'small'}}",NL,
                         buttonColor, buttonTxtColor, NL,
                             "icon={<Icons.Add/>} onClick={() => {",NL,
-                                "dispatch({type: 'up', value: {",fieldName,": ",valueVar," + 1}})",NL,
+                                "dispatch({type: 'up', value: {",fieldName,": ",valueVar," < ",valueMax," ? ",valueVar," + 1 : ",valueVar," }})",NL,
                             "}}/>",NL,
                         "<Button primary ",NL,
                             buttonColor, buttonTxtColor, NL,
                             " icon={<Icons.Subtract/>} onClick={() => {",NL,
-                                "dispatch({type: 'up', value: {",fieldName,": ",valueVar," - 1}})",NL,
+                                "dispatch({type: 'up', value: {",fieldName,": ",valueVar," > ",valueMin," ? ",valueVar," - 1 : ",valueVar," }})",NL,
                             "}}/>",NL,
                 );
             }
@@ -348,12 +348,12 @@ function generateGauge(decoField: GaugeDecoField, field: IntField_|StatField_, n
                     "<Button primary ",NL,
                         buttonColor, buttonTxtColor, NL,
                         "margin={{horizontal: 'small'}} icon={<Icons.Subtract/>} onClick={() => {",NL,
-                        "dispatch({type: 'up', value: {",fieldName,": ",valueVar," - 1}})",NL,
+                        "dispatch({type: 'up', value: {",fieldName,": ",valueVar," > ",valueMin," ? ",valueVar," - 1 : ",valueVar," }})",NL,
                     "}}/>",NL,
                     "<Button primary",NL,
                         buttonColor, buttonTxtColor, NL,
                         "icon={<Icons.Add/>} onClick={() => {",NL,
-                            "dispatch({type: 'up', value: {",fieldName,": ",valueVar," + 1}})",NL,
+                            "dispatch({type: 'up', value: {",fieldName,": ",valueVar," < ",valueMax," ? ",valueVar," + 1 : ",valueVar," }})",NL,
                 " }}/>",NL,
                 );
             }

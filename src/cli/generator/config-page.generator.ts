@@ -1,12 +1,16 @@
 import { CompositeGeneratorNode, NL } from "langium";
 import { Page } from "../../language-server/generated/ast";
 import { generateComponent } from "./component.generator";
+import { generateGridConst } from "./game-page.generator";
 
 export function generateConfigPage(page: Page, nextPage: Page | undefined, modelName: string, node: CompositeGeneratorNode, endPath: string | undefined = undefined): void {
     
     node.append(
         NL, "export function ", page.name, "(props) {", NL,
         "const [state, dispatch] = React.useContext(PersoContext)", NL,
+    );
+    if (page.areas[0]) generateGridConst(page, node);
+    node.append(
         "return (", NL,
         "<Form", NL,
         "margin='medium'", NL,
@@ -17,11 +21,25 @@ export function generateConfigPage(page: Page, nextPage: Page | undefined, model
         "}}", NL,
         ">", NL
     );
+    if (page.areas[0]) {
+        node.append(
+            "<Grid", NL,
+            "areas={responsiveGrid[size]}",NL,
+            "fill={responsiveFill[size]}", NL,
+            ">", NL
+        );
+    }
+
 
     page.components.forEach(component => {
         generateComponent(component, node);
     });
-
+    
+    if (page.areas[0]) {
+        node.append(
+            "</Grid>", NL
+        );
+    }
     node.append("<Box direction='row' gap='medium' justify='end'>", NL);
 
     if(nextPage) {

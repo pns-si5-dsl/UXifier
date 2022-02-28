@@ -37,7 +37,7 @@ export function generateGamePage(page: Page, nextPage: Page | undefined, modelNa
     node.append(")}", NL);
 }
 
-function generateGridConst(page: Page, node: CompositeGeneratorNode){
+export function generateGridConst(page: Page, node: CompositeGeneratorNode){
     const defaultGrid = page.areas.find((area) => !area.device) || page.areas[0];
     const smallGrid = page.areas.find((area) => area.device == 'smallScreen') || defaultGrid;
     const mediumGrid = page.areas.find((area) => area.device == 'mediumScreen') || defaultGrid;
