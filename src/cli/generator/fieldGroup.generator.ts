@@ -21,7 +21,7 @@ export function generateFieldGroup(fieldGroup: FieldGroupComponent, node: Compos
     //     ); 
     // }
     node.append(
-        "<CardBody margin='small' ",boxColor,textColor,width,round,direction,align,">", NL
+        "<CardBody margin='small' pad='small' ",boxColor,textColor,width,round,direction,align,">", NL
     );
 
     fieldGroup.decoFields.forEach(decoField => {
@@ -57,7 +57,7 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
     } else
     if(decoField.input){
         node.append(
-            "<FormField htmlFor='",fieldName,"-input' label='",fieldName,"' margin={{horizontal: 'medium'}} ",align,width,height,textColor,boxColor,">", NL
+            "<FormField htmlFor='",fieldName,"-input' label='",fieldName,"' margin={{horizontal: 'medium'}} ",align,width,height,textColor,">", NL
         );
         if(isIntField_(field) || isStatField_(field)){
             node.append(

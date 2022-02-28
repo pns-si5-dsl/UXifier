@@ -12,6 +12,7 @@ export function generateGameContext(context: Context, fileDir: string): void {
 
     node.append(
         "export function ", context.name, "(props) {", NL,
+        "const navigate = useNavigate();",NL,
         "return (", NL,
     );
 
@@ -36,9 +37,9 @@ export function generateGameContext(context: Context, fileDir: string): void {
         );
     
         context.pages.forEach(page => {
-            node.append("<Link to='/", context.name, "/", page.name, "'><Button primary label={'", page.name, "'}/></Link>", NL);
+            node.append("<Button primary label={'", page.name, "'} onClick={()=>{ navigate('/", context.name, "/", page.name, "'); }} />", NL);
         });
-        
+
         node.append(
             "</Nav>", NL,
             "</Box>", NL
@@ -51,7 +52,7 @@ export function generateGameContext(context: Context, fileDir: string): void {
         );
     
         context.pages.forEach(page => {
-            node.append("<Link to='/", context.name, "/", page.name, "'><Button primary label={'", page.name, "'}/></Link>", NL);
+            node.append("<Button primary label={'", page.name, "'} onClick={()=>{ navigate('/", context.name, "/", page.name, "'); }} />", NL);
         });
 
         node.append(
@@ -103,6 +104,7 @@ export function generateConfigContext(context: Context, fileDir: string, nextPat
     //so it applies to whatever context it is
     node.append(
         "export function ", context.name, "(props) {", NL,
+        "const navigate = useNavigate();",NL,
         "return (", NL,
     );
 
@@ -126,7 +128,7 @@ export function generateConfigContext(context: Context, fileDir: string, nextPat
         );
     
         context.pages.forEach(page => {
-            node.append("<Link to='/", context.name, "/", page.name, "'><Button primary label={'", page.name, "'}/></Link>", NL);
+            node.append("<Button primary label={'", page.name, "'} onClick={()=>{ navigate('/", context.name, "/", page.name, "'); }} />", NL);
         });
         
         node.append(
@@ -141,7 +143,7 @@ export function generateConfigContext(context: Context, fileDir: string, nextPat
         );
     
         context.pages.forEach(page => {
-            node.append("<Link to='/", context.name, "/", page.name, "'><Button primary label={'", page.name, "'}/></Link>", NL);
+            node.append("<Button primary label={<Box><Text truncate='tip'>", page.name, "</Text></Box>} onClick={()=>{ navigate('/", context.name, "/", page.name, "'); }} />", NL);
         });
 
         node.append(
@@ -186,7 +188,7 @@ function insertImport(node: CompositeGeneratorNode): void {
             "Nav, Stack, Form, FormField, Image, Layer,", NL,
             "Heading, Sidebar, Tabs, Tab, Meter, CardHeader, CardBody, CardFooter, TextInput, CheckBox,", NL,
         "} from 'grommet';", NL,
-        "import {Link, Outlet} from \"react-router-dom\";", NL,
+        "import {Link, Outlet, useNavigate} from \"react-router-dom\";", NL,
         "import {PersoContext} from \"./character\";", NL,
         "import * as Icons from \"grommet-icons\";", NL,
         "import {NumberInput} from 'grommet-controls';", NL, NL
