@@ -4,13 +4,19 @@ import path from "path";
 import { CharSheet as Application } from '../../language-server/generated/ast';
 
 export function generateBoilerplate(application: Application, destinationPath: string): string {
-    const resourcePath = path.join(__dirname, "..", "..", "..", "resources");
+    const resourcePath = path.join(__dirname, '..', '..', '..', 'resources');
 
-    // Package.json.
+    // package.json.
     writeFile(resourcePath, destinationPath, 'package.json', application.name);
 
     // Public.
     fse.copySync(path.resolve(resourcePath, 'public'), path.resolve(destinationPath, 'public'));
+
+    // index.html.
+    writeFile(path.resolve(resourcePath, 'public'), path.resolve(destinationPath, 'public'), 'index.html', application.name);
+
+    // manifest.json.
+    writeFile(path.resolve(resourcePath, 'public'), path.resolve(destinationPath, 'public'), 'manifest.json', application.name);
 
     destinationPath = path.join(destinationPath, 'src');
     if (!fs.existsSync(destinationPath)) {
@@ -25,8 +31,7 @@ export function generateBoilerplate(application: Application, destinationPath: s
 
     // index.css.
     writeFile(resourcePath, destinationPath, 'index.css', application.name);
-    
-    
+
     return destinationPath;
 }
 

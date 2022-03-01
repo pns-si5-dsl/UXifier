@@ -3,11 +3,10 @@ charSheet: ClassicSheet;
 TextField nom;
 IntField age;
 TextField race{
-    selection= ['humain', 'nain', 'elf', 'lezard'];
+    selection = ['humain', 'nain', 'elf', 'lezard'];
 }
 TextField taille;
 TextField eyes;
-
 IntField life {
     initial = 100;
     max = 100;
@@ -51,44 +50,41 @@ SkillField paysan {
 }
 
 config Config {
-    
     navigation = side_menu;
-    
     vertical page Perso {
         FieldGroup perso_group{
-            title= "Ton perso";
+            title = "Ton perso";
             titlePos = left;
             style {
                 borderColor = #ffafaf;
                 boxColor = #ffcfcf;
-
-                }
+            }
             input SimpleDecoration nom;
             input SimpleDecoration age;
             input SimpleDecoration race;
         }
+
         FieldGroup aspect_group{
-            title= "Ton apparence";
-            titlePos=left;
+            title = "Ton apparence";
+            titlePos = left;
             style {
                 direction = horizontal;
                 borderColor = #ffafaf;
                 boxColor = #ffcfcf;
-                }
+            }
             input SimpleDecoration taille;
             input SimpleDecoration eyes;
         }
     }
-    
+
     vertical page Caracteristique {
         FieldGroup stats{
-            title= "Tes Stats";
+            title = "Tes Stats";
             style {
                 direction = horizontal;
                 borderColor = #afafff;
                 boxColor = #cfcfff;
-
-                }
+            }
             input SimpleDecoration FOR {}
             input SimpleDecoration SAG {}
             input SimpleDecoration INT {}
@@ -96,13 +92,13 @@ config Config {
             input SimpleDecoration ADR {}
             input SimpleDecoration CHA {}
         }
+
         FieldGroup skills{
-            title= "Tes Skills";
+            title = "Tes Skills";
             style {
                 borderColor = #afafff;
                 boxColor = #cfcfff;
-
-                }
+            }
             input SimpleDecoration lecture;
             input SimpleDecoration archerie;
             input SimpleDecoration charisme;
@@ -112,7 +108,6 @@ config Config {
 }
 
 game MyGame {
-    
     page Game {
         matchWindow area {
             |header header skills|
@@ -125,11 +120,10 @@ game MyGame {
             |skills life|
             |skills stats|
             |inv stats|
-
         }
-        
+
         FieldGroup stats{
-            title= "Tes Stats";
+            title = "Tes Stats";
             style {
                 direction = horizontal;
                 borderColor = #ff5555;
@@ -187,23 +181,23 @@ game MyGame {
             }
             output SimpleDecoration nom {
                 style {
-                    width= large;
+                    width = large;
                 }
             }
             output SimpleDecoration age {
                 style {
-                    width= small;
+                    width = small;
                 }
             }
             output SimpleDecoration race {
                 style {
-                    width= medium;
+                    width = medium;
                 }
             }
         }
 
         FieldGroup skills{
-            title="Skills";
+            title = "Skills";
             style {
                 borderColor = #555555;
                 borderSize = xsmall;
@@ -223,13 +217,12 @@ game MyGame {
         }
 
         FieldGroup life {
-            
             style {
-                align=center;
+                align = center;
                 borderColor = #55ff55;
                 borderSize = xsmall;
             }
-            
+
             input GaugeDecoration life {
                 style {
                     shape = circular;
@@ -237,6 +230,5 @@ game MyGame {
                 }
             }
         }
-        
     }
 }
