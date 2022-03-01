@@ -755,13 +755,13 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "elements": [
           {
             "$type": "Assignment",
-            "feature": "axe",
+            "feature": "axis",
             "operator": "=",
             "terminal": {
               "$type": "RuleCall",
               "arguments": [],
               "rule": {
-                "$refText": "AXE"
+                "$refText": "AXIS"
               }
             },
             "elements": [],
@@ -2690,7 +2690,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               "$type": "RuleCall",
               "arguments": [],
               "rule": {
-                "$refText": "AXE"
+                "$refText": "AXIS"
               }
             }
           },
@@ -3301,7 +3301,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "ParserRule",
       "parameters": [],
-      "name": "AXE",
+      "name": "AXIS",
       "hiddenTokens": [],
       "type": "string",
       "alternatives": {
