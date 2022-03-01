@@ -42,7 +42,7 @@
         },
         {
             "name": "support.variable.components.uxfr",
-            "match": "(((?<=FieldGroup )|(?<=Button )|(?<=BoxComponent )|(?<=Text )|(?<=Image ))[\n\t\r ]*[^\n\t\n:({; ]+)"
+            "match": "(((?<=FieldGroup )|(?<=Button )|(?<=BoxComponent )|(?<=Text )|(?<=Image )|(?<=ListComponent ))[\n\t\r ]*[^\n\t\n:({; ]+)"
         },
         {
             "name": "support.variable.components.uxfr",
@@ -56,7 +56,7 @@
         },
         {
             "name": "support.class.uxfr",
-            "match": "(charSheet|FieldGroup|CheckField|IntField|TextField|StatField|SkillField|config|game|page|Field|BoxComponent|Button|Text|Image|area|SimpleDecoration|GaugeDecoration)"
+            "match": "(charSheet|FieldGroup|CheckField|IntField|TextField|StatField|SkillField|config|game|page|Field|BoxComponent|Button|Text|Image|ListComponent|area|SimpleDecoration|GaugeDecoration)"
         },
         {
             "name": "constant.language",

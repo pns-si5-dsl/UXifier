@@ -15,14 +15,18 @@ export function acceptMustContain<T extends AstNode>(what: string, accept: Valid
 }
 
 export function acceptNoDuplicateNames<T extends AstNode & {name: string}>(accept: ValidationAcceptor, list: T[], prop?: Properties<T>): void {
-    const identifiers: string[] = [];
+    const names: string[] = [];
+    const types: T[] = [];
     list.forEach(item => {
-        const id = item.name;
-        if (identifiers.includes(id.toLocaleLowerCase())) {
-            const info = prop?{ node: item, property: prop }:{ node: item };
-            accept('error', item.$type+' name already defined.', info);
+        if (names.includes(item.name)) {
+            const prevT    = types[names.indexOf(item.name)];
+            const info     = prop?{ node: item, property: prop }:{ node: item };
+            const prevInfo = prop?{ node: prevT, property: prop }:{ node: item };
+            accept('error', item.$type+' name already defined -> '+prevT.$type, info);
+            accept('error', prevT.$type+' name already defined -> '+item.$type, prevInfo);
         } else {
-            identifiers.push(id.toLocaleLowerCase());
+            names.push(item.name);
+            types.push(item);
         }
     });
 }
