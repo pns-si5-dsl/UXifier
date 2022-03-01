@@ -20,8 +20,9 @@ export default function(): void {
 
     program
         .command('watch')
+        .argument('<file>', `file to be compiled (allowed extensions: ${languageMetaData.fileExtensions.join(', ')})`)
         .option('-d, --destination <dir>', 'destination folder of the generated web application')
-        .description('watches project files to generate the web application of an RPG character sheet on every modification')
+        .description('watches a project file to generate the web application of an RPG character sheet on every modification')
         .action(watchCommand);
 
     program.parse(process.argv);
