@@ -168,8 +168,8 @@ export class UxifierValidator {
         util.acceptNoDuplicateNames(accept, page.components, 'name');
 
         // Unnecessary axe definition overriden by an area definition
-        if (page.axe && page.areas.length > 0) {
-            accept('warning', 'Property overriden by an area definition.', { node: page, property: 'axe' });
+        if (page.axis && page.areas.length > 0) {
+            accept('warning', 'Property overriden by an area definition.', { node: page, property: 'axis' });
         }
 
         // Areas must be defined for distinct screen sizes

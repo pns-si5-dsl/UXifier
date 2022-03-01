@@ -1,57 +1,28 @@
-import colors from 'colors';
 import { Command } from 'commander';
 import { languageMetaData } from '../language-server/generated/module';
-import { CharSheet } from '../language-server/generated/ast';
-import { createUxifierServices } from '../language-server/uxifier-module';
-import { extractAstNode } from './cli-util';
-import { generateProject } from './generator';
-import fs from 'fs';
-
-export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
-    const model = await extractAstNode<CharSheet>(fileName, languageMetaData.fileExtensions, createUxifierServices());
-    generateProject(model, fileName, opts.destination);
-    console.log(colors.green(`Project generated successfully`));
-};
-
-export const watchAction = async (): Promise<void> => {
-    let fsWait = false;
-    fs.watch(
-        process.cwd(),
-        (event, filename) => {
-            if (filename) {
-                if (fsWait) return;
-                setTimeout(() => {
-                    fsWait = false;
-                }, 100);
-                console.log(colors.bgWhite(colors.black(event+' detected: '+filename)))
-                fsWait = true;
-            }
-        }
-    );
-};
-
-export type GenerateOptions = {
-    destination?: string;
-}
+import { generateCommand } from './commands/generate.command';
+import { watchCommand } from './commands/watch.command';
 
 export default function(): void {
     const program = new Command();
 
     program
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        .version(require('../../package.json').version);
+        .name('uxifier')
+        .description('generates web applications of RPG character sheets')
+        .version('0.0.1');
 
     program
         .command('generate')
-        .argument('<file>', `possible file extensions: ${languageMetaData.fileExtensions.join(', ')}`)
-        .option('-d, --destination <dir>', 'destination directory of generating')
-        .description('generates a web app of an RPG character sheet')
-        .action(generateAction);
+        .argument('<file>', `file to be compiled (allowed extensions: ${languageMetaData.fileExtensions.join(', ')})`)
+        .option('-d, --destination <dir>', 'destination folder of the generated web application')
+        .description('generates the web application of an RPG character sheet from a project file')
+        .action(generateCommand);
 
     program
         .command('watch')
-        .description('watches for project files save and generate the web app')
-        .action(watchAction);
-        
+        .option('-d, --destination <dir>', 'destination folder of the generated web application')
+        .description('watches project files to generate the web application of an RPG character sheet on every modification')
+        .action(watchCommand);
+
     program.parse(process.argv);
 }

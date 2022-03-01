@@ -160,7 +160,7 @@ export function isDescriptionDecl(item: unknown): item is DescriptionDecl {
 
 export interface DirectionDecl extends AstNode {
     readonly $container: StyleDecl;
-    value: AXE
+    value: AXIS
 }
 
 export const DirectionDecl = 'DirectionDecl';
@@ -264,7 +264,7 @@ export function isMinLengthDecl(item: unknown): item is MinLengthDecl {
 export interface Page extends AstNode {
     readonly $container: Context;
     areas: Array<PageArea>
-    axe: AXE
+    axis: AXIS
     components: Array<Component>
     name: string
 }
@@ -557,7 +557,7 @@ export type BOOLEAN = 'true' | 'false'
 
 export type NAVIGATION = 'linear' | 'side_menu' | 'bottom_menu'
 
-export type AXE = 'horizontal' | 'vertical'
+export type AXIS = 'horizontal' | 'vertical'
 
 export type BUTTON_TYPE = 'primary' | 'secondary'
 

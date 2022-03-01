@@ -1,18 +1,19 @@
 import fs from 'fs';
 import colors from 'colors';
-import { AstNode, LangiumDocument, LangiumServices } from 'langium';
+import { LangiumDocument, LangiumServices } from 'langium';
 import path from 'path';
 import { URI } from 'vscode-uri';
+import { CharSheet } from '../language-server/generated/ast';
 
-export async function extractDocument(fileName: string, extensions: string[], services: LangiumServices): Promise<LangiumDocument> {
+export async function extractDocument(fileName: string, extensions: string[], services: LangiumServices): Promise<LangiumDocument | undefined> {
     if (!extensions.includes(path.extname(fileName))) {
         console.error(colors.yellow(`Please, choose a file with one of these extensions: ${extensions}.`));
-        process.exit(1);
+        return;
     }
 
     if (!fs.existsSync(fileName)) {
         console.error(colors.red(`File ${fileName} doesn't exist.`));
-        process.exit(1);
+        return;
     }
 
     const document = services.documents.LangiumDocuments.getOrCreateDocument(URI.file(path.resolve(fileName)));
@@ -20,20 +21,25 @@ export async function extractDocument(fileName: string, extensions: string[], se
 
     const validationErrors = buildResult.diagnostics.filter(e => e.severity === 1);
     if (validationErrors.length > 0) {
-        console.error(colors.red('There are validation errors:'));
+        if (validationErrors.length === 1) {
+            console.error(colors.red(`${validationErrors.length} error has been detected:`));
+        } else {
+            console.error(colors.red(`${validationErrors.length} errors have been detected:`));
+        }
+
         for (const validationError of validationErrors) {
             console.error(colors.red(
                 `line ${validationError.range.start.line}: ${validationError.message} [${document.textDocument.getText(validationError.range)}]`
             ));
         }
-        process.exit(1);
+        return;
     }
 
     return document;
 }
 
-export async function extractAstNode<T extends AstNode>(fileName: string, extensions: string[], services: LangiumServices): Promise<T> {
-    return (await extractDocument(fileName, extensions, services)).parseResult?.value as T;
+export async function extractCharSheet(fileName: string, extensions: string[], services: LangiumServices): Promise<CharSheet | undefined> {
+    return (await extractDocument(fileName, extensions, services))?.parseResult?.value as CharSheet;
 }
 
 interface FilePathData {

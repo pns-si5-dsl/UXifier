@@ -94,7 +94,7 @@ Context:
 
 // ==== PAGE ===
 Page:
-    (axe=AXE)?                              // Display axe option [vertical or horizontal] (optional)
+    (axis=AXIS)?                              // Display axe option [vertical or horizontal] (optional)
     'page' name=ID '{'                      // Name definition, body into braces
         ( (areas+=PageArea)                 // List of page areas for distinct screen sizes (optional)
         | (components+=Component) )*        // List of components displayed into the page (one min)
@@ -257,7 +257,7 @@ HrefDecl:        'href'        '=' value=STRING         ';';
 TypeDecl:        'type'        '=' value=BUTTON_TYPE    ';';
 ContentDecl:     'content'     '=' value=STRING         ';';
 SourceDecl:      'source'      '=' value=STRING         ';';
-DirectionDecl:   'direction'   '=' value=AXE            ';';
+DirectionDecl:   'direction'   '=' value=AXIS           ';';
 BorderColorDecl: 'borderColor' '=' value=COLOR          ';';
 BoxColorDecl:    'boxColor'    '=' value=COLOR          ';';
 TextColorDecl:   'textColor'   '=' value=COLOR          ';';
@@ -288,7 +288,7 @@ BOOLEAN returns string:
     ('true'|'false');
 NAVIGATION returns string:
     ('linear'|'side_menu'|'bottom_menu');
-AXE returns string:
+AXIS returns string:
     ('horizontal'|'vertical');
 BUTTON_TYPE returns string:
     ('primary'|'secondary');

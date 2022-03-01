@@ -1,4 +1,4 @@
-character: Test;
+charSheet: Test;
 
 TextField nom {
     initial = 'Charly';
@@ -180,7 +180,7 @@ game GameDebilus {
             }
         }
 
-        FieldGroup skills{
+        FieldGroup skills {
             title="Skills";
             output SimpleDecoration lecture {}
             output SimpleDecoration pegu {}
