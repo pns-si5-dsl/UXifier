@@ -9,7 +9,7 @@ import { grammar } from './grammar';
 
 export const languageMetaData: LanguageMetaData = {
     languageId: 'uxifier',
-    fileExtensions: ['.uxfr']
+    fileExtensions: ['.uxfr', '.uxf']
 };
 
 export const UxifierGeneratedModule: Module<LangiumServices, LangiumGeneratedServices> = {

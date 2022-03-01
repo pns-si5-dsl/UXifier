@@ -1,10 +1,9 @@
 {
     "languageId": "uxifier",
     "grammar": "src/language-server/uxifier.langium",
-    "fileExtensions": [".uxfr"],
+    "fileExtensions": [".uxfr", ".uxf"],
     "out": "src/language-server/generated",
     "textMate": {
         "out": "syntaxes/uxifier.tmLanguage.json"
-
     }
 }

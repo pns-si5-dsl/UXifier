@@ -5,6 +5,6 @@ import ${name} from './${name}';
 import {PersoProvider} from "./character";
 
 ReactDOM.render(
-  <PersoProvider><${name} /></PersoProvider>,
-  document.getElementById('root')
+    <PersoProvider><${name} /></PersoProvider>,
+    document.getElementById('root')
 );

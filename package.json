@@ -18,7 +18,8 @@
                     "uxifier"
                 ],
                 "extensions": [
-                    ".uxfr"
+                    ".uxfr",
+                    ".uxf"
                 ],
                 "configuration": "./language-configuration.json"
             }

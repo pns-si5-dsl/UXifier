@@ -2,7 +2,8 @@
   "name": "uxifier",
   "scopeName": "source.uxifier",
   "fileTypes": [
-    ".uxfr"
+    ".uxfr",
+    ".uxf"
   ],
   "patterns": [
     {
