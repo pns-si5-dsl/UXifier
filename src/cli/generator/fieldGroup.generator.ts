@@ -305,7 +305,7 @@ function generateGauge(decoField: GaugeDecoField, field: IntField_|StatField_, n
                 "<Box align={'center'}>",NL,
                     "<Meter",NL,
                         "direction={'vertical'}",NL,
-                        "background='light-2'",NL,
+                        "background=",background,NL,
                         "values={[{",NL,
                         "value: (",valueVar,"-",valueMin,") * 100 / ",valueMax,",",NL,
                         "color: (",valueVar,"-",valueMin,") * 100 / ",valueMax," < 30   ? ",colorLow,NL, 
@@ -335,7 +335,7 @@ function generateGauge(decoField: GaugeDecoField, field: IntField_|StatField_, n
             node.append(
                 "<Box direction={'row'} align={'center'}>",NL,
                     "<Meter",NL,
-                        "background='light-2'",NL,
+                    "background=",background,NL,
                         "values={[{",NL,
                             "value: (",valueVar,"-",valueMin,") * 100 / ",valueMax,",",NL,
                             "color: (",valueVar,"-",valueMin,") * 100 / ",valueMax," < 30   ? ",colorLow,NL, 
