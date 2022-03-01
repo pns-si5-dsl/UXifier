@@ -8,7 +8,7 @@ import { generateFields } from './fields.generator';
 import { languageMetaData } from '../../language-server/generated/module';
 import { createUxifierServices } from '../../language-server/uxifier-module';
 
-export async function generateProject(filePath: string, destination?: string): Promise<boolean> {
+export async function generateProject(filePath: string, destination?: string, force?: boolean): Promise<boolean> {
     const services = createUxifierServices();
     const charSheet = await extractCharSheet(filePath, languageMetaData.fileExtensions, services);
 
@@ -20,7 +20,7 @@ export async function generateProject(filePath: string, destination?: string): P
         }
 
         // Generate the boilerplate.
-        const srcPath = generateBoilerplate(charSheet, data.destination);
+        const srcPath = generateBoilerplate(charSheet, data.destination, force);
 
         // Generate the application.
         generateApplication(charSheet, srcPath);

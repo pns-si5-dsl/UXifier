@@ -8,7 +8,7 @@ import { GenerateOptions } from './options/generate.options';
  * @param options The compilation options.
  */
 export async function generateCommand(filePath: string, options: GenerateOptions): Promise<void> {
-    if (await generateProject(filePath, options.destination)) {
+    if (await generateProject(filePath, options.destination, options.force)) {
         console.log(colors.green('Project successfully generated!'));
     }
 }

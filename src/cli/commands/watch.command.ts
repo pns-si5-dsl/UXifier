@@ -10,7 +10,7 @@ import { WatchOptions } from './options/watch.options';
  */
 export async function watchCommand(filePath: string, options: WatchOptions): Promise<void> {
     // Compile the project file.
-    if (await generateProject(filePath, options.destination)) {
+    if (await generateProject(filePath, options.destination, options.force)) {
         console.log(colors.green('Project successfully generated!'));
     }
 
@@ -22,7 +22,7 @@ export async function watchCommand(filePath: string, options: WatchOptions): Pro
         async () => {
             if (!wait) {
                 console.log(colors.bgWhite(colors.black('File change detected.')));
-                if (await generateProject(filePath, options.destination)) {
+                if (await generateProject(filePath, options.destination, options.force)) {
                     console.log(colors.green('Project successfully generated!'));
                 }
 

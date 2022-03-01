@@ -15,6 +15,7 @@ export default function(): void {
         .command('generate')
         .argument('<file>', `file to be compiled (allowed extensions: ${languageMetaData.fileExtensions.join(', ')})`)
         .option('-d, --destination <dir>', 'destination folder of the generated web application')
+        .option('-f, --force', 'force the replacement of boilerplate files')
         .description('generates the web application of an RPG character sheet from a project file')
         .action(generateCommand);
 
@@ -22,6 +23,7 @@ export default function(): void {
         .command('watch')
         .argument('<file>', `file to be compiled (allowed extensions: ${languageMetaData.fileExtensions.join(', ')})`)
         .option('-d, --destination <dir>', 'destination folder of the generated web application')
+        .option('-f, --force', 'force the replacement of boilerplate files')
         .description('watches a project file to generate the web application of an RPG character sheet on every modification')
         .action(watchCommand);
 
