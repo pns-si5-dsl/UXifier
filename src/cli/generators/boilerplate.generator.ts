@@ -59,7 +59,6 @@ function copyFile(sourcePath: string, destinationPath: string, fileName: string,
             // Replace the application name.
             replaceInFile('${name}', charSheet.name, sourceFile)
         );
-        console.log(`Success: The '${destinationFile}' file has been copied.`);
     } else {
         console.log(colors.yellow(`Ignored: The '${destinationFile}' file already exists.`));
     }
