@@ -10,12 +10,12 @@ import { WatchOptions } from './options/watch.options';
  */
 export async function watchCommand(filePath: string, options: WatchOptions): Promise<void> {
     // Compile the project file.
-    console.log('Watching for file changes.');
     if (await generateProject(filePath, options.destination)) {
         console.log(colors.green('Project successfully generated!'));
     }
 
     // Watch the project file.
+    console.log('Watching for file changes.');
     let wait = false;
     fs.watchFile(
         filePath,
