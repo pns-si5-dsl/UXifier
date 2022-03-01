@@ -1,12 +1,12 @@
 import fs from 'fs';
-import { Context } from '../language-server/generated/ast';
-import { extractCharSheet, extractDestinationAndName } from './utils';
-import { generateBoilerplate } from './generator/boilerplate.generator';
-import { generateApplication } from './generator/app.generator';
-import { generateGameContext, generateConfigContext } from './generator/context.generator';
-import { generateFields } from './generator/fields.generator';
-import { languageMetaData } from '../language-server/generated/module';
-import { createUxifierServices } from '../language-server/uxifier-module';
+import { Context } from '../../language-server/generated/ast';
+import { extractCharSheet, extractDestinationAndName } from '../utils';
+import { generateBoilerplate } from './boilerplate.generator';
+import { generateApplication } from './application.generator';
+import { generateGameContext, generateConfigContext } from './context.generator';
+import { generateFields } from './fields.generator';
+import { languageMetaData } from '../../language-server/generated/module';
+import { createUxifierServices } from '../../language-server/uxifier-module';
 
 export async function generateProject(filePath: string, destination?: string): Promise<boolean> {
     const services = createUxifierServices();

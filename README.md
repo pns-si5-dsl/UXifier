@@ -10,7 +10,7 @@ DSL to build an RPG character sheet as a web application.
 `src/language-server/uixifier-validator.ts`
 
 ### Generation
-`src/cli/generator.ts`
+`src/cli/project.generator.ts`
 
 ## Authors
 

@@ -1,5 +1,5 @@
 import colors from 'colors';
-import { generateProject } from '../generator';
+import { generateProject } from '../generators/project.generator';
 import { GenerateOptions } from './options/generate.options';
 
 /**

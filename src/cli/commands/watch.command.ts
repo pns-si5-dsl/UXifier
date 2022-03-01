@@ -1,6 +1,6 @@
 import fs from 'fs';
 import colors from 'colors';
-import { generateProject } from '../generator';
+import { generateProject } from '../generators/project.generator';
 import { WatchOptions } from './options/watch.options';
 
 /**

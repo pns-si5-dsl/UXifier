@@ -11,7 +11,7 @@ This folder contains all necessary files for your language extension.
  * `src/language-server/uxifier-module.ts` - this is the dependency injection module of your language implementation. Use this to register overridden and added services.
  * `src/language-server/uxifier-validator.ts` - this is an example validator. You should change it to reflect the semantics of your language.
  * `src/cli/index.ts` - this is the entry point of the command line interface (CLI) of your language.
- * `src/cli/generator.ts` - this is the code generator used by the CLI to write output files from DSL documents.
+ * `src/cli/project.generator.ts` - this is the code generator used by the CLI to write output files from DSL documents.
  * `src/cli/utils.ts` - utility code for the CLI.
 
 ## Get up and running straight away

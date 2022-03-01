@@ -1,6 +1,6 @@
 import { CompositeGeneratorNode, NL } from "langium";
 import { Component, isButtonComponent, isFieldGroupComponent, isImageComponent, isTextComponent, TextComponent, ImageComponent, isComponentBoxComponent, ComponentBoxComponent, ButtonComponent, isItemListComponent, ItemListComponent } from "../../language-server/generated/ast";
-import { generateFieldGroup } from "./fieldGroup.generator";
+import { generateFieldGroup } from "./field-group.generator";
 
 export function generateComponent(component: Component, node: CompositeGeneratorNode): void {
     if(isFieldGroupComponent(component)) component.titlePositions
@@ -51,7 +51,7 @@ function generateTextComponent(text: TextComponent, node: CompositeGeneratorNode
     const width         = text.styles[0]?.widths[0]         ? "width='" + text.styles[0]?.widths[0].value + "' "            : "";
     const round         = text.styles[0]?.shapes[0]?.value == 'circular' ?            "round='50%' "                  : "";
     const direction     = text.styles[0]?.directions[0]?.value == 'horizontal' ? "direction='row' wrap "              : "";
-    const align         = text.styles[0]?.aligns[0]?.value == 'right'      ? "align='end' " 
+    const align         = text.styles[0]?.aligns[0]?.value == 'right'      ? "align='end' "
                         : text.styles[0]?.aligns[0]?.value == 'center'    ? "align='center' justify='center' "        : "";
     node.append(
         "<CardBody margin='large' ",boxColor,textColor, width, round, direction, align,">", NL,
@@ -74,11 +74,11 @@ function generateBoxComponent(box: ComponentBoxComponent, node: CompositeGenerat
     const width         = box.styles[0]?.widths[0]         ? "width='" + box.styles[0]?.widths[0].value + "' "          : "";
     const round         = box.styles[0]?.shapes[0]?.value == 'circular'       ? "round='50%' "                    : "";
     const direction     = box.styles[0]?.directions[0]?.value == 'horizontal' ? "direction='row' wrap "           : "";
-    const align         = box.styles[0]?.aligns[0]?.value == 'right'          ? "align='end' " 
+    const align         = box.styles[0]?.aligns[0]?.value == 'right'          ? "align='end' "
                         : box.styles[0]?.aligns[0]?.value == 'center'         ? "align='center' justify='center' ": "";
     node.append(
         "<CardBody margin='large' ",boxColor,textColor, width, round, direction, align,">", NL,
-    ); 
+    );
     box.components.forEach((innerComp) => {
         generateComponent(innerComp, node);
     });
@@ -94,7 +94,7 @@ function generateButtonComponent(button: ButtonComponent, node: CompositeGenerat
     const round         = button.styles[0]?.shapes[0]?.value == 'circular'       ? "round='50%' "                    : "";
     const label = button.titles[0] ? "label='"+button.titles[0].value+"' " : "" ;
     const type = button.types[0] ? button.types[0].value+" " : "primary ";
-    
+
     node.append(
         "<CardBody>", NL,
     );
@@ -114,11 +114,11 @@ function generateItemListComponent(component: ItemListComponent, node: Composite
     const fielName = 'inventory';
     const boxColor      = component.styles[0]?.boxColors[0]      ? "background='" + component.styles[0]?.boxColors[0].value.value + "' "  : "";
     const textColor     = component.styles[0]?.textColors[0]     ? "color='" + component.styles[0]?.textColors[0].value.value + "' "      : "";
-    const align         = component.styles[0]?.aligns[0]?.value == 'right'          ? "align='end' " 
+    const align         = component.styles[0]?.aligns[0]?.value == 'right'          ? "align='end' "
                         : component.styles[0]?.aligns[0]?.value == 'center'         ? "align='center' justify='center' ": "";
     node.append(
         "<CardBody fill overflow={{vertical: 'auto'}} ",boxColor,textColor, align,">", NL,
-    ); 
+    );
     node.append(
             "<List",NL,
                 "primaryKey='name'",NL,
