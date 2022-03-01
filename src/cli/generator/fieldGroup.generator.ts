@@ -92,15 +92,16 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
                     "}}", NL,
                     "/>", NL
                 )
+            } else {
+                node.append(
+                    "<TextInput id='",fieldName,"-input' placeholder='", fieldName, "'",NL,
+                    "value={state.",fieldName,"}", NL,
+                    "onChange={e => {", NL,
+                    "dispatch({type: 'up', value: {",fieldName,": e.target.value}})", NL,
+                    "}}", NL,
+                    "/>", NL
+                )
             }
-            node.append(
-                "<TextInput id='",fieldName,"-input' placeholder='", fieldName, "'",NL,
-                "value={state.",fieldName,"}", NL,
-                "onChange={e => {", NL,
-                "dispatch({type: 'up', value: {",fieldName,": e.target.value}})", NL,
-                "}}", NL,
-                "/>", NL
-            )
         }
         if(isCheckField_(field)){
             node.append(
@@ -220,7 +221,7 @@ function generateField(decoField: DecoField, node: CompositeGeneratorNode ){
                     "margin='medium'",NL,
                     "id='",fieldName,"-output'", NL,
                     sizeLvl,NL,
-                    "> ",fieldName,": ",isVertical? "<br/>":"",NL,
+                    "> ",fieldName,": ",isVertical? "<br/>":"",
                     "{state.",fieldName,"}" , NL,
                 "</Heading>", NL
             )

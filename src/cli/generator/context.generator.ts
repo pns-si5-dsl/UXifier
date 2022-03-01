@@ -185,7 +185,7 @@ function insertImport(node: CompositeGeneratorNode): void {
         "import React, {useContext} from 'react';", NL,
         "import {", NL,
             "Box, Card, Grid, ResponsiveContext, Text, List, Button,", NL,
-            "Nav, Stack, Form, FormField, Image, Layer,", NL,
+            "Nav, Stack, Form, FormField, Image, Layer, Select,", NL,
             "Heading, Sidebar, Tabs, Tab, Meter, CardHeader, CardBody, CardFooter, TextInput, CheckBox,", NL,
         "} from 'grommet';", NL,
         "import {Link, Outlet, useNavigate} from \"react-router-dom\";", NL,
