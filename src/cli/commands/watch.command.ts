@@ -8,9 +8,14 @@ import { WatchOptions } from './options/watch.options';
  * @param filePath The project file to be compiled.
  * @param options The compilation options.
  */
-export function watchCommand(filePath: string, options: WatchOptions): void {
+export async function watchCommand(filePath: string, options: WatchOptions): Promise<void> {
+    // Compile the project file.
     console.log('Watching for file changes.');
+    if (await generateProject(filePath, options.destination)) {
+        console.log(colors.green('Project successfully generated!'));
+    }
 
+    // Watch the project file.
     let wait = false;
     fs.watchFile(
         filePath,
