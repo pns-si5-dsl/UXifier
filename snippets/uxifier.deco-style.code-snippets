@@ -1,0 +1,90 @@
+{
+    "SimpleDecoration doc template": {
+        "scope": "uxifier",
+        "prefix": [">SimpleDecoration-doc"],
+        "body": [
+            "/*",
+            " ${1|output,input|} SimpleDecoration ${2:field_name} { ... }",
+            " -------------------------------------",
+            " ${1|output,input|}      : (optional)    defines the decoration type",
+            " ${2:field_name}: (mandatory)   defines the decorated field",
+            "*/",
+            "${1|output,input|} SimpleDecoration ${2:field_name} {",
+            "",
+            "\tstyle {}    // The gauge style",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented SimpleDecoration template"
+    },
+    "SimpleDecoration template": {
+        "scope": "uxifier",
+        "prefix": [">SimpleDecoration"],
+        "body": [
+            "${1|output,input|} SimpleDecoration ${2:field_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier SimpleDecoration template"
+    },
+    "GaugeDecoration doc template": {
+        "scope": "uxifier",
+        "prefix": [">GaugeDecoration-doc"],
+        "body": [
+            "/*",
+            " ${1|output,input|} GaugeDecoration ${2:field_name} { ... }",
+            " -------------------------------------",
+            " ${1|output,input|}      : (optional)    defines the decoration type",
+            " ${2:field_name}: (mandatory)   defines the decorated field",
+            "*/",
+            "${1|output,input|} GaugeDecoration ${2:field_name} {",
+            "",
+            "\thighColor = #000;   // The gauge color for high values",
+            "\tlowColor = #000;    // The gauge color for low values",
+            "\tstyle {}            // The gauge style",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented GaugeDecoration template"
+    },
+    "GaugeDecoration template": {
+        "scope": "uxifier",
+        "prefix": [">GaugeDecoration"],
+        "body": [
+            "${1|output,input|} GaugeDecoration ${2:field_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier GaugeDecoration template"
+    },
+    "Style doc template": {
+        "scope": "uxifier",
+        "prefix": [">style-doc"],
+        "body": [
+            "style {",
+            "",
+            "\twidth = auto;           // The element width",
+            "\theight = auto;          // The element height",
+            "\tdirection = horizontal; // The element display direction",
+            "\tborderColor = #000;     // The element border color",
+            "\tborderSize = auto;      // The element border size",
+            "\tboxColor = #000;        // The element box color",
+            "\ttextColor = #000;       // The element text color",
+            "\tshape = rectangular;    // The element shape",
+            "\talign = left;           // The element alignment",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented style template"
+    },
+    "Style template": {
+        "scope": "uxifier",
+        "prefix": [">style"],
+        "body": [
+            "style {",
+            "",
+            "}"
+        ],
+        "description": "UXifier style template"
+    }
+}

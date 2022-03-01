@@ -1,0 +1,60 @@
+{
+    "Page doc template": {
+        "scope": "uxifier",
+        "prefix": [">page-doc"],
+        "body": [
+            "/*",
+            " ${1|horizontal,vertical|} page ${2:Page_name} { ... }",
+            " -------------------------------",
+            " ${1|horizontal,vertical|}: (facultative) defines the page orientation",
+            " ${2:Page_name}: (mandatory)   defines the page name",
+            "*/",
+            "${1|horizontal,vertical|} page ${2:Page_name} {",
+            "",
+            "\t// Page content here",
+            "",
+            "}",
+        ],
+        "description": "UXifier documented page template"
+    },
+    "Page template": {
+        "scope": "uxifier",
+        "prefix": [">page"],
+        "body": [
+            "${1|horizontal,vertical|} page ${2:Page_name} {",
+            "",
+            "}",
+        ],
+        "description": "UXifier page template"
+    },
+    "Page area doc template": {
+        "scope": "uxifier",
+        "prefix": [">pageArea-doc"],
+        "body": [
+            "/*",
+            " ${1|smallScreen,mediumScreen,largeScreen|} area { ... }",
+            " -------------------------------",
+            " ${1|smallScreen,mediumScreen,largeScreen|}: (facultative) defines the area target screen size",
+            "*/",
+            "${1|smallScreen,mediumScreen,largeScreen|} area {",
+            "",
+            "\t|${2:component_name}|",
+            "\t// Other lines",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented page area template"
+    },
+    "Page area template": {
+        "scope": "uxifier",
+        "prefix": [">pageArea"],
+        "body": [
+            "${1|smallScreen,mediumScreen,largeScreen|} area {",
+            "",
+            "\t|${2:component_name}|",
+            "",
+            "}"
+        ],
+        "description": "UXifier page area template"
+    }
+}

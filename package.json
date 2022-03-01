@@ -34,11 +34,23 @@
         "snippets": [
             {
                 "language": "uxifier",
-                "path": "./snippets/templates.code-snippets"
+                "path": "./snippets/uxifier.body.code-snippets"
             },
             {
                 "language": "uxifier",
-                "path": "./snippets/utils.code-snippets"
+                "path": "./snippets/uxifier.components.code-snippets"
+            },
+            {
+                "language": "uxifier",
+                "path": "./snippets/uxifier.deco-style.code-snippets"
+            },
+            {
+                "language": "uxifier",
+                "path": "./snippets/uxifier.fields.code-snippets"
+            },
+            {
+                "language": "uxifier",
+                "path": "./snippets/uxifier.pages.code-snippets"
             }
         ]
     },

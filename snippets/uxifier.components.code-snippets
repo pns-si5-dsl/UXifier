@@ -1,0 +1,184 @@
+{
+    "BoxComponent doc template": {
+        "scope": "uxifier",
+        "prefix": [">BoxComponent-doc"],
+        "body": [
+            "/*",
+            " BoxComponent ${1:component_name} { ... }",
+            " -------------------------------------",
+            " ${1:component_name}: (mandatory)   defines the BoxComponent name",
+            "*/",
+            "BoxComponent ${1:component_name} {",
+            "",
+            "\ttitle = '';     // The title of the component",
+            "\ttitlePos = top; // The position of the title",
+            "\tstyle {}        // The component style",
+            "",
+            "\t// content components here",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented BoxComponent template"
+    },
+    "BoxComponent template": {
+        "scope": "uxifier",
+        "prefix": [">BoxComponent"],
+        "body": [
+            "BoxComponent ${1:component_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier BoxComponent template"
+    },
+    "ButtonComponent doc template": {
+        "scope": "uxifier",
+        "prefix": [">ButtonComponent-doc"],
+        "body": [
+            "/*",
+            " Button ${1:component_name} { ... }",
+            " -------------------------------------",
+            " ${1:component_name}: (mandatory)   defines the Button name",
+            "*/",
+            "Button ${1:component_name} {",
+            "",
+            "\tlabel = '';     // The component label",
+            "\thref = '';      // The component link",
+            "\ttype = primary; // The component type",
+            "\tstyle {}        // The component style",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented ButtonComponent template"
+    },
+    "ButtonComponent template": {
+        "scope": "uxifier",
+        "prefix": [">ButtonComponent"],
+        "body": [
+            "Button ${1:component_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier ButtonComponent template"
+    },
+    "TextComponent doc template": {
+        "scope": "uxifier",
+        "prefix": [">TextComponent-doc"],
+        "body": [
+            "/*",
+            " Text ${1:component_name} { ... }",
+            " -------------------------------------",
+            " ${1:component_name}: (mandatory)   defines the TextComponent name",
+            "*/",
+            "Text ${1:component_name} {",
+            "",
+            "\ttitle = '';     // The title of the component",
+            "\ttitlePos = top; // The position of the title",
+            "\tcontent = '';   // The component content",
+            "\tcolor = #000;   // The content text color",
+            "\tstyle {}        // The component style",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented TextComponent template"
+    },
+    "TextComponent template": {
+        "scope": "uxifier",
+        "prefix": [">TextComponent"],
+        "body": [
+            "Text ${1:component_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier TextComponent template"
+    },
+    "FieldGroup doc template": {
+        "scope": "uxifier",
+        "prefix": [">FieldGroup-doc"],
+        "body": [
+            "/*",
+            " FieldGroup ${1:component_name} { ... }",
+            " -------------------------------------",
+            " ${1:component_name}: (mandatory)   defines the FieldGroup name",
+            "*/",
+            "FieldGroup ${1:component_name} {",
+            "",
+            "\ttitle = '';     // The component title",
+            "\ttitlePos = top; // The component title position",
+            "\tstyle {}        // The component style",
+            "",
+            "\t// Decorated fields here",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented FieldGroup template"
+    },
+    "FieldGroup template": {
+        "scope": "uxifier",
+        "prefix": [">FieldGroup"],
+        "body": [
+            "FieldGroup ${1:component_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier FieldGroup template"
+    },
+    "ImageComponent doc template": {
+        "scope": "uxifier",
+        "prefix": [">ImageComponent-doc"],
+        "body": [
+            "/*",
+            " Image ${1:component_name} { ... }",
+            " -------------------------------------",
+            " ${1:component_name}: (mandatory)   defines the Image name",
+            "*/",
+            "Image ${1:component_name} {",
+            "",
+            "\tlegend = '';        // The component legend",
+            "\tlegendPos = top;    // The component legend position",
+            "\tsource = '';        // The component source",
+            "\tstyle {}            // The component style",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented ImageComponent template"
+    },
+    "ImageComponent template": {
+        "scope": "uxifier",
+        "prefix": [">ImageComponent"],
+        "body": [
+            "Image ${1:component_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier ImageComponent template"
+    },
+    "ListComponent doc template": {
+        "scope": "uxifier",
+        "prefix": [">ListComponent-doc"],
+        "body": [
+            "/*",
+            " ListComponent ${1:component_name} { ... }",
+            " -------------------------------------",
+            " ${1:component_name}: (mandatory)   defines the ListComponent name",
+            "*/",
+            "ListComponent ${1:component_name} {",
+            "",
+            "\ttitle = '';     // The component title",
+            "\ttitlePos = top; // The component title position",
+            "\tstyle {}        // The component style",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented ListComponent template"
+    },
+    "ListComponent template": {
+        "scope": "uxifier",
+        "prefix": [">ListComponent"],
+        "body": [
+            "ListComponent ${1:component_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier ListComponent template"
+    }
+}

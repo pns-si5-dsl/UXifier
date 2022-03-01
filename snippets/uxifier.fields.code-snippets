@@ -1,0 +1,152 @@
+{
+    "IntField doc template": {
+        "scope": "uxifier",
+        "prefix": [">IntField-doc"],
+        "body": [
+            "/*",
+            " IntField ${1:field_name} { ... }",
+            " -------------------------------------",
+            " ${1:field_name}: (mandatory)   defines the IntField name",
+            "*/",
+            "IntField ${1:field_name} {",
+            "",
+            "\tmin = 0;        // The minimum integer value",
+            "\tmax = 1;        // The maximum integer value",
+            "\tinitial = 0;    // The initial integer value",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented IntField template"
+    },
+    "IntField template": {
+        "scope": "uxifier",
+        "prefix": [">IntField"],
+        "body": [
+            "IntField ${1:field_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier IntField template"
+    },
+    "CheckField doc template": {
+        "scope": "uxifier",
+        "prefix": [">CheckField-doc"],
+        "body": [
+            "/*",
+            " CheckField ${1:field_name} { ... }",
+            " -------------------------------------",
+            " ${1:field_name}: (mandatory)   defines the checkField name",
+            "*/",
+            "CheckField ${1:field_name} {",
+            "",
+            "\tdescription = '';   // The field description",
+            "\tinitial = true;     // The initial boolean value",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented CheckField template"
+    },
+    "CheckField template": {
+        "scope": "uxifier",
+        "prefix": [">CheckField"],
+        "body": [
+            "CheckField ${1:field_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier CheckField template"
+    },
+    "StatField doc template": {
+        "scope": "uxifier",
+        "prefix": [">StatField-doc"],
+        "body": [
+            "/*",
+            " StatField ${1:field_name} { ... }",
+            " -------------------------------------",
+            " ${1:field_name}: (mandatory)   defines the StatField name",
+            "*/",
+            "StatField ${1:field_name} {",
+            "",
+            "\tmin = 0;        // The minimum integer value",
+            "\tmax = 1;        // The maximum integer value",
+            "\tinitial = 0;    // The initial integer value",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented StatField template"
+    },
+    "StatField template": {
+        "scope": "uxifier",
+        "prefix": [">StatField"],
+        "body": [
+            "StatField ${1:field_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier StatField template"
+    },
+    "TextField doc template": {
+        "scope": "uxifier",
+        "prefix": [">TextField-doc"],
+        "body": [
+            "/*",
+            " TextField ${1:field_name} { ... }",
+            " -------------------------------------",
+            " ${1:field_name}: (mandatory)   defines the TextField name",
+            "*/",
+            "TextField ${1:field_name} {",
+            "",
+            "\tminLength = 0;      // The minimum text length",
+            "\tmaxLength = 1;      // The maximum text length",
+            "\tselection = [ '' ]; // The proposed values to be selected",
+            "\tregex = '';         // The regular expression format",
+            "\tinitial = '';       // The initial string value",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented TextField template"
+    },
+    "TextField template": {
+        "scope": "uxifier",
+        "prefix": [">TextField"],
+        "body": [
+            "TextField ${1:field_name} {",
+            "",
+            "}"
+        ],
+        "description": "UXifier TextField template"
+    },
+    "SkillField doc template": {
+        "scope": "uxifier",
+        "prefix": [">SkillField-doc"],
+        "body": [
+            "/*",
+            " SkillField ${1:field_name} { ... }",
+            " -------------------------------------",
+            " ${1:field_name}: (mandatory)   defines the SkillField name",
+            "*/",
+            "SkillField ${1:field_name} {",
+            "",
+            "\tstat = ${2:field_name};  // The stat field affected",
+            "\taffect = 0%;        // The affect over the refered stat field",
+            "\tdescription = '';   // The field description",
+            "\tinitial = true;     // The initial boolean value",
+            "",
+            "}"
+        ],
+        "description": "UXifier documented SkillField template"
+    },
+    "SkillField template": {
+        "scope": "uxifier",
+        "prefix": [">SkillField"],
+        "body": [
+            "SkillField ${1:field_name} {",
+            "",
+            "\tstat = ${2:field_name};",
+            "\taffect = 0%;",
+            "",
+            "}"
+        ],
+        "description": "UXifier SkillField template"
+    }
+}
