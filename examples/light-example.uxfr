@@ -1,13 +1,13 @@
-charSheet: Test;
+charSheet: ClassicSheet;
 
-TextField nom {
-    initial = 'Charly';
+TextField nom;
+IntField age;
+TextField race{
+    selection= ['humain', 'nain', 'elf', 'lezard'];
 }
-IntField age {
-    initial = 20;
-}
-TextField taille {}
-TextField eyes {}
+TextField taille;
+TextField eyes;
+
 IntField life {
     initial = 100;
     max = 100;
@@ -34,49 +34,60 @@ StatField CHA {
 }
 
 SkillField lecture {
-    initial = true;
     stat = INT;
     affect = 20%;
-    description= "ceci s'appelle la lecture t'as vu";
 }
-SkillField pegu {
-    stat = FOR;
+SkillField archerie {
+    stat = ADR;
     affect = 100%;
 }
 SkillField charisme {
     stat = CHA;
     affect = 30%;
 }
-SkillField banane {
-    initial = false;
+SkillField paysan {
     stat = END;
     affect = 50%;
-    description = "c'est bon les bananes";
 }
 
 config Config {
     
-    navigation = bottom_menu;
+    navigation = side_menu;
     
-    vertical page Page1 {
+    vertical page Perso {
         FieldGroup perso_group{
             title= "Ton perso";
             titlePos = left;
-            input SimpleDecoration nom {}
-            input SimpleDecoration age {}
+            style {
+                borderColor = #ffafaf;
+                boxColor = #ffcfcf;
+
+                }
+            input SimpleDecoration nom;
+            input SimpleDecoration age;
+            input SimpleDecoration race;
         }
         FieldGroup aspect_group{
-            title= "Ta gueule";
-            input SimpleDecoration taille{}
-            input SimpleDecoration eyes{}
+            title= "Ton apparence";
+            titlePos=left;
+            style {
+                direction = horizontal;
+                borderColor = #ffafaf;
+                boxColor = #ffcfcf;
+                }
+            input SimpleDecoration taille;
+            input SimpleDecoration eyes;
         }
     }
     
-    vertical page Page2 {
+    vertical page Caracteristique {
         FieldGroup stats{
             title= "Tes Stats";
             style {
                 direction = horizontal;
+                borderColor = #afafff;
+                boxColor = #cfcfff;
+
                 }
             input SimpleDecoration FOR {}
             input SimpleDecoration SAG {}
@@ -87,15 +98,20 @@ config Config {
         }
         FieldGroup skills{
             title= "Tes Skills";
-            input SimpleDecoration lecture {}
-            input SimpleDecoration pegu {}
-            input SimpleDecoration charisme {}
-            input SimpleDecoration banane {}
+            style {
+                borderColor = #afafff;
+                boxColor = #cfcfff;
+
+                }
+            input SimpleDecoration lecture;
+            input SimpleDecoration archerie;
+            input SimpleDecoration charisme;
+            input SimpleDecoration paysan;
         }
     }
 }
 
-game GameDebilus {
+game MyGame {
     
     page Game {
         matchWindow area {
@@ -116,8 +132,7 @@ game GameDebilus {
             title= "Tes Stats";
             style {
                 direction = horizontal;
-                borderColor = #000000;
-                boxColor = #ffffff;
+                borderColor = #ff5555;
                 borderSize = xsmall;
             }
             output SimpleDecoration FOR {
@@ -167,6 +182,8 @@ game GameDebilus {
         FieldGroup header{
             style {
                 direction = horizontal;
+                borderColor = #000000;
+                borderSize = xsmall;
             }
             output SimpleDecoration nom {
                 style {
@@ -178,29 +195,45 @@ game GameDebilus {
                     width= small;
                 }
             }
+            output SimpleDecoration race {
+                style {
+                    width= medium;
+                }
+            }
         }
 
-        FieldGroup skills {
+        FieldGroup skills{
             title="Skills";
-            output SimpleDecoration lecture {}
-            output SimpleDecoration pegu {}
-            output SimpleDecoration banane {}
-            output SimpleDecoration charisme {}
+            style {
+                borderColor = #555555;
+                borderSize = xsmall;
+            }
+            output SimpleDecoration lecture;
+            output SimpleDecoration archerie;
+            output SimpleDecoration paysan;
+            output SimpleDecoration charisme;
         }
 
-        Text inv {
+        ListComponent inv {
+            style {
+                borderColor = #5555ff;
+                borderSize = xsmall;
+            }
             title = "Inventaire";
-            content = "Ceci est en cours de dev..";
         }
 
         FieldGroup life {
+            
             style {
-                align = center;
+                align=center;
+                borderColor = #55ff55;
+                borderSize = xsmall;
             }
             
             input GaugeDecoration life {
                 style {
                     shape = circular;
+                    borderColor = #cccccc;
                 }
             }
         }
